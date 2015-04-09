@@ -18,15 +18,18 @@ public class bille extends Objet {
         dy=dy-(pente*10);
    
     }
+    public void move(){
+    	
+    }
     
     public boolean energieCinetique(){
-      ec=(1/2)*masse*Math.pow(dx+dy,(1/2)); 
-      if(ec>100){
+    	ec=(1/2)*masse*Math.pow(dx+dy,(1/2)); 
+    	if(ec>100){
             return false; 
-      }
-      else{
-          return true;
-      }
+    	}
+    	else{
+    		return true;
+    	}
     }
     
 }
@@ -34,4 +37,4 @@ public class bille extends Objet {
         
         
     
-}
+

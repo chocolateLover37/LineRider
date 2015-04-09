@@ -17,17 +17,12 @@ public class Jeu extends JFrame{
 	public Container mainPanel; //fenêtre globale
 	
 	public JToolBar toolBar; //barre d'outils (de rien)
-<<<<<<< Updated upstream
 
 	
 	public JButton jTrait; //quelques boutons de base (? compléter)
 	public JButton jCrayon;
 	public JButton jPoubelle;
-=======
-	public JButton jTrait; //quelques boutons de base (à compléter)
-	public JButton jCrayon;
 	public JButton jGomme;
->>>>>>> Stashed changes
 	
 	public GamePanel gamePanel; //aire de dessin des courbes (classe faite maison)
 	
@@ -36,16 +31,12 @@ public class Jeu extends JFrame{
 		JPanel mainPanel=new JPanel();
 		this.setResizable(false);
 		this.addKeyListener(new Jeu_this_keyAdaptater());
-		
-<<<<<<< Updated upstream
 		toolBar = new JToolBar("Line Rider menu"); //ToolBar c'est déj? dans java
 		jCrayon = new JButton(new ImageIcon(Jeu.class.getResource("Kcrayon.png"))); //on a créé l'objet Bouton
 
-=======
-		
+
 		toolBar = new JToolBar("Line Rider menu"); //ToolBar c'est déjà dans java
 		jCrayon = new JButton(new ImageIcon(Jeu.class.getResource("Kcrayon.png"))); //on a créé l'objet Bouton
->>>>>>> Stashed changes
 		jCrayon.addActionListener(new ActionListener() {
 			
 			@Override
@@ -53,10 +44,7 @@ public class Jeu extends JFrame{
 				System.out.println("Hello !");
 			}
 		});
-<<<<<<< Updated upstream
 
-=======
->>>>>>> Stashed changes
 		toolBar.add(jCrayon);
                 
 		jTrait = new JButton(new ImageIcon(Jeu.class.getResource("Ktrait.png")));

@@ -17,5 +17,5 @@ public abstract class Objet {
 
     }
     
-    public abstract void move(); 
+    public abstract void move();
 }
