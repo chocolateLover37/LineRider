@@ -1,3 +1,5 @@
+import java.awt.Image;
+import java.awt.Rectangle;
 
 
 public abstract class Objet {
@@ -6,7 +8,9 @@ public abstract class Objet {
     public double dx;
     public double dy;
     public boolean actif;
-    //coucou c'est moi !!!
+    public Image image;
+    public Rectangle limites;
+    
     
     public Objet(double ax,double ay,double adx,double ady) {
         x=ax;
@@ -17,5 +21,5 @@ public abstract class Objet {
 
     }
     
-    public abstract void move();
+    public abstract void move(double pente); 
 }
