@@ -15,6 +15,7 @@ public class GamePanel extends JPanel /*implements MouseListener, MouseMotionLis
 	public Rectangle Ecran;
 	
 	public GamePanel(){
+		setPreferredSize(new Dimension(1000,1000));
 		listeLignes = new LinkedList <Ligne> ();
 
 	    //ArrierePlan = new BufferedImage(getSize().width,getSize().height,BufferedImage.TYPE_INT_RGB); ça ne compile pas
