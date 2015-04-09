@@ -17,8 +17,13 @@ public class Jeu extends JFrame{
 	public Container mainPanel; //fen?tre globale
 	
 	public JToolBar toolBar; //barre d'outils (de rien)
+<<<<<<< HEAD
 	public Bouton jTrait; //quelques boutons de base (? compléter)
 	public Bouton jCrayon;
+=======
+	public Bouton jTrait; //quelques boutons de base (à compléter)
+	public JButton jCrayon;
+>>>>>>> origin/master
 	public Bouton jGomme;
 	
 	public GamePanel gamePanel; //aire de dessin des courbes (classe faite maison)
@@ -26,16 +31,22 @@ public class Jeu extends JFrame{
 	
 	public Jeu(){
 		JPanel mainPanel=new JPanel();
-		mainPanel.setSize(1000,1000); //taille non définitive
-		this.setResizable(true);
+		this.setResizable(false);
 		this.addKeyListener(new Jeu_this_keyAdaptater());
 		
 		
+<<<<<<< HEAD
 		toolBar = new JToolBar("Line Rider menu"); //ToolBar c'est déj? dans java
 		jCrayon = new Bouton("Kcrayon.png"); //on a créé l'objet Bouton
+=======
+		toolBar = new JToolBar("Line Rider menu"); //ToolBar c'est déjà dans java
+		jCrayon = new JButton(new ImageIcon(Jeu.class.getResource("Kcrayon.png"))); //on a créé l'objet Bouton
+>>>>>>> origin/master
 		toolBar.add(jCrayon);
 		jTrait = new Bouton("Ktrait.png");
 		toolBar.add(jTrait);
+		toolBar.setFloatable(false);
+		
 		
 		// + autres Boutons ? créer
 
@@ -45,7 +56,7 @@ public class Jeu extends JFrame{
 		mainPanel.setLayout(new BorderLayout());
 		mainPanel.setBackground(Color.blue);
 		mainPanel.add("North",toolBar);
-		mainPanel.add("South", gamePanel);  
+		//mainPanel.add("South", gamePanel);  
 		
 		this.setContentPane(mainPanel);
 		this.pack();

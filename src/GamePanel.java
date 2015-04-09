@@ -7,8 +7,6 @@ import java.util.LinkedList;
 
 public class GamePanel extends JPanel /*implements MouseListener, MouseMotionListener*/{
 	
-	//j'aime le caca
-	//et les endives
 	public Timer timer;
 	public long temps;
 	public BufferedImage ArrierePlan;
@@ -17,6 +15,7 @@ public class GamePanel extends JPanel /*implements MouseListener, MouseMotionLis
 	public Rectangle Ecran;
 	
 	public GamePanel(){
+		setPreferredSize(new Dimension(1000,1000));
 		listeLignes = new LinkedList <Ligne> ();
 
 	    //ArrierePlan = new BufferedImage(getSize().width,getSize().height,BufferedImage.TYPE_INT_RGB); ça ne compile pas

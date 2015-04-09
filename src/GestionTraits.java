@@ -1,6 +1,7 @@
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -10,6 +11,11 @@ public class GestionTraits implements ActionListener{
 	Point pointA = null;
 	Point pointB=null; //en fontion du bouton de la barre d'outil cliqué,
 	                   //la classe fera des trucs différents 
+	@Override
+	public void actionPerformed(ActionEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 	
 	 /*on a copié un code bizzare, faudra voir si il marche
