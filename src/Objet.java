@@ -6,7 +6,7 @@ public abstract class Objet {
     public double dx;
     public double dy;
     public boolean actif;
-    
+    //coucou c'est moi !!!
     
     public Objet(double ax,double ay,double adx,double ady) {
         x=ax;
