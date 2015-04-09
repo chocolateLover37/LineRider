@@ -17,14 +17,11 @@ public class Jeu extends JFrame{
 	public Container mainPanel; //fen?tre globale
 	
 	public JToolBar toolBar; //barre d'outils (de rien)
-<<<<<<< HEAD
-	public Bouton jTrait; //quelques boutons de base (? complŽter)
-	public Bouton jCrayon;
-=======
-	public Bouton jTrait; //quelques boutons de base (ˆ complŽter)
+
+	
+	public JButton jTrait; //quelques boutons de base (? complŽter)
 	public JButton jCrayon;
->>>>>>> origin/master
-	public Bouton jGomme;
+	public JButton jPoubelle;
 	
 	public GamePanel gamePanel; //aire de dessin des courbes (classe faite maison)
 	
@@ -34,16 +31,9 @@ public class Jeu extends JFrame{
 		this.setResizable(false);
 		this.addKeyListener(new Jeu_this_keyAdaptater());
 		
-		
-<<<<<<< HEAD
 		toolBar = new JToolBar("Line Rider menu"); //ToolBar c'est dŽj? dans java
-		jCrayon = new Bouton("Kcrayon.png"); //on a crŽŽ l'objet Bouton
-=======
-		toolBar = new JToolBar("Line Rider menu"); //ToolBar c'est dŽjˆ dans java
 		jCrayon = new JButton(new ImageIcon(Jeu.class.getResource("Kcrayon.png"))); //on a crŽŽ l'objet Bouton
-<<<<<<< HEAD
->>>>>>> origin/master
-=======
+
 		jCrayon.addActionListener(new ActionListener() {
 			
 			@Override
@@ -51,10 +41,28 @@ public class Jeu extends JFrame{
 				System.out.println("Hello !");
 			}
 		});
->>>>>>> 1f9c5bca28207f75077f9eb74d00a1506e771695
+
 		toolBar.add(jCrayon);
-		jTrait = new Bouton("Ktrait.png");
-		toolBar.add(jTrait);
+                
+		jTrait = new JButton(new ImageIcon(Jeu.class.getResource("Ktrait.png")));
+                jTrait.addActionListener(new ActionListener() {
+                        
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                                System.out.println("Hello2!");
+                        }
+                });
+                toolBar.add(jTrait);
+	    
+                jPoubelle = new JButton(new ImageIcon(Jeu.class.getResource("Kpoubelle.png")));
+                jPoubelle.addActionListener(new ActionListener() {
+                        
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                                System.out.println("Hello3!");
+                        }
+                });
+                toolBar.add(jPoubelle);
 		toolBar.setFloatable(false);
 		
 		
