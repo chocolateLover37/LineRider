@@ -45,7 +45,7 @@ public class Jeu extends JFrame{
 		mainPanel.setLayout(new BorderLayout());
 		mainPanel.setBackground(Color.blue);
 		mainPanel.add("North",toolBar);
-		//mainPanel.add("South", gamePanel);  
+		mainPanel.add("South", gamePanel);  
 		
 		this.setContentPane(mainPanel);
 		this.pack();
