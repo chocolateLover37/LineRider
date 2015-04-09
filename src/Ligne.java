@@ -1,6 +1,7 @@
 import java.awt.Point;
 
 public class Ligne {
+	
 	Point pointA;
 	Point pointB;
 	
@@ -9,8 +10,10 @@ public class Ligne {
 		pointB = apointB;
 	}
 	
+	
 	public double pente(){
 		double pente = (pointB.y-pointA.y)/(pointB.x-pointA.x);
 		return pente;
 	}
+	
 }

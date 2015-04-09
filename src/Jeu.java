@@ -42,11 +42,8 @@ public class Jeu extends JFrame{
 		
         
         
-        jCrayon.addActionListener(new ActionListener() {//ici on gardera en memoire la case cochee
-			public void actionPerformed(ActionEvent e) {
-				System.out.println("le crayon a ete clique");
-			}
-		});
+        jCrayon.addActionListener(new GestionToolBar());
+
 		
         jTrait.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
@@ -58,6 +55,8 @@ public class Jeu extends JFrame{
                     System.out.println("la poubelle a ete cliquee");
             }
         });
+        
+       
         
         
 
@@ -85,4 +84,7 @@ public class Jeu extends JFrame{
 		
 		
 	}
+	
+	
+	
 }
