@@ -7,8 +7,6 @@ import java.util.LinkedList;
 
 public class GamePanel extends JPanel /*implements MouseListener, MouseMotionListener*/{
 	
-	//j'aime le caca
-	//et les endives
 	public Timer timer;
 	public long temps;
 	public BufferedImage ArrierePlan;
