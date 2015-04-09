@@ -1,11 +1,11 @@
 
 
-public class bille extends Objet {
+public class Bille extends Objet {
     double pente;
     double ec;
     double masse;
     
-    public bille(double ax,double ay,double dx){
+    public Bille(double ax,double ay,double dx){
        //* dy=0 au début, dx=cste (m*g) 
          super(ax,ay,dx,0);
          pente=0;
