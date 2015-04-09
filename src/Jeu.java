@@ -32,6 +32,13 @@ public class Jeu extends JFrame{
 		
 		toolBar = new JToolBar("Line Rider menu"); //ToolBar c'est déjà dans java
 		jCrayon = new JButton(new ImageIcon(Jeu.class.getResource("Kcrayon.png"))); //on a créé l'objet Bouton
+		jCrayon.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("Hello !");
+			}
+		});
 		toolBar.add(jCrayon);
 		jTrait = new Bouton("Ktrait.png");
 		toolBar.add(jTrait);
