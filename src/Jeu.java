@@ -14,10 +14,10 @@ import java.util.LinkedList;
 
 public class Jeu extends JFrame{
 	
-	public Container mainPanel; //fenêtre globale
+	public Container mainPanel; //fen?tre globale
 	
 	public JToolBar toolBar; //barre d'outils (de rien)
-	public Bouton jTrait; //quelques boutons de base (à compléter)
+	public Bouton jTrait; //quelques boutons de base (? compléter)
 	public Bouton jCrayon;
 	public Bouton jGomme;
 	
@@ -31,13 +31,13 @@ public class Jeu extends JFrame{
 		this.addKeyListener(new Jeu_this_keyAdaptater());
 		
 		
-		toolBar = new JToolBar("Line Rider menu"); //ToolBar c'est déjà dans java
+		toolBar = new JToolBar("Line Rider menu"); //ToolBar c'est déj? dans java
 		jCrayon = new Bouton("Kcrayon.png"); //on a créé l'objet Bouton
 		toolBar.add(jCrayon);
 		jTrait = new Bouton("Ktrait.png");
 		toolBar.add(jTrait);
 		
-		// + autres Boutons à créer
+		// + autres Boutons ? créer
 
 		GamePanel gamePanel=new GamePanel();
 		

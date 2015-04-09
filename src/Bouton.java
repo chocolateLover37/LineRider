@@ -14,10 +14,10 @@ public class Bouton extends JButton implements MouseListener {
 	protected Image image;
 	
 	public Bouton(String aNom){ //pour tous les boutons on définira le chemin
-		super(aNom);  // on hérite du constructeur déjà dans java
+		super(aNom);  // on hérite du constructeur déj? dans java
 		this.nom = aNom;
 		ImageIcon icone = new ImageIcon(aNom);
-        image = icone.getImage();
+                image = icone.getImage();
 
         
 		this.addMouseListener(this);  //interface d'écoute pour chaque bouton
@@ -29,7 +29,7 @@ public class Bouton extends JButton implements MouseListener {
     }
 	
 	
-	public void mousePressed(MouseEvent e) {  // on doit tout mettre même si c'est vide pour pouvoir compiler
+	public void mousePressed(MouseEvent e) {  // on doit tout mettre m?me si c'est vide pour pouvoir compiler
 	    }
 	public void mouseReleased(MouseEvent e) {
 	    }
