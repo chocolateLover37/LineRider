@@ -11,14 +11,14 @@ public class GamePanel extends JPanel /*implements MouseListener, MouseMotionLis
 	public long temps;
 	public BufferedImage ArrierePlan;
 	public Graphics buffer;
-	public LinkedList <Ligne> listeLignes;//ici on retient en mémoire tous les traits
+	public LinkedList <Ligne> listeLignes;//ici on retient en memoire tous les traits
 	public Rectangle Ecran;
 	
 	public GamePanel(){
-		setPreferredSize(new Dimension(1000,1000));
+		setPreferredSize(new Dimension(900,450));
 		listeLignes = new LinkedList <Ligne> ();
 
-	    //ArrierePlan = new BufferedImage(getSize().width,getSize().height,BufferedImage.TYPE_INT_RGB); ça ne compile pas
+	    //ArrierePlan = new BufferedImage(getSize().width,getSize().height,BufferedImage.TYPE_INT_RGB); ca ne compile pas
 		//Ecran=new Rectangle(getInsets().left,getInsets().top,getSize().width-getInsets().right-getInsets().left,getSize().height-getInsets().bottom-getInsets().top);
 		//buffer = ArrierePlan.getGraphics();
 		timer = new Timer(1, new GestionTraits() );

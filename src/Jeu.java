@@ -14,12 +14,12 @@ import java.util.LinkedList;
 
 public class Jeu extends JFrame{
 	
-	public Container mainPanel; //fenêtre globale
+	public Container mainPanel; //fenetre globale
 	
-	public JToolBar toolBar; //barre d'outils (de rien)
+	public JToolBar toolBar; //barre d'outils
 
 	
-	public JButton jTrait; //quelques boutons de base (? compléter)
+	public JButton jTrait; //quelques boutons de base
 	public JButton jCrayon;
 	public JButton jPoubelle;
 	public JButton jGomme;
@@ -30,54 +30,52 @@ public class Jeu extends JFrame{
 	public Jeu(){
 		JPanel mainPanel=new JPanel();
 		this.setResizable(false);
-		this.addKeyListener(new Jeu_this_keyAdaptater());
-		toolBar = new JToolBar("Line Rider menu"); //ToolBar c'est déj? dans java
-		jCrayon = new JButton(new ImageIcon(Jeu.class.getResource("Kcrayon.png"))); //on a créé l'objet Bouton
 
-
-		toolBar = new JToolBar("Line Rider menu"); //ToolBar c'est déjà dans java
-		jCrayon = new JButton(new ImageIcon(Jeu.class.getResource("Kcrayon.png"))); //on a créé l'objet Bouton
-		jCrayon.addActionListener(new ActionListener() {
-			
-			@Override
+		
+		toolBar = new JToolBar("Line Rider menu"); //ToolBar c'est une classe deja dans java
+		
+		
+		
+		jCrayon = new JButton(new ImageIcon(Jeu.class.getResource("Kcrayon.png"))); //JButton c'est aussi dans java
+		jTrait = new JButton(new ImageIcon(Jeu.class.getResource("Ktrait.png")));
+        jPoubelle = new JButton(new ImageIcon(Jeu.class.getResource("Kpoubelle.png")));
+		
+        
+        
+        jCrayon.addActionListener(new ActionListener() {//ici on gardera en memoire la case cochee
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("Hello !");
+				System.out.println("le crayon a ete clique");
 			}
 		});
+		
+        jTrait.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                        System.out.println("le trait a ete clique");
+                }
+        });
+        jPoubelle.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                    System.out.println("la poubelle a ete cliquee");
+            }
+        });
+        
+        
 
 		toolBar.add(jCrayon);
-                
-		jTrait = new JButton(new ImageIcon(Jeu.class.getResource("Ktrait.png")));
-                jTrait.addActionListener(new ActionListener() {
-                        
-                        @Override
-                        public void actionPerformed(ActionEvent e) {
-                                System.out.println("Hello2!");
-                        }
-                });
-                toolBar.add(jTrait);
-	    
-                jPoubelle = new JButton(new ImageIcon(Jeu.class.getResource("Kpoubelle.png")));
-                jPoubelle.addActionListener(new ActionListener() {
-                        
-                        @Override
-                        public void actionPerformed(ActionEvent e) {
-                                System.out.println("Hello3!");
-                        }
-                });
-                toolBar.add(jPoubelle);
-		toolBar.setFloatable(false);
+        toolBar.add(jTrait);
+        toolBar.add(jPoubelle);
+        
+		toolBar.setFloatable(false); //ca sert a rien de pouvoir la deplacer
 		
-		
-		// + autres Boutons à créer
+
 
 		GamePanel gamePanel=new GamePanel();
 		
 		
-		mainPanel.setLayout(new BorderLayout());
-		mainPanel.setBackground(Color.blue);
+		mainPanel.setLayout(new BorderLayout());//facon de ranger les trucs dans le mainPanel
+		mainPanel.setBackground(Color.blue);//on ne devrait pas voir de bleu si toolBar et gamePanel sont ajoutes
 		mainPanel.add("North",toolBar);
-		//mainPanel.add("South", gamePanel);  
+		mainPanel.add("South", gamePanel);  
 		
 		this.setContentPane(mainPanel);
 		this.pack();
@@ -86,13 +84,5 @@ public class Jeu extends JFrame{
 		
 		
 		
-	}
-	
-	private class Jeu_this_keyAdaptater extends KeyAdapter{
-		public void keyPressed(KeyEvent e){
-			if(e.getKeyCode()==KeyEvent.VK_ESCAPE){
-				System.exit(0);
-			}
-		}
 	}
 }

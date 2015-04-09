@@ -9,8 +9,7 @@ import java.awt.event.MouseMotionAdapter;
 
 public class GestionTraits implements ActionListener{
 	Point pointA = null;
-	Point pointB=null; //en fontion du bouton de la barre d'outil cliqué,
-	                   //la classe fera des trucs différents 
+	Point pointB=null; //en fontion du bouton de la barre d'outil clique la classe fera des trucs differents 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		// TODO Auto-generated method stub
@@ -18,7 +17,7 @@ public class GestionTraits implements ActionListener{
 	}
 	
 	
-	 /*on a copié un code bizzare, faudra voir si il marche
+	 /*on a copie un code bizzare, faudra voir si il marche
         addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent e) {
                 pointA = e.getPoint();
