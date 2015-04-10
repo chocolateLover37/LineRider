@@ -23,6 +23,7 @@ public class Jeu extends JFrame{
 	public JButton jCrayon;
 	public JButton jPoubelle;
 	public JButton jGomme;
+    
 	
 	public GamePanel gamePanel; //aire de dessin des courbes (classe faite maison)
 	
@@ -37,37 +38,26 @@ public class Jeu extends JFrame{
 		
 		
 		jCrayon = new JButton(new ImageIcon(Jeu.class.getResource("Kcrayon.png"))); //JButton c'est aussi dans java
-		jTrait = new JButton(new ImageIcon(Jeu.class.getResource("Ktrait.png")));
-        jPoubelle = new JButton(new ImageIcon(Jeu.class.getResource("Kpoubelle.png")));
-		
-        
-        
-        jCrayon.addActionListener(new GestionToolBar());
-
-		
-        jTrait.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
-                        System.out.println("le trait a ete clique");
-                }
-        });
-        jPoubelle.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                    System.out.println("la poubelle a ete cliquee");
-            }
-        });
-        
-       
-        
-        
-
+		jCrayon.setPreferredSize(new Dimension(40, 40));
+                jTrait = new JButton(new ImageIcon(Jeu.class.getResource("Ktrait.png")));
+                jTrait.setPreferredSize(new Dimension(40, 40));
+                jPoubelle = new JButton(new ImageIcon(Jeu.class.getResource("Kpoubelle.png")));
+                jPoubelle.setPreferredSize(new Dimension(40, 40));
+                jGomme = new JButton(new ImageIcon(Jeu.class.getResource("Kgomme.png")));
+                jGomme.setPreferredSize(new Dimension(40, 40));
+                        
+                jCrayon.addActionListener(new GestionToolBar());	
+                jTrait.addActionListener(new GestionToolBar());      
+                jPoubelle.addActionListener(new GestionToolBar()); 
+                jGomme.addActionListener(new GestionToolBar());
 		toolBar.add(jCrayon);
-        toolBar.add(jTrait);
-        toolBar.add(jPoubelle);
+                toolBar.add(jTrait);
+                toolBar.add(jPoubelle);
+                toolBar.add(jGomme);
+                
         
 		toolBar.setFloatable(false); //ca sert a rien de pouvoir la deplacer
 		
-
-
 		GamePanel gamePanel=new GamePanel();
 		
 		
@@ -85,6 +75,21 @@ public class Jeu extends JFrame{
 		
 	}
 	
-	
-	
+        public class GestionToolBar implements ActionListener{  
+        
+                    public void actionPerformed(ActionEvent e){
+                            //il faut recuperer l'information quand les boutons sont cliques
+                        if(e.getSource()==jCrayon){
+                            System.out.println("le crayon a ete clique"); 
+                            //plutard va nous envoyer dans une classe avec des methodes liees aux dessins. voir methode dans la framecalculette
+                        } else if(e.getSource()==jTrait){
+                            System.out.println("le trait a ete clique");
+                        }else if (e.getSource ()==jPoubelle){
+                            System.out.println("la poubelle a ete cliquee");
+                        }else if (e.getSource ()==jGomme){
+                            System.out.println("la gomme a ete cliquee");
+                            }
+                
+                    }               
+        }    
 }
