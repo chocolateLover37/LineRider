@@ -1,6 +1,6 @@
 import java.awt.Point;
 
-public class Ligne {
+public class Ligne {//cette classe est pour l'instant inutile
 	
 	Point pointA;
 	Point pointB;
