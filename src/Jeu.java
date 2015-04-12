@@ -2,15 +2,17 @@ import java.awt.*;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.text.html.HTMLDocument.Iterator;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.LinkedList;
+import java.util.*;
 
 public class Jeu extends JFrame{
 	
@@ -92,4 +94,20 @@ public class Jeu extends JFrame{
                 
                     }               
         }    
+        
+        //Method detection collisions
+        public Ligne collision (Rectangle2D bbille, LinkedList<Ligne> lili){
+            Ligne choc = null;
+            Rectangle2D bcourbe;
+            bcourbe = null;
+            java.util.Iterator<Ligne> iterator = lili.iterator();
+            //check of collisions with other objects
+            while (iterator.hasNext()) {
+            	Ligne i = iterator.next();
+            	bcourbe = this.getBounds();
+            	if (bcourbe.intersects(bbille)==true){
+            		choc = i;}
+		}
+	return choc;
+	}
 }
