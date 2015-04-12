@@ -56,7 +56,7 @@ public class Jeu extends JFrame{
         }
         JButton[] tabCouleurs = {jRouge,jOrange,jVert,jBleu};
         for(int i=0;i<tabCouleurs.length;i++){
-        	tabCouleurs[i].setPreferredSize(new Dimension(40, 40));
+        	tabCouleurs[i].setPreferredSize(new Dimension(20, 20));
         	tabCouleurs[i].addActionListener(new GestionToolBar());	
         	couleurs.add(tabCouleurs[i]);
         }
@@ -89,11 +89,13 @@ public class Jeu extends JFrame{
     		
 	    	if(e.getSource()==jCrayon){
 	    		System.out.println("Vous avez cliquŽ sur le crayon !!!");
+	    		gamePanel.setLineType("point");//impossible de modifier l'attribut LineType
 	    		//ca fait des ronds
 	    	}
 	    	else if(e.getSource()==jTrait){
 	    		System.out.println("Vous avez cliquŽ sur le trait !!!");
-	    		//pas encore implemente...
+	    		gamePanel.setLineType("trait");//ne marche pas non plus
+	    		//ca devrait faire des traits
 	    	}
 	        else if (e.getSource ()==jPoubelle){
 	        	System.out.println("Vous avez cliquŽ sur la poubelle !!!");
@@ -101,8 +103,9 @@ public class Jeu extends JFrame{
 	        }
 	        else if (e.getSource ()==jGomme){
 	        	System.out.println("Vous avez cliquŽ sur la gomme !!!");
-	        	//pas encore implemente...
+	        	//coming soon.....
 	        }
+	    	
 	        else if (e.getSource ()==jRouge){
 	        	System.out.println("Vous avez cliquŽ sur le rouge !!!");
 	        	gamePanel.setPointerColor(Color.red);
@@ -118,8 +121,7 @@ public class Jeu extends JFrame{
 	        else if (e.getSource ()==jBleu){
 	        	System.out.println("Vous avez cliquŽ sur le bleu !!!");
 	        	gamePanel.setPointerColor(Color.blue);
-	        }
-	    	
+	        }    	
     	}	  
 	}	    	
 }
