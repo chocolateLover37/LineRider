@@ -1,16 +1,7 @@
 import java.awt.*;
-
-import javax.imageio.ImageIO;
 import javax.swing.*;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.util.LinkedList;
 
 public class Jeu extends JFrame{
 	
@@ -88,38 +79,30 @@ public class Jeu extends JFrame{
     	public void actionPerformed(ActionEvent e){
     		
 	    	if(e.getSource()==jCrayon){
-	    		System.out.println("Vous avez cliqué sur le crayon !!!");
-	    		gamePanel.setLineType("point");//impossible de modifier l'attribut LineType
+	    		gamePanel.setLineType("point");
 	    		//ca fait des ronds
 	    	}
 	    	else if(e.getSource()==jTrait){
-	    		System.out.println("Vous avez cliqué sur le trait !!!");
-	    		gamePanel.setLineType("trait");//ne marche pas non plus
-	    		//ca devrait faire des traits
+	    		gamePanel.setLineType("trait");
+	    		//ca fait des traits a cote....
 	    	}
 	        else if (e.getSource ()==jPoubelle){
-	        	System.out.println("Vous avez cliqué sur la poubelle !!!");
-	        	gamePanel.erase();//ca marche !!!!!!!!!!!!!!
+	        	gamePanel.erase();//ca marche
 	        }
 	        else if (e.getSource ()==jGomme){
-	        	System.out.println("Vous avez cliqué sur la gomme !!!");
 	        	//coming soon.....
 	        }
 	    	
 	        else if (e.getSource ()==jRouge){
-	        	System.out.println("Vous avez cliqué sur le rouge !!!");
 	        	gamePanel.setPointerColor(Color.red);
 	        }
 	        else if (e.getSource ()==jVert){
-	        	System.out.println("Vous avez cliqué sur le vert !!!");
 	        	gamePanel.setPointerColor(Color.green);
 	        }
 	        else if (e.getSource ()==jOrange){
-	        	System.out.println("Vous avez cliqué sur l'orange !!!");
 	        	gamePanel.setPointerColor(Color.orange);
 	        }
 	        else if (e.getSource ()==jBleu){
-	        	System.out.println("Vous avez cliqué sur le bleu !!!");
 	        	gamePanel.setPointerColor(Color.blue);
 	        }    	
     	}	  
