@@ -1,30 +1,30 @@
-public class Bille extends Objet {
+import java.awt.Rectangle;
+
+public abstract class Bille extends Objet {
    
-    public double ec;
     public double masse;
     
     
-    public Bille(double ax,double ay,double dx){
-       //* dy=0 au dbut, dx=cste (m*g) 
-         super(ax,ay,dx,0);
-         ec=0;
-         masse=10;
+    public Bille(double ax,double ay,double vx,double vy, Rectangle aframe,String NomImage){
+       //* dy=0 au debut, dx=cste (m*g) 
+         super(ax,ay,vx,vy,aframe,NomImage);
+         masse=1;
     }
     
     
     public void move(double pente) {
-        dy=dy-(pente*10);
+        // cas contact  if (Collision==true)
+        
+        
+        
+        //cas sans contact 
+        
+        
+        
+        
     }
     
     
-    public boolean energieCinetique(){
-    	ec=(1/2)*masse*Math.pow(dx+dy,(1/2)); 
-    	if(ec>100){
-    		return false; 
-    	}
-    	else{
-    		return true;
-    	}
-    }
+    
     
 }
