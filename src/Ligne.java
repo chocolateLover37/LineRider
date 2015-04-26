@@ -1,4 +1,7 @@
 import java.awt.Color;
+import java.awt.geom.Line2D;
+import java.awt.geom.Point2D;
+import java.awt.geom.Rectangle2D;
 
 public class Ligne{
 	public Color color = Color.black;
@@ -8,7 +11,7 @@ public class Ligne{
 	public int nbPoints=1000;//oui c'est beaucoup, il faudrait ajuster nbPoints en fonction de la longueur du trait (Pythagore tavu)
 	public PointCustom[] tab = new PointCustom[nbPoints];
 	
-	public Ligne(PointCustom pointStart, PointCustom pointEnd,Color couleur){
+	public Ligne(PointCustom pointStart, PointCustom pointEnd, Color couleur){
 		pointA = pointStart;
 		pointB = pointEnd;
 		color=couleur;
@@ -29,4 +32,10 @@ public class Ligne{
 	public Color getColor() {
 		return color;
 	}
+	
+	/*public void convertLine2D(){
+		Line2D l = new Line2D();
+		l.setLine(pointA.getX(),pointA.getY(),pointB.getX(),pointB.getY());
+	}    travaux en cours....
+	*/
 }

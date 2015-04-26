@@ -1,6 +1,9 @@
 import java.awt.*;
+
 import javax.swing.*;
+
 import java.awt.event.*;
+import java.awt.geom.Line2D;
 import java.util.ArrayList;
 
 public class GamePanel extends JPanel{
@@ -47,7 +50,7 @@ public class GamePanel extends JPanel{
 		public void mouseReleased(MouseEvent e) {
 			if(lineType.equals("trait")){
 				pointEnd = new PointCustom(e.getX() - (pointerSize / 2), e.getY() - (pointerSize / 2), pointerSize, pointerColor);
-	        	lignes.add(new Ligne(pointStart,pointEnd,pointerColor));
+				lignes.add(new Ligne(pointStart,pointEnd,pointerColor));
 	        	repaint();
 			}
 		}	
