@@ -23,4 +23,14 @@ public class PointCustom {
 	public int getY() {
 		return y;
 	}
+	public void setX(int ax){
+		x=ax;
+	}
+	public void setY(int ay){
+		y=ay;
+	}
+	public void setXY(int ax, int ay){
+		x=ax;
+		y=ay;
+	}
 }

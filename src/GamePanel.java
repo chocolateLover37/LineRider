@@ -15,7 +15,9 @@ public class GamePanel extends JPanel{
 	public String lineType = "point"; //type de trait
 	public ArrayList<PointCustom> points = new ArrayList<PointCustom>();  
 	public ArrayList<Ligne> lignes = new ArrayList<Ligne>();
-	public Ligne tempo = new Ligne(PointCustom(-10,-10,Color.black),PointCustom(-10,-10,Color.black),Color.black);
+	public Ligne temporaire = new Ligne(new PointCustom(-10,-10,Color.black), new PointCustom(-10,-10,Color.black),Color.black);
+	public int xS;
+	public int yS;
 	
 	public GamePanel(){
 		setPreferredSize(new Dimension(1200,600));
@@ -28,6 +30,8 @@ public class GamePanel extends JPanel{
 	public class GestionOutils implements MouseListener, MouseMotionListener{
 		PointCustom pointStart = new PointCustom(-10,-10, pointerColor);
 		PointCustom pointEnd = new PointCustom(-10,-10, pointerColor);
+		PointCustom pointTempoS = new PointCustom(-10,-10, pointerColor);
+		PointCustom pointTempoE = new PointCustom(-10,-10, pointerColor);
 		
 		public void mousePressed(MouseEvent e){
 			if(lineType.equals("point")){
@@ -35,7 +39,10 @@ public class GamePanel extends JPanel{
 			}
 			
 			if(lineType.equals("trait")){
-				pointStart = new PointCustom(e.getX(), e.getY(), pointerColor);
+				xS=e.getX();
+				yS=e.getY();
+				pointStart = new PointCustom(xS, yS, pointerColor);
+				
 			}	
 	    }
 			
@@ -44,17 +51,18 @@ public class GamePanel extends JPanel{
 				//...
 			}
 			if(lineType.equals("trait")){
-				pointEnd = new PointCustom(e.getX(), e.getY(), pointerColor);
-				tempo.add(new Ligne(pointStart,pointEnd,pointerColor));
+				pointTempoS.setXY(xS,yS);
+				pointTempoE = new PointCustom(e.getX(), e.getY(), pointerColor);
+				temporaire = new Ligne(pointTempoS,pointTempoE,pointerColor);
 				repaint();
-				tempo = new ArrayList<Ligne>();
 			}
 		}
 		public void mouseReleased(MouseEvent e) {
 			if(lineType.equals("trait")){
 				pointEnd = new PointCustom(e.getX(), e.getY(), pointerColor);
 				lignes.add(new Ligne(pointStart,pointEnd,pointerColor));
-	        	repaint();
+				temporaire = new Ligne(new PointCustom(-10,-10, pointerColor),new PointCustom(-10,-10, pointerColor),pointerColor);
+				repaint();
 			}
 		}	
 		public void mouseMoved(MouseEvent e) {}
@@ -83,18 +91,17 @@ public class GamePanel extends JPanel{
 	    	}*/
 	    	
 	    	for(int k=0;k<lignes.size();k++){//on parcourt chaque Ligne de la ArrayList lignes
-	    		//On recupere la couleur
 	    		g.setColor(lignes.get(k).getColor());
 	    		PointCustom pA=lignes.get(k).getPointA();
 	    		PointCustom pB=lignes.get(k).getPointB();
+	    		PointCustom pTempoA=temporaire.getPointA();
+	    		PointCustom pTempoB=temporaire.getPointB();
 	    		Graphics2D g2d = (Graphics2D)g;
 	    		Stroke stroke = new BasicStroke(5f);
 	    		g2d.setStroke(stroke);
 	    		g2d.drawLine(pA.getX(),pA.getY(),pB.getX(),pB.getY());
-	    		
-	    		g2d.drawLine(tempo);
-	    	}
-	    	
+	    		g2d.drawLine(pTempoA.getX(),pTempoA.getY(),pTempoB.getX(),pTempoB.getY());
+	    	}	
 	    	
 	    } 
 	} 
