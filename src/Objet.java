@@ -1,3 +1,4 @@
+
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Rectangle;
@@ -7,16 +8,16 @@ import java.io.File;
 import javax.imageio.ImageIO;
 
 
-public abstract class Objet {
-    public int h,l;//pas accepte par le constructeur de rectangle si double, probleme ? 
-    public int x,y;
+public abstract class Objets {
+    public double h,l;
+    public double x,y;
     public double dx,dy;
     public boolean actif;
     public Image image;
-    public Rectangle limites;
+    public Rectangle [] limites;
     public Rectangle limitesframe;
     
-    public Objet(int ax,int ay,double adx,double ady,Rectangle aframe,String NomImage) {
+    public Objets(double ax,double ay,double adx,double ady,Rectangle aframe,String NomImage) {
     	x=ax;
         y=ay;
         dx=adx;
@@ -25,8 +26,8 @@ public abstract class Objet {
         limitesframe=aframe;
     
     
-    //lire l'image de l'objet désigné par son nom en contrôlant
-    // les exceptions provoqués par les erreurs de chargement
+    //lire l'image de l'objet dÃ©signÃ© par son nom en contrÃ´lant
+    // les exceptions provoquÃ©s par les erreurs de chargement
     try {
         image= ImageIO.read(new File(NomImage));
     }
@@ -41,21 +42,22 @@ public abstract class Objet {
     h= image.getHeight(null);
     l= image.getWidth(null);
     
-    // definir les limites de l'objet pour les collisions et les sorties
-    limites = new Rectangle(ax,ay,l,h);
+    // definie les limites de l'objet pour les collisions et les sorties
+    limites = GetCollisionBoxes();
     
     }
     
     // affiche image
     public void draw (long t, Graphics g) {
-    g.drawImage(image,x,y,null);
+    g.drawImage(image,(int)x,(int)y,null);
     }
     
+    //abstraite pour le moment,sera definie ici
+    public abstract boolean Collision();
+  
     
-    public boolean Collision(Ligne O){
-    return limites.intersects(O.limites);
-    }
+    //recupere les rectangles qui definissent la bille pour les collisions
+    public abstract Rectangle[] GetCollisionBoxes();
     
-    public abstract void move(); 
-    
+    public abstract void move(long t);
 }
