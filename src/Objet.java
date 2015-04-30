@@ -8,7 +8,7 @@ import java.io.File;
 import javax.imageio.ImageIO;
 
 
-public abstract class Objets {
+public abstract class Objet {
     public double h,l;
     public double x,y;
     public double dx,dy;
@@ -17,7 +17,7 @@ public abstract class Objets {
     public Rectangle [] limites;
     public Rectangle limitesframe;
     
-    public Objets(double ax,double ay,double adx,double ady,Rectangle aframe,String NomImage) {
+    public Objet(double ax,double ay,double adx,double ady,Rectangle aframe,String NomImage) {
     	x=ax;
         y=ay;
         dx=adx;
@@ -59,5 +59,6 @@ public abstract class Objets {
     //recupere les rectangles qui definissent la bille pour les collisions
     public abstract Rectangle[] GetCollisionBoxes();
     
+    // en construction
     public abstract void move(long t);
 }
