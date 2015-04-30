@@ -60,5 +60,29 @@ public abstract class Objet {
     public abstract Rectangle[] GetCollisionBoxes();
     
     // en construction
-    public abstract void move(long t);
+    public abstract void move(long t){
+                double g=9,81;
+        
+        
+       //  recalcule la nouvelle position de l'objet 
+        
+        // cas 1 : pas de contact avec une courbe 
+        if (collision==true){
+        x=x+dx * t 
+        y=y + (-12)*g*Math.pow(t,2) + dy*t
+       
+        
+        }
+        
+        //cas 2: contact avec une courbe
+        else{
+            
+            x=x + (-12)*g*t*2*sin()+ dx*t;
+            y= y + 12*g*Math.pow(t,2)*(cos()-1) + dy*t;
+
+        
+        
+        
+        
+    }
 }
