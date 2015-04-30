@@ -5,9 +5,8 @@ import java.awt.geom.Rectangle2D;
 
 public class Ligne{
 	public Color color = Color.black;
-	public int size;
-	public PointCustom pointA = new PointCustom(-10,-10,size,color);
-	public PointCustom pointB = new PointCustom(-10,-10,size,color);
+	public PointCustom pointA = new PointCustom(-10,-10,color);
+	public PointCustom pointB = new PointCustom(-10,-10,color);
 	
 	public Ligne(PointCustom pointStart, PointCustom pointEnd, Color couleur){
 		pointA = pointStart;
@@ -31,9 +30,4 @@ public class Ligne{
 	public PointCustom getPointB(){
 		return pointB;
 	}
-	/*public void convertLine2D(){
-		Line2D l = new Line2D();
-		l.setLine(pointA.getX(),pointA.getY(),pointB.getX(),pointB.getY());
-	}    travaux en cours....
-	*/
 }
