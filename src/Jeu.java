@@ -1,6 +1,4 @@
 import java.awt.*;
-
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.text.html.HTMLDocument.Iterator;
 
@@ -13,101 +11,131 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
+import javax.imageio.ImageIO;
+
 
 public class Jeu extends JFrame{
 	
 	public Container mainPanel; //fenetre globale
 	
-	public JToolBar toolBar; //barre d'outils
+	public JPanel toolBar = new JPanel();
+	public JPanel outils = new JPanel();
+	public JPanel couleurs = new JPanel();
 
-	
 	public JButton jTrait; //quelques boutons de base
-	public JButton jCrayon;
-	public JButton jPoubelle;
-	public JButton jGomme;
-    
-	
-	public GamePanel gamePanel; //aire de dessin des courbes (classe faite maison)
+	public JButton jCrayon, jPoubelle, jGomme;
+	public JButton jRouge, jOrange, jVert, jBleu;
+	public JButton[] tabOutils;
+	public JButton[] tabCouleurs;
+	public GamePanel gamePanel=new GamePanel(); //aire de dessin des courbes (classe faite maison)
 	
 	
 	public Jeu(){
 		JPanel mainPanel=new JPanel();
 		this.setResizable(false);
-
-		
-		toolBar = new JToolBar("Line Rider menu"); //ToolBar c'est une classe deja dans java
-		
-		
-		
-		jCrayon = new JButton(new ImageIcon(Jeu.class.getResource("Kcrayon.png"))); //JButton c'est aussi dans java
-		jCrayon.setPreferredSize(new Dimension(40, 40));
-                jTrait = new JButton(new ImageIcon(Jeu.class.getResource("Ktrait.png")));
-                jTrait.setPreferredSize(new Dimension(40, 40));
-                jPoubelle = new JButton(new ImageIcon(Jeu.class.getResource("Kpoubelle.png")));
-                jPoubelle.setPreferredSize(new Dimension(40, 40));
-                jGomme = new JButton(new ImageIcon(Jeu.class.getResource("Kgomme.png")));
-                jGomme.setPreferredSize(new Dimension(40, 40));
-                        
-                jCrayon.addActionListener(new GestionToolBar());	
-                jTrait.addActionListener(new GestionToolBar());      
-                jPoubelle.addActionListener(new GestionToolBar()); 
-                jGomme.addActionListener(new GestionToolBar());
-		toolBar.add(jCrayon);
-                toolBar.add(jTrait);
-                toolBar.add(jPoubelle);
-                toolBar.add(jGomme);
-                
-        
-		toolBar.setFloatable(false); //ca sert a rien de pouvoir la deplacer
-		
-		GamePanel gamePanel=new GamePanel();
-		
+		this.setTitle("Line Rider !!!");
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		mainPanel.setLayout(new BorderLayout());//facon de ranger les trucs dans le mainPanel
-		mainPanel.setBackground(Color.blue);//on ne devrait pas voir de bleu si toolBar et gamePanel sont ajoutes
+		mainPanel.setBackground(Color.black);
+
+		jCrayon = new JButton(new ImageIcon(Jeu.class.getResource("Kcrayon.png"))); //JButton c'est aussi dans java
+		jTrait = new JButton(new ImageIcon(Jeu.class.getResource("Ktrait.png")));
+        jPoubelle = new JButton(new ImageIcon(Jeu.class.getResource("Kpoubelle.png")));
+        jGomme = new JButton(new ImageIcon(Jeu.class.getResource("Kgomme.png")));
+        
+        jRouge = new JButton(new ImageIcon(Jeu.class.getResource("Grouge.png")));
+        jOrange = new JButton(new ImageIcon(Jeu.class.getResource("Gorange.png")));
+        jVert = new JButton(new ImageIcon(Jeu.class.getResource("Gvert.png")));
+        jBleu = new JButton(new ImageIcon(Jeu.class.getResource("Gbleu.png")));
+        jCrayon.setPreferredSize(new Dimension(40, 40));
+        
+        JButton[] tabOutils = {jCrayon,jTrait,jPoubelle,jGomme};
+        for(int i=0;i<tabOutils.length;i++){
+        	tabOutils[i].setPreferredSize(new Dimension(40, 40));
+        	tabOutils[i].addActionListener(new GestionToolBar());	
+        	outils.add(tabOutils[i]);
+        }
+        JButton[] tabCouleurs = {jRouge,jOrange,jVert,jBleu};
+        for(int i=0;i<tabCouleurs.length;i++){
+        	tabCouleurs[i].setPreferredSize(new Dimension(20, 20));
+        	tabCouleurs[i].addActionListener(new GestionToolBar());	
+        	couleurs.add(tabCouleurs[i]);
+        }
+        
+        
+		outils.add(jCrayon);
+        outils.add(jTrait);
+        outils.add(jPoubelle);
+        outils.add(jGomme);
+        couleurs.add(jRouge);
+        couleurs.add(jOrange);
+        couleurs.add(jVert);
+        couleurs.add(jBleu);
+        
+        toolBar.setLayout(new BorderLayout());
+        toolBar.add("North",outils);
+        toolBar.add("South",couleurs);
+        
 		mainPanel.add("North",toolBar);
-		mainPanel.add("South", gamePanel);  
-		
+		mainPanel.add("South", gamePanel); 
+	    
 		this.setContentPane(mainPanel);
 		this.pack();
 		this.setVisible(true);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
-		
-		
 	}
 	
-        public class GestionToolBar implements ActionListener{  
-        
-                    public void actionPerformed(ActionEvent e){
-                            //il faut recuperer l'information quand les boutons sont cliques
-                        if(e.getSource()==jCrayon){
-                            System.out.println("le crayon a ete clique"); 
-                            //plutard va nous envoyer dans une classe avec des methodes liees aux dessins. voir methode dans la framecalculette
-                        } else if(e.getSource()==jTrait){
-                            System.out.println("le trait a ete clique");
-                        }else if (e.getSource ()==jPoubelle){
-                            System.out.println("la poubelle a ete cliquee");
-                        }else if (e.getSource ()==jGomme){
-                            System.out.println("la gomme a ete cliquee");
-                            }
-                
-                    }               
-        }    
-        
         //Method detection collisions
-        public Ligne collision (Rectangle2D bbille, LinkedList<Ligne> lili){
+        public Ligne collision (Rectangle2D [] bbille, LinkedList<Ligne> lili){
             Ligne choc = null;
             Rectangle2D bcourbe;
             bcourbe = null;
+            for (int k=0; k< bbille.length; k++){
             java.util.Iterator<Ligne> iterator = lili.iterator();
             //check of collisions with other objects
             while (iterator.hasNext()) {
             	Ligne i = iterator.next();
             	bcourbe = this.getBounds();
-            	if (bcourbe.intersects(bbille)==true){
+            	if (bcourbe.intersects(bbille[k])==true){
             		choc = i;}
 		}
+            }
 	return choc;
 	}
+
+    public class GestionToolBar implements ActionListener{  
+
+    	public void actionPerformed(ActionEvent e){
+    		
+	    	if(e.getSource()==jCrayon){
+	    		gamePanel.setLineType("point");
+	    		//ca fait des ronds
+	    	}
+	    	else if(e.getSource()==jTrait){
+	    		gamePanel.setLineType("trait");
+	    		//ca fait des traits a cote....
+	    	}
+	        else if (e.getSource ()==jPoubelle){
+	        	gamePanel.erase();//ca marche
+	        }
+	        else if (e.getSource ()==jGomme){
+	        	//coming soon.....
+	        }
+	    	
+	        else if (e.getSource ()==jRouge){
+	        	gamePanel.setPointerColor(Color.red);
+	        }
+	        else if (e.getSource ()==jVert){
+	        	gamePanel.setPointerColor(Color.green);
+	        }
+	        else if (e.getSource ()==jOrange){
+	        	gamePanel.setPointerColor(Color.orange);
+	        }
+	        else if (e.getSource ()==jBleu){
+	        	gamePanel.setPointerColor(Color.blue);
+	        }    	
+    	
+    	}
+    }
 }
+

@@ -1,4 +1,5 @@
-import java.awt.Color;
+import java.awt.*;
+import java.awt.geom.Line2D;
 
 public class Ligne{
 	public Color color = Color.black;
@@ -23,6 +24,11 @@ public class Ligne{
 	public double pente(){//ca servira probablement pour l'animation
 		double pente = (pointB.getY()-pointA.getY())/(pointB.getX()-pointA.getX());
 		return pente;
+	}
+	
+	public Line2D.Double GetLineforCollision(){
+		Line2D.Double chaussette = new Line2D.Double(pointA.getX(),pointA.getY(),pointB.getX(),pointB.getY());
+		return chaussette; 
 	}
 	
 	//ACCESSEURS
