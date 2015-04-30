@@ -35,21 +35,32 @@ public class GamePanel extends JPanel{
 		
 		public void mousePressed(MouseEvent e){
 			if(lineType.equals("point")){
-				//...
+				xS=e.getX();
+				yS=e.getY();
+				pointStart = new PointCustom(xS, yS, pointerColor);
 			}
 			
 			if(lineType.equals("trait")){
 				xS=e.getX();
 				yS=e.getY();
 				pointStart = new PointCustom(xS, yS, pointerColor);
-				
 			}	
 	    }
 			
 		public void mouseDragged(MouseEvent e) {
 			if(lineType.equals("point")){
-				//...
+				pointTempoS.setXY(xS,yS);
+				pointTempoE = new PointCustom(e.getX(), e.getY(), pointerColor);
+				temporaire = new Ligne(pointTempoS,pointTempoE,pointerColor);
+				
+				if(temporaire.taille()>=10){
+					lignes.add(new Ligne(pointTempoS,pointTempoE,pointerColor));
+					pointTempoS.setXY(pointTempoE.getX(), pointTempoE.getY());
+					repaint();
+				}
+				repaint();
 			}
+			
 			if(lineType.equals("trait")){
 				pointTempoS.setXY(xS,yS);
 				pointTempoE = new PointCustom(e.getX(), e.getY(), pointerColor);

@@ -19,6 +19,13 @@ public class Ligne{
 		return pente;
 	}
 	
+	public double taille(){
+		double dX=(pointB.getX()-pointA.getX());
+		double dY=(pointB.getY()-pointA.getY());
+		double taille = Math.sqrt(Math.pow(dX,2)+Math.pow(dY,2));
+		return taille;
+	}
+	
 	
 	//ACCESSEURS
 	public Color getColor() {
