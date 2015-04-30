@@ -4,6 +4,7 @@ import javax.swing.*;
 
 import java.awt.event.*;
 import java.awt.geom.Line2D;
+import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
 public class GamePanel extends JPanel{
@@ -82,9 +83,15 @@ public class GamePanel extends JPanel{
 	    	for(int k=0;k<lignes.size();k++){//on parcourt chaque Ligne de la ArrayList lignes
 	    		//On recupere la couleur
 	    		g.setColor(lignes.get(k).getColor());
-	    		for(int i=0;i<lignes.get(k).tab.length;i++){//on parcourt chaque PointCustom de la Ligne 
-    				g.fillOval(lignes.get(k).tab[i].getX(), lignes.get(k).tab[i].getY(), lignes.get(k).tab[i].getSize(), lignes.get(k).tab[i].getSize());
-    			}
+	    		PointCustom pA=lignes.get(k).getPointA();
+	    		PointCustom pB=lignes.get(k).getPointB();
+	    		Graphics2D g2d = (Graphics2D)g;
+	    		Stroke stroke = new BasicStroke(5f);
+	    		g2d.setStroke(stroke);
+	    		g2d.drawLine(pA.getX(),pA.getY(),pB.getX(),pB.getY());
+	    		//for(int i=0;i<lignes.get(k).tab.length;i++){//on parcourt chaque PointCustom de la Ligne 
+    			//	g.fillOval(lignes.get(k).tab[i].getX(), lignes.get(k).tab[i].getY(), lignes.get(k).tab[i].getSize(), lignes.get(k).tab[i].getSize());
+	    		//}
 	    	}
 	    } 
 	} 

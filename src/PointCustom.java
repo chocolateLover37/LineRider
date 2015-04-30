@@ -1,4 +1,5 @@
 import java.awt.Color;
+import java.awt.geom.Point2D;
 
 public class PointCustom {
 
@@ -6,7 +7,7 @@ public class PointCustom {
 	private int size = 5; //Taille
 	private int x = -10; //Position sur l'axe X : initialisé au dehors du conteneur
 	private int y = -10; //Position sur l'axe Y : initialisé au dehors du conteneur
-
+	private Point2D point;
 	
 	public PointCustom(){} // Constructeur par défaut
 
