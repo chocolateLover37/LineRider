@@ -24,12 +24,23 @@ public class GamePanel extends JPanel{
 		PointCustom pointTempoS = new PointCustom(-10,-10, pointerColor);
 		PointCustom pointTempoE = new PointCustom(-10,-10, pointerColor);
 		
+		
 		public void mousePressed(MouseEvent e){
 			xS=e.getX();
 			yS=e.getY();
+			
+			if(lineType.equals("gomme")){
+				for(int k=0;k<lignes.size();k++){
+					if(lignes.get(k).distance(e.getX(),e.getY())<=30){
+						lignes.remove(k);
+					}
+				}
+			}
+			repaint();
 	    }
 			
 		public void mouseDragged(MouseEvent e) {
+			
 			if(lineType.equals("crayon")){
 				pointTempoS.setXY(xS,yS);
 				pointTempoE.setXY(e.getX(),e.getY());
@@ -40,28 +51,34 @@ public class GamePanel extends JPanel{
 					xS=e.getX();
 					yS=e.getY();
 				}
-				repaint();
 			}
-		
+			
+			if(lineType.equals("gomme")){
+				for(int k=0;k<lignes.size();k++){
+					if(lignes.get(k).distance(e.getX(),e.getY())<=30){
+						lignes.remove(k);
+					}
+				}
+			}
+
 			if(lineType.equals("trait")){
 				pointTempoS.setXY(xS,yS);
 				pointTempoE.setXY(e.getX(),e.getY());
 				temporaire = new Ligne(pointTempoS,pointTempoE,pointerColor);
-				repaint();
 			}
+			repaint();
 		}
 		
 		public void mouseReleased(MouseEvent e) {
 			if(lineType.equals("trait")){
 				lignes.add(new Ligne(new PointCustom(xS,yS,pointerColor), new PointCustom(e.getX(),e.getY(),pointerColor),pointerColor));
-				repaint();
 			}
+			repaint();
 		}	
 		public void mouseMoved(MouseEvent e) {}
 		public void mouseClicked(MouseEvent e) {}
 		public void mouseEntered(MouseEvent e) {}
 		public void mouseExited(MouseEvent e) {}
-		
 	}
 	
 	public void paintComponent(Graphics g) {
@@ -80,6 +97,7 @@ public class GamePanel extends JPanel{
     		g2d.setStroke(stroke);
     		g2d.drawLine(pA.getX(),pA.getY(),pB.getX(),pB.getY());
     		g2d.drawLine(pTempoA.getX(),pTempoA.getY(),pTempoB.getX(),pTempoB.getY());
+    		
 	    }	
 	}	
 	    	

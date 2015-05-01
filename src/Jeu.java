@@ -84,7 +84,7 @@ public class Jeu extends JFrame{
 		this.setVisible(true);
 	}
 	
-    //Method detection collisions
+    //Methode de detection des collisions
     public Ligne collision (Rectangle2D [] bbille, LinkedList<Ligne> lili){
         Ligne choc = null;
         Rectangle2D bcourbe;
@@ -109,19 +109,16 @@ public class Jeu extends JFrame{
     		
 	    	if(e.getSource()==jCrayon){
 	    		gamePanel.setLineType("crayon");
-	    		//ca fait des ronds
 	    	}
 	    	else if(e.getSource()==jTrait){
 	    		gamePanel.setLineType("trait");
-	    		//ca fait des traits a cote....
 	    	}
+	        else if (e.getSource()==jGomme){
+	        	gamePanel.setLineType("gomme");
+	        }
 	        else if (e.getSource ()==jPoubelle){
-	        	gamePanel.erase();//ca marche
+	        	gamePanel.erase();
 	        }
-	        else if (e.getSource ()==jGomme){
-	        	//coming soon.....
-	        }
-	    	
 	        else if (e.getSource ()==jRouge){
 	        	gamePanel.setPointerColor(Color.red);
 	        }
@@ -134,7 +131,6 @@ public class Jeu extends JFrame{
 	        else if (e.getSource ()==jBleu){
 	        	gamePanel.setPointerColor(Color.blue);
 	        }    	
-    	
     	}
     }
 }

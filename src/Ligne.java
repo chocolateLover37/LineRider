@@ -23,6 +23,26 @@ public class Ligne{
 		return taille;
 	}
 	
+	public double distance(int cX, int cY){
+		int aX=pointA.getX();
+		int aY=pointA.getY();
+		int bX=pointB.getX();
+		int bY=pointB.getY();
+		
+		double L = Math.sqrt(Math.pow(bX-aX,2)+Math.pow(bY-aY,2));
+		double r=((cX-aX)*(bX-aX)+(cY-aY)*(bY-aY))/(Math.pow(L,2));
+		double s=((aY-cY)*(bX-aX)-(aX-cX)*(bY-aY))/(Math.pow(L,2));
+		if((r>=0)&&(r<=1)){
+			return (double)Math.abs(s)*L;
+		}
+		if((r<0)&&(r>1)){
+			double a=Math.sqrt(Math.pow(cX-aX,2)+Math.pow(cY-aY,2));
+			double b=Math.sqrt(Math.pow(cX-bX,2)+Math.pow(cY-bY,2));
+			return Math.min(a,b);
+		}
+		return 1000;
+	}
+	
 	
 	//ACCESSEURS
 	public Color getColor() {
