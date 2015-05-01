@@ -1,19 +1,12 @@
 import java.awt.*;
-
 import javax.swing.*;
-
 import java.awt.event.*;
-import java.awt.geom.Line2D;
-import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
 public class GamePanel extends JPanel{
 	
 	public Color pointerColor = Color.red; //couleur du pointeur
-	public boolean erasing = true; //savoir si on dessine ou pas
-	public int pointerSize = 10; //taille du pointeur
-	public String lineType = "point"; //type de trait
-	public ArrayList<PointCustom> points = new ArrayList<PointCustom>();  
+	public String lineType = "trait"; //type de trait 
 	public ArrayList<Ligne> lignes = new ArrayList<Ligne>();
 	public Ligne temporaire = new Ligne(new PointCustom(-10,-10,Color.black), new PointCustom(-10,-10,Color.black),Color.black);
 	public int xS;
@@ -28,51 +21,39 @@ public class GamePanel extends JPanel{
 	}
 	
 	public class GestionOutils implements MouseListener, MouseMotionListener{
-		PointCustom pointStart = new PointCustom(-10,-10, pointerColor);
-		PointCustom pointEnd = new PointCustom(-10,-10, pointerColor);
 		PointCustom pointTempoS = new PointCustom(-10,-10, pointerColor);
 		PointCustom pointTempoE = new PointCustom(-10,-10, pointerColor);
 		
 		public void mousePressed(MouseEvent e){
-			if(lineType.equals("point")){
-				xS=e.getX();
-				yS=e.getY();
-				pointStart = new PointCustom(xS, yS, pointerColor);
-			}
-			
-			if(lineType.equals("trait")){
-				xS=e.getX();
-				yS=e.getY();
-				pointStart = new PointCustom(xS, yS, pointerColor);
-			}	
+			xS=e.getX();
+			yS=e.getY();
 	    }
 			
 		public void mouseDragged(MouseEvent e) {
-			if(lineType.equals("point")){
+			if(lineType.equals("crayon")){
 				pointTempoS.setXY(xS,yS);
-				pointTempoE = new PointCustom(e.getX(), e.getY(), pointerColor);
+				pointTempoE.setXY(e.getX(),e.getY());
 				temporaire = new Ligne(pointTempoS,pointTempoE,pointerColor);
 				
-				if(temporaire.taille()>=10){
-					lignes.add(new Ligne(pointTempoS,pointTempoE,pointerColor));
-					pointTempoS.setXY(pointTempoE.getX(), pointTempoE.getY());
-					repaint();
+				if(temporaire.taille()>=20){
+					lignes.add(new Ligne(new PointCustom(xS,yS,pointerColor), new PointCustom(e.getX(),e.getY(),pointerColor),pointerColor));
+					xS=e.getX();
+					yS=e.getY();
 				}
 				repaint();
 			}
-			
+		
 			if(lineType.equals("trait")){
 				pointTempoS.setXY(xS,yS);
-				pointTempoE = new PointCustom(e.getX(), e.getY(), pointerColor);
+				pointTempoE.setXY(e.getX(),e.getY());
 				temporaire = new Ligne(pointTempoS,pointTempoE,pointerColor);
 				repaint();
 			}
 		}
+		
 		public void mouseReleased(MouseEvent e) {
 			if(lineType.equals("trait")){
-				pointEnd = new PointCustom(e.getX(), e.getY(), pointerColor);
-				lignes.add(new Ligne(pointStart,pointEnd,pointerColor));
-				temporaire = new Ligne(new PointCustom(-10,-10, pointerColor),new PointCustom(-10,-10, pointerColor),pointerColor);
+				lignes.add(new Ligne(new PointCustom(xS,yS,pointerColor), new PointCustom(e.getX(),e.getY(),pointerColor),pointerColor));
 				repaint();
 			}
 		}	
@@ -88,53 +69,32 @@ public class GamePanel extends JPanel{
 	    g.setColor(Color.white);
 	    g.fillRect(0, 0, this.getWidth(), this.getHeight());
 
-	    //Si on doit effacer, on ne passe pas dans le else => pas de dessin
-	    if(this.erasing){
-	    	this.erasing = false;
-	    }
-	    else{
+    	for(int k=0;k<lignes.size();k++){//on parcourt chaque Ligne de la ArrayList lignes
+    		g.setColor(lignes.get(k).getColor());
+    		PointCustom pA=lignes.get(k).getPointA();
+    		PointCustom pB=lignes.get(k).getPointB();
+    	    PointCustom pTempoA=temporaire.getPointA();
+    		PointCustom pTempoB=temporaire.getPointB();
+    		Graphics2D g2d = (Graphics2D)g;
+    		Stroke stroke = new BasicStroke(5f);
+    		g2d.setStroke(stroke);
+    		g2d.drawLine(pA.getX(),pA.getY(),pB.getX(),pB.getY());
+    		g2d.drawLine(pTempoA.getX(),pTempoA.getY(),pTempoB.getX(),pTempoB.getY());
+	    }	
+	}	
 	    	
-	    	//On parcourt notre collection de points
-	    	/*for(PointCustom p : this.points){//ecriture chelou pour les arraylists
-	    		//On recupere la couleur
-	    		g.setColor(p.getColor());
-	    		g.fillOval(p.getX(), p.getY(), p.getSize(), p.getSize());
-	    	}*/
-	    	
-	    	for(int k=0;k<lignes.size();k++){//on parcourt chaque Ligne de la ArrayList lignes
-	    		g.setColor(lignes.get(k).getColor());
-	    		PointCustom pA=lignes.get(k).getPointA();
-	    		PointCustom pB=lignes.get(k).getPointB();
-	    		PointCustom pTempoA=temporaire.getPointA();
-	    		PointCustom pTempoB=temporaire.getPointB();
-	    		Graphics2D g2d = (Graphics2D)g;
-	    		Stroke stroke = new BasicStroke(5f);
-	    		g2d.setStroke(stroke);
-	    		g2d.drawLine(pA.getX(),pA.getY(),pB.getX(),pB.getY());
-	    		g2d.drawLine(pTempoA.getX(),pTempoA.getY(),pTempoB.getX(),pTempoB.getY());
-	    	}	
-	    	
-	    } 
-	} 
-	
-	//Efface le contenu
-	public void erase(){
-		this.erasing = true;
-	    this.points = new ArrayList<PointCustom>();
-	    this.lignes = new ArrayList<Ligne>();
+	public void erase(){ //Efface le contenu
+	    lignes.clear();
 	    repaint();
 	}
-
-	//Definit la couleur du pointeur
+	
 	public void setPointerColor(Color c){
 	    this.pointerColor = c;
 	}
 	
-	//Definit le type de trait
 	public void setLineType(String type){
 		this.lineType = type;
 	}
-	
 }	
 		
 		

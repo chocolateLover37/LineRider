@@ -48,9 +48,8 @@ public class Jeu extends JFrame{
         jOrange = new JButton(new ImageIcon(Jeu.class.getResource("Gorange.png")));
         jVert = new JButton(new ImageIcon(Jeu.class.getResource("Gvert.png")));
         jBleu = new JButton(new ImageIcon(Jeu.class.getResource("Gbleu.png")));
-        jCrayon.setPreferredSize(new Dimension(40, 40));
         
-        JButton[] tabOutils = {jCrayon,jTrait,jPoubelle,jGomme};
+        JButton[] tabOutils = {jTrait,jCrayon,jPoubelle,jGomme};
         for(int i=0;i<tabOutils.length;i++){
         	tabOutils[i].setPreferredSize(new Dimension(40, 40));
         	tabOutils[i].addActionListener(new GestionToolBar());	
@@ -64,8 +63,8 @@ public class Jeu extends JFrame{
         }
         
         
-		outils.add(jCrayon);
-        outils.add(jTrait);
+		outils.add(jTrait);
+        outils.add(jCrayon);
         outils.add(jPoubelle);
         outils.add(jGomme);
         couleurs.add(jRouge);
@@ -85,22 +84,23 @@ public class Jeu extends JFrame{
 		this.setVisible(true);
 	}
 	
-        //Method detection collisions
-        public Ligne collision (Rectangle2D [] bbille, LinkedList<Ligne> lili){
-            Ligne choc = null;
-            Rectangle2D bcourbe;
-            bcourbe = null;
-            for (int k=0; k< bbille.length; k++){
-            java.util.Iterator<Ligne> iterator = lili.iterator();
-            //check of collisions with other objects
-            while (iterator.hasNext()) {
-            	Ligne i = iterator.next();
-            	bcourbe = this.getBounds();
-            	if (bcourbe.intersects(bbille[k])==true){
-            		choc = i;}
-		}
-            }
-	return choc;
+    //Method detection collisions
+    public Ligne collision (Rectangle2D [] bbille, LinkedList<Ligne> lili){
+        Ligne choc = null;
+        Rectangle2D bcourbe;
+        bcourbe = null;
+        for (int k=0; k< bbille.length; k++){
+		    java.util.Iterator<Ligne> iterator = lili.iterator();
+		    //check of collisions with other objects
+		    while (iterator.hasNext()) {
+		    	Ligne i = iterator.next();
+		    	bcourbe = this.getBounds();
+		    	if (bcourbe.intersects(bbille[k])==true){
+		    		choc = i;
+		    	}
+		    }
+        }
+        return choc;
 	}
 
     public class GestionToolBar implements ActionListener{  
@@ -108,7 +108,7 @@ public class Jeu extends JFrame{
     	public void actionPerformed(ActionEvent e){
     		
 	    	if(e.getSource()==jCrayon){
-	    		gamePanel.setLineType("point");
+	    		gamePanel.setLineType("crayon");
 	    		//ca fait des ronds
 	    	}
 	    	else if(e.getSource()==jTrait){
