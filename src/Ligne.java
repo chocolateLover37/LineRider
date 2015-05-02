@@ -11,6 +11,12 @@ public class Ligne{
 		color=couleur;
 	}
 	
+	public Ligne(){
+		pointA = new PointCustom();
+		pointB = new PointCustom();
+		color=Color.black;
+	}
+	
 	public double pente(){//ca servira probablement pour l'animation
 		double pente = (pointB.getY()-pointA.getY())/(pointB.getX()-pointA.getX());
 		return pente;

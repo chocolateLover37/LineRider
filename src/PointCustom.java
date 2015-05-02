@@ -11,6 +11,11 @@ public class PointCustom {
 		this.y = y;
 		this.color = color;
 	}
+	public PointCustom(){
+		this.x=-10;
+		this.y=-10;
+		this.color = Color.black;
+	}
 
 	//ACCESSEURS
 	public Color getColor() {
