@@ -28,6 +28,11 @@ public class Jeu extends JFrame{
 	public JButton[] tabOutils;
 	public JButton[] tabCouleurs;
 	public GamePanel gamePanel=new GamePanel(); //aire de dessin des courbes (classe faite maison)
+        public boolean crayon;
+        public boolean trait;
+        public boolean poubelle;
+        public boolean gomme;
+        public Color transpar= new Color(1,1,1,0);
 	
 	
 	public Jeu(){
@@ -41,26 +46,28 @@ public class Jeu extends JFrame{
 
 		jCrayon = new JButton(new ImageIcon(Jeu.class.getResource("Kcrayon.png"))); //JButton c'est aussi dans java
 		jTrait = new JButton(new ImageIcon(Jeu.class.getResource("Ktrait.png")));
-        jPoubelle = new JButton(new ImageIcon(Jeu.class.getResource("Kpoubelle.png")));
-        jGomme = new JButton(new ImageIcon(Jeu.class.getResource("Kgomme.png")));
-        
-        jRouge = new JButton(new ImageIcon(Jeu.class.getResource("Grouge.png")));
-        jOrange = new JButton(new ImageIcon(Jeu.class.getResource("Gorange.png")));
-        jVert = new JButton(new ImageIcon(Jeu.class.getResource("Gvert.png")));
-        jBleu = new JButton(new ImageIcon(Jeu.class.getResource("Gbleu.png")));
-        
-        JButton[] tabOutils = {jTrait,jCrayon,jPoubelle,jGomme};
-        for(int i=0;i<tabOutils.length;i++){
-        	tabOutils[i].setPreferredSize(new Dimension(40, 40));
-        	tabOutils[i].addActionListener(new GestionToolBar());	
-        	outils.add(tabOutils[i]);
-        }
-        JButton[] tabCouleurs = {jRouge,jOrange,jVert,jBleu};
-        for(int i=0;i<tabCouleurs.length;i++){
-        	tabCouleurs[i].setPreferredSize(new Dimension(20, 20));
-        	tabCouleurs[i].addActionListener(new GestionToolBar());	
-        	couleurs.add(tabCouleurs[i]);
-        }
+                jPoubelle = new JButton(new ImageIcon(Jeu.class.getResource("Kpoubelle.png")));
+                jGomme = new JButton(new ImageIcon(Jeu.class.getResource("Kgomme.png")));
+                
+                jRouge = new JButton(new ImageIcon(Jeu.class.getResource("Grouge.png")));
+                jOrange = new JButton(new ImageIcon(Jeu.class.getResource("Gorange.png")));
+                jVert = new JButton(new ImageIcon(Jeu.class.getResource("Gvert.png")));
+                jBleu = new JButton(new ImageIcon(Jeu.class.getResource("Gbleu.png")));
+                
+                JButton[] tabOutils = {jTrait,jCrayon,jPoubelle,jGomme};
+                for(int i=0;i<tabOutils.length;i++){
+                        tabOutils[i].setPreferredSize(new Dimension(50, 50));
+                        tabOutils[i].addActionListener(new GestionToolBar());
+                        tabOutils[i].setBackground(Color.white);
+                        outils.add(tabOutils[i]);
+                        
+                }
+                JButton[] tabCouleurs = {jRouge,jOrange,jVert,jBleu};
+                for(int i=0;i<tabCouleurs.length;i++){
+                        tabCouleurs[i].setPreferredSize(new Dimension(20, 20));
+                        tabCouleurs[i].addActionListener(new GestionToolBar());	
+                        couleurs.add(tabCouleurs[i]);
+                }
         
         
 		outils.add(jTrait);
@@ -83,6 +90,7 @@ public class Jeu extends JFrame{
 		this.pack();
 		this.setVisible(true);
 	}
+       
 	
     //Methode de detection des collisions
     public Ligne collision (Rectangle2D [] bbille, LinkedList<Ligne> lili){
@@ -109,15 +117,45 @@ public class Jeu extends JFrame{
     		
 	    	if(e.getSource()==jCrayon){
 	    		gamePanel.setLineType("crayon");
+	    	    jCrayon.setBackground(Color.blue);
+                  
+	    	    jTrait.setBackground(Color.white);
+	    	    jGomme.setBackground(Color.white);
+	    	    
+	    	    jPoubelle.setBackground(Color.white);
+	    	    
+	    	    
+                    
+                    
 	    	}
 	    	else if(e.getSource()==jTrait){
 	    		gamePanel.setLineType("trait");
+	    	    jTrait.setBackground(Color.blue);
+	    	    jGomme.setBackground(Color.white);
+	    	    jCrayon.setBackground(Color.white);
+	    	    jPoubelle.setBackground(Color.white);
+	    	    
+	    	    
+	    	   
+                    
 	    	}
 	        else if (e.getSource()==jGomme){
 	        	gamePanel.setLineType("gomme");
+	            jTrait.setBackground(Color.white);
+	            jCrayon.setBackground(Color.white);
+	            jGomme.setBackground(Color.blue);
+	            jPoubelle.setBackground(Color.white);
+	            
+	           
 	        }
 	        else if (e.getSource ()==jPoubelle){
 	        	gamePanel.erase();
+	            jTrait.setBackground(Color.white);
+	            jCrayon.setBackground(Color.white);
+	            jGomme.setBackground(Color.white);
+	            jPoubelle.setBackground(Color.blue);
+	           
+                        
 	        }
 	        else if (e.getSource ()==jRouge){
 	        	gamePanel.setPointerColor(Color.red);
@@ -130,8 +168,13 @@ public class Jeu extends JFrame{
 	        }
 	        else if (e.getSource ()==jBleu){
 	        	gamePanel.setPointerColor(Color.blue);
-	        }    	
+	        } 
+    	    
     	}
+        
     }
+        
+        
+    
 }
 
