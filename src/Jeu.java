@@ -32,7 +32,7 @@ public class Jeu extends JFrame{
         public boolean trait;
         public boolean poubelle;
         public boolean gomme;
-        
+        public Color transpar= new Color(1,1,1,0);
 	
 	
 	public Jeu(){
@@ -56,8 +56,9 @@ public class Jeu extends JFrame{
                 
                 JButton[] tabOutils = {jTrait,jCrayon,jPoubelle,jGomme};
                 for(int i=0;i<tabOutils.length;i++){
-                        tabOutils[i].setPreferredSize(new Dimension(40, 40));
-                        tabOutils[i].addActionListener(new GestionToolBar());	
+                        tabOutils[i].setPreferredSize(new Dimension(50, 50));
+                        tabOutils[i].addActionListener(new GestionToolBar());
+                        tabOutils[i].setBackground(Color.white);
                         outils.add(tabOutils[i]);
                         
                 }
@@ -116,37 +117,45 @@ public class Jeu extends JFrame{
     		
 	    	if(e.getSource()==jCrayon){
 	    		gamePanel.setLineType("crayon");
-                        crayon=true;
-                        trait=false;
-                        poubelle=false;
-                        gomme=false;
-                        buttonPressed();
+	    	    jCrayon.setBackground(Color.blue);
+                  
+	    	    jTrait.setBackground(Color.white);
+	    	    jGomme.setBackground(Color.white);
+	    	    
+	    	    jPoubelle.setBackground(Color.white);
+	    	    
+	    	    
+                    
                     
 	    	}
 	    	else if(e.getSource()==jTrait){
 	    		gamePanel.setLineType("trait");
-	    	    crayon=false;
-	    	    trait=true;
-	    	    poubelle=false;
-	    	    gomme=false;
-	    	    buttonPressed();
+	    	    jTrait.setBackground(Color.blue);
+	    	    jGomme.setBackground(Color.white);
+	    	    jCrayon.setBackground(Color.white);
+	    	    jPoubelle.setBackground(Color.white);
+	    	    
+	    	    
+	    	   
                     
 	    	}
 	        else if (e.getSource()==jGomme){
 	        	gamePanel.setLineType("gomme");
-	            crayon=false;
-	            trait=false;
-	            poubelle=false;
-	            gomme=true;
-	            buttonPressed();
+	            jTrait.setBackground(Color.white);
+	            jCrayon.setBackground(Color.white);
+	            jGomme.setBackground(Color.blue);
+	            jPoubelle.setBackground(Color.white);
+	            
+	           
 	        }
 	        else if (e.getSource ()==jPoubelle){
 	        	gamePanel.erase();
-                        crayon=false;
-                        trait=false;
-                        poubelle=true;
-                        gomme=false;
-	            buttonPressed();
+	            jTrait.setBackground(Color.white);
+	            jCrayon.setBackground(Color.white);
+	            jGomme.setBackground(Color.white);
+	            jPoubelle.setBackground(Color.blue);
+	           
+                        
 	        }
 	        else if (e.getSource ()==jRouge){
 	        	gamePanel.setPointerColor(Color.red);
@@ -163,16 +172,9 @@ public class Jeu extends JFrame{
     	    
     	}
         
-        public void buttonPressed(){
-            while(crayon==true){
-                jCrayon.setIcon(new ImageIcon(Jeu.class.getResource("Kcrayonbis.png")));
-            }
-            
-            while(poubelle==true){
-                jPoubelle.setIcon(new ImageIcon(Jeu.class.getResource("Kpoubellebis.png")));
-            }
-            
-        }
     }
+        
+        
+    
 }
 
