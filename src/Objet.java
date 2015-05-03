@@ -57,18 +57,29 @@ public abstract class Objet {
     // en construction
     public void move(long t){
     	double g=9.81;
+        double a=1; //provisoire
+        // recupere position de la courbe : 
+        //double a=pente(courbe)
+        
+        
     	//  recalcule la nouvelle position de l'objet 
         
         // cas 1 : pas de contact avec une courbe 
         if (collision==true){
         x=x+dx*t ;
         y=y+(-12)*g*Math.pow(t,2)+dy*t;
+        dy=-g*t+dy;
+
+
         }
         
         //cas 2: contact avec une courbe
+         
         else{
-        	//x=x+(-12)*g*t*2*Math.sin()+ dx*t;
-            //y=y+12*g*Math.pow(t,2)*(Math.cos()-1)+dy*t;   
+            //x=x+(-12)*g*t*2*Math.sin(a)+ dx*t;
+            //y=y+12*g*Math.pow(t,2)*(Math.cos(a)-1)+dy*t;  
+            //dx=-g*t*Math.sin(a) + dx; 
+            //dy=g*t*(Math.cos(a) -1)+ dy
         }
     }
 }
