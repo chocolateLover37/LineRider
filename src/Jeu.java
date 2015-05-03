@@ -1,18 +1,9 @@
 import java.awt.*;
 import javax.swing.*;
-import javax.swing.text.html.HTMLDocument.Iterator;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 import java.awt.geom.Rectangle2D;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.util.*;
-import javax.imageio.ImageIO;
-
 
 public class Jeu extends JFrame{
 	
@@ -22,7 +13,7 @@ public class Jeu extends JFrame{
 	public JPanel couleurs = new JPanel();
 	public JButton jTrait;
 	public JButton jCrayon, jPoubelle, jGomme;
-	public JButton jRouge, jOrange, jVert, jBleu;
+	public JButton jNoir, jRouge, jOrange, jVert, jBleu;
 	public JButton[] tabOutils;
 	public JButton[] tabCouleurs;
 	public GamePanel gamePanel=new GamePanel();
@@ -41,6 +32,7 @@ public class Jeu extends JFrame{
         jPoubelle = new JButton(new ImageIcon(Jeu.class.getResource("Kpoubelle.png")));
         jGomme = new JButton(new ImageIcon(Jeu.class.getResource("Kgomme.png")));
         
+        jNoir = new JButton(new ImageIcon(Jeu.class.getResource("Gnoir.png")));
         jRouge = new JButton(new ImageIcon(Jeu.class.getResource("Grouge.png")));
         jOrange = new JButton(new ImageIcon(Jeu.class.getResource("Gorange.png")));
         jVert = new JButton(new ImageIcon(Jeu.class.getResource("Gvert.png")));
@@ -53,7 +45,7 @@ public class Jeu extends JFrame{
                 tabOutils[i].setBackground(Color.white);
                 outils.add(tabOutils[i]);    
         }
-        JButton[] tabCouleurs = {jRouge,jOrange,jVert,jBleu};
+        JButton[] tabCouleurs = {jRouge,jOrange,jVert,jBleu,jNoir};
         for(int i=0;i<tabCouleurs.length;i++){
                 tabCouleurs[i].setPreferredSize(new Dimension(20, 20));
                 tabCouleurs[i].addActionListener(new GestionToolBar());	
@@ -65,6 +57,7 @@ public class Jeu extends JFrame{
         outils.add(jCrayon);
         outils.add(jPoubelle);
         outils.add(jGomme);
+        couleurs.add(jNoir);
         couleurs.add(jRouge);
         couleurs.add(jOrange);
         couleurs.add(jVert);
@@ -100,7 +93,7 @@ public class Jeu extends JFrame{
 		    }
         }
         return choc;
-	}
+    }
 
     public class GestionToolBar implements ActionListener{  
 
@@ -108,7 +101,7 @@ public class Jeu extends JFrame{
 
 	    	if(e.getSource()==jCrayon){
 	    		gamePanel.setAction("crayon");
-	    		gamePanel.setPointerColor(Color.red);
+	    		gamePanel.setPointerColor(Color.black);
 	    	    jCrayon.setBackground(Color.blue);
 	    	    jTrait.setBackground(Color.white);
 	    	    jGomme.setBackground(Color.white);
@@ -116,7 +109,7 @@ public class Jeu extends JFrame{
 	    	}
 	    	else if(e.getSource()==jTrait){
 	    		gamePanel.setAction("trait");
-	    		gamePanel.setPointerColor(Color.red);
+	    		gamePanel.setPointerColor(Color.black);
 	    	    jTrait.setBackground(Color.blue);
 	    	    jGomme.setBackground(Color.white);
 	    	    jCrayon.setBackground(Color.white);
@@ -150,6 +143,9 @@ public class Jeu extends JFrame{
 	        else if (e.getSource ()==jBleu){
 	        	gamePanel.setPointerColor(Color.blue);
 	        }   
+	        else if (e.getSource ()==jNoir){
+	        	gamePanel.setPointerColor(Color.black);
+	        }  
     	} 
     }   
 }

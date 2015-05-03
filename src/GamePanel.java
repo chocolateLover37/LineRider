@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public class GamePanel extends JPanel{
 	
-	public Color pointerColor = Color.red; //couleur du pointeur
+	public Color pointerColor = Color.black; //couleur du pointeur
 	public String action = "trait"; //type de trait 
 	public ArrayList<Ligne> lignes = new ArrayList<Ligne>();
 	public Ligne temporaire = new Ligne();
