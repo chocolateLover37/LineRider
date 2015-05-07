@@ -71,7 +71,7 @@ public abstract class Objet {
     	//  recalcule la nouvelle position de l'objet 
         
         // cas 1 : pas de contact avec une courbe 
-        if (collision==true){
+        if (collision==false){
         x=x+dx*t ;
         y=y+(-0.5)*g*Math.pow(t,2)+dy*t;
         dy=-g*t+dy;
