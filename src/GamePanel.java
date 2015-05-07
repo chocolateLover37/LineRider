@@ -1,5 +1,7 @@
 import java.awt.*;
+
 import javax.swing.*;
+
 import java.awt.event.*;
 import java.util.ArrayList;
 
@@ -9,8 +11,7 @@ public class GamePanel extends JPanel{
 	public String action = "trait"; //type de trait 
 	public ArrayList<Ligne> lignes = new ArrayList<Ligne>();
 	public Ligne temporaire = new Ligne();
-	public int xS;
-	public int yS;
+	public int xS,yS;
 	public Depart dpt = new Depart(50,50,"dpt.png");
 	
 	public GamePanel(){
@@ -18,7 +19,9 @@ public class GamePanel extends JPanel{
 		this.setBackground(Color.white);
 		setVisible(true);
 		this.addMouseListener(new GestionOutils());
+		this.addMouseListener(new DeplacementDepart());
 		this.addMouseMotionListener(new GestionOutils());
+		this.addMouseMotionListener(new DeplacementDepart());
 	}
 	
 	public class GestionOutils implements MouseListener, MouseMotionListener{
@@ -82,10 +85,34 @@ public class GamePanel extends JPanel{
 		public void mouseExited(MouseEvent e) {}
 	}
 	
+	public class DeplacementDepart implements MouseListener, MouseMotionListener{
+		public double xMouse,yMouse;
+		public boolean clicImage=false;
+		
+		public void mousePressed(MouseEvent e){
+			xMouse=e.getX();
+			yMouse=e.getY();
+			if((Math.abs(dpt.getX()-xMouse)<=25)&&(Math.abs(dpt.getY()-yMouse)<=25)){
+				clicImage=true;
+			}
+		}
+		public void mouseDragged(MouseEvent e) {
+			if(clicImage==true){
+				dpt.setXY(e.getX(),e.getY());
+				repaint();
+			}
+		}
+		public void mouseReleased(MouseEvent e) {}	
+		public void mouseMoved(MouseEvent e) {}
+		public void mouseClicked(MouseEvent e) {}
+		public void mouseEntered(MouseEvent e) {}
+		public void mouseExited(MouseEvent e) {}	
+	}
 	public void paintComponent(Graphics g) {
 
 	    g.setColor(Color.white);
 	    g.fillRect(0, 0, this.getWidth(), this.getHeight());
+	    g.drawImage(dpt.image,(int)dpt.getX(),(int)dpt.getY(),null);
     	for(int k=0;k<lignes.size();k++){//on parcourt chaque Ligne de la ArrayList lignes
     		g.setColor(lignes.get(k).getColor());
     		PointCustom pA=lignes.get(k).getPointA();

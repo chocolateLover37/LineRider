@@ -15,7 +15,7 @@ public class Depart {
 	    }
 	    catch(Exception err) {
 	        System.out.println(NomImage+" introuvable !");
-	        System.out.println("Mettre les images dans le repertoire :"+getClass().getClassLoader().getResource(NomImage));
+	        System.out.println("Mettre les images dans le repertoire");
 	        System.exit(0);
 	    }	
 	}
@@ -24,4 +24,11 @@ public class Depart {
 		x=ax;
 		y=ay;
 	}
+	public double getX() {
+		return x;
+	}
+	public double getY() {
+		return y;
+	}
+	
 }
