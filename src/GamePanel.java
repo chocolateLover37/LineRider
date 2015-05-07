@@ -11,6 +11,7 @@ public class GamePanel extends JPanel{
 	public Ligne temporaire = new Ligne();
 	public int xS;
 	public int yS;
+	public Depart dpt = new Depart(50,50,"dpt.png");
 	
 	public GamePanel(){
 		setPreferredSize(new Dimension(1200,600));
@@ -85,7 +86,6 @@ public class GamePanel extends JPanel{
 
 	    g.setColor(Color.white);
 	    g.fillRect(0, 0, this.getWidth(), this.getHeight());
-
     	for(int k=0;k<lignes.size();k++){//on parcourt chaque Ligne de la ArrayList lignes
     		g.setColor(lignes.get(k).getColor());
     		PointCustom pA=lignes.get(k).getPointA();
