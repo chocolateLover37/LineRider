@@ -17,10 +17,5 @@ public abstract class Bille extends Objet {
     	}
     	return pipi;
     }
-    public void move(double pente) {
-    	// cas contact  if (Collision==true)
-        
-        //cas sans contact 
-            
-    }   
+    
 }
