@@ -15,6 +15,7 @@ public abstract class Objet {
     public Rectangle [] limites;
     public Rectangle limitesframe;
     
+    
     public Objet(double ax,double ay,double adx,double ady,Rectangle aframe,String NomImage){
     	x=ax;
         y=ay;
@@ -22,6 +23,7 @@ public abstract class Objet {
         dy=ady;
         actif=true;
         limitesframe=aframe;
+      
     
 	    //lire l'image de l'objet designee par son nom en controlant
 	    // les exceptions provoquees par les erreurs de chargement
@@ -58,8 +60,12 @@ public abstract class Objet {
     public void move(long t){
     	double g=9.81;
         double a=1; //provisoire
-        // recupere position de la courbe : 
-        //double a=pente(courbe)
+        // recupere pente de la courbe et boolean: 
+        //ReturnCollision k= collision();
+        //Ligne l=k.getLigne();
+        //double a=pente(l);
+        //boolean collision=k.getBol;
+      
         
         
     	//  recalcule la nouvelle position de l'objet 
@@ -67,7 +73,7 @@ public abstract class Objet {
         // cas 1 : pas de contact avec une courbe 
         if (collision==true){
         x=x+dx*t ;
-        y=y+(-0.5)*g*Math.pow(t,2)+dy*t;
+        y=y+(-12)*g*Math.pow(t,2)+dy*t;
         dy=-g*t+dy;
 
 
@@ -76,8 +82,8 @@ public abstract class Objet {
         //cas 2: contact avec une courbe
          
         else{
-            //x=x+(-0.5)*g*t*2*Math.sin(a)+ dx*t;
-            //y=y+0.5*g*Math.pow(t,2)*(Math.cos(a)-1)+dy*t;  
+            //x=x+(-12)*g*t*2*Math.sin(a)+ dx*t;
+            //y=y+12*g*Math.pow(t,2)*(Math.cos(a)-1)+dy*t;  
             //dx=-g*t*Math.sin(a) + dx; 
             //dy=g*t*(Math.cos(a) -1)+ dy
         }
