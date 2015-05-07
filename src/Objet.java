@@ -51,7 +51,24 @@ public abstract class Objet {
     }
     
     //abstraite pour le moment,sera definie ici
-    public abstract boolean Collision();
+    public ReturnCollision collision (ArrayList<Ligne> lili){
+	        
+	        boolean col = false;
+	        double bcourbe;
+	        java.util.Iterator<Ligne> iterator = lili.iterator();
+	        //check of collisions with other objects
+	        while (iterator.hasNext()) {
+	        	Ligne i = iterator.next();
+	        	bcourbe = i.distance((int) x,(int) y);
+	        	if (bcourbe<=5){
+	        		col = true;
+	        		ReturnCollision choc = new ReturnCollision(i,col);
+	        		return choc;}
+	        }
+	        
+	        ReturnCollision choc = new ReturnCollision(null, col);
+			return choc;
+	}
   
     //recupere les rectangles qui definissent la bille pour les collisions
     public abstract Rectangle[] GetCollisionBoxes();
