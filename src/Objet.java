@@ -67,7 +67,7 @@ public abstract class Objet {
         // cas 1 : pas de contact avec une courbe 
         if (collision==true){
         x=x+dx*t ;
-        y=y+(-12)*g*Math.pow(t,2)+dy*t;
+        y=y+(-0.5)*g*Math.pow(t,2)+dy*t;
         dy=-g*t+dy;
 
 
@@ -76,8 +76,8 @@ public abstract class Objet {
         //cas 2: contact avec une courbe
          
         else{
-            //x=x+(-12)*g*t*2*Math.sin(a)+ dx*t;
-            //y=y+12*g*Math.pow(t,2)*(Math.cos(a)-1)+dy*t;  
+            //x=x+(-0.5)*g*t*2*Math.sin(a)+ dx*t;
+            //y=y+0.5*g*Math.pow(t,2)*(Math.cos(a)-1)+dy*t;  
             //dx=-g*t*Math.sin(a) + dx; 
             //dy=g*t*(Math.cos(a) -1)+ dy
         }
