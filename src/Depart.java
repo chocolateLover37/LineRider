@@ -7,15 +7,15 @@ public class Depart {
 	public double x,y;
 	public Image image;
 	
-	public Depart(double ax, double ay, String NomImage){
+	public Depart(double ax, double ay){
 		x=ax;
 		y=ay;
 		try {
-	        image= ImageIO.read(new File(NomImage));
+	        image= ImageIO.read(new File("dpt.png"));
 	    }
 	    catch(Exception err) {
-	        System.out.println(NomImage+" introuvable !");
-	        System.out.println("Mettre les images dans le repertoire");
+	        System.out.println("dpt.png est introuvable !");
+	        System.out.println("Mettre l'image dans le repertoire");
 	        System.exit(0);
 	    }	
 	}

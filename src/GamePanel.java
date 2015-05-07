@@ -3,6 +3,7 @@ import java.awt.*;
 import javax.swing.*;
 
 import java.awt.event.*;
+import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
 public class GamePanel extends JPanel{
@@ -12,22 +13,22 @@ public class GamePanel extends JPanel{
 	public ArrayList<Ligne> lignes = new ArrayList<Ligne>();
 	public Ligne temporaire = new Ligne();
 	public int xS,yS;
-	public Depart dpt = new Depart(50,50,"dpt.png");
+	public Depart dpt = new Depart(50,50);
+	public Point2D depart;
+	public Point2D mouse;
 	
 	public GamePanel(){
 		setPreferredSize(new Dimension(1200,600));
 		this.setBackground(Color.white);
 		setVisible(true);
 		this.addMouseListener(new GestionOutils());
-		this.addMouseListener(new DeplacementDepart());
 		this.addMouseMotionListener(new GestionOutils());
-		this.addMouseMotionListener(new DeplacementDepart());
 	}
 	
 	public class GestionOutils implements MouseListener, MouseMotionListener{
 		PointCustom pointTempoS = new PointCustom();
 		PointCustom pointTempoE = new PointCustom();
-		
+		public double xMouse,yMouse,xD,yD;
 		
 		public void mousePressed(MouseEvent e){
 			xS=e.getX();
@@ -44,6 +45,15 @@ public class GamePanel extends JPanel{
 	    }
 			
 		public void mouseDragged(MouseEvent e) {
+			xMouse=e.getX();
+			yMouse=e.getY();
+			mouse.setLocation(xMouse,yMouse);
+			depart.setLocation(dpt.getX(),dpt.getY());
+
+			/*if(distance(mouse,depart)){
+				dpt.setXY(e.getX()-25,e.getY()-25);
+				repaint();
+			}*/
 			
 			if(action.equals("crayon")){
 				pointTempoS.setXY(xS,yS);
@@ -85,29 +95,6 @@ public class GamePanel extends JPanel{
 		public void mouseExited(MouseEvent e) {}
 	}
 	
-	public class DeplacementDepart implements MouseListener, MouseMotionListener{
-		public double xMouse,yMouse;
-		public boolean clicImage=false;
-		
-		public void mousePressed(MouseEvent e){
-			xMouse=e.getX();
-			yMouse=e.getY();
-			if((Math.abs(dpt.getX()-xMouse)<=25)&&(Math.abs(dpt.getY()-yMouse)<=25)){
-				clicImage=true;
-			}
-		}
-		public void mouseDragged(MouseEvent e) {
-			if(clicImage==true){
-				dpt.setXY(e.getX(),e.getY());
-				repaint();
-			}
-		}
-		public void mouseReleased(MouseEvent e) {}	
-		public void mouseMoved(MouseEvent e) {}
-		public void mouseClicked(MouseEvent e) {}
-		public void mouseEntered(MouseEvent e) {}
-		public void mouseExited(MouseEvent e) {}	
-	}
 	public void paintComponent(Graphics g) {
 
 	    g.setColor(Color.white);
