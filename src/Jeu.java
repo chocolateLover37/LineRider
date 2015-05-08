@@ -94,6 +94,7 @@ public class Jeu extends JFrame{
         }
         return choc;
     }
+    
 
     public class GestionToolBar implements ActionListener{  
 

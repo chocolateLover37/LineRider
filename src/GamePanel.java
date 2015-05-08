@@ -1,6 +1,9 @@
 import java.awt.*;
+
 import javax.swing.*;
+
 import java.awt.event.*;
+import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
 public class GamePanel extends JPanel{
@@ -9,8 +12,10 @@ public class GamePanel extends JPanel{
 	public String action = "trait"; //type de trait 
 	public ArrayList<Ligne> lignes = new ArrayList<Ligne>();
 	public Ligne temporaire = new Ligne();
-	public int xS;
-	public int yS;
+	public int xS,yS;
+	public Depart dpt = new Depart(50,50);
+	public Point2D depart;
+	public Point2D mouse;
 	
 	public GamePanel(){
 		setPreferredSize(new Dimension(1200,600));
@@ -23,7 +28,7 @@ public class GamePanel extends JPanel{
 	public class GestionOutils implements MouseListener, MouseMotionListener{
 		PointCustom pointTempoS = new PointCustom();
 		PointCustom pointTempoE = new PointCustom();
-		
+		public double xMouse,yMouse,xD,yD;
 		
 		public void mousePressed(MouseEvent e){
 			xS=e.getX();
@@ -40,6 +45,15 @@ public class GamePanel extends JPanel{
 	    }
 			
 		public void mouseDragged(MouseEvent e) {
+			xMouse=e.getX();
+			yMouse=e.getY();
+			mouse.setLocation(xMouse,yMouse);
+			depart.setLocation(dpt.getX(),dpt.getY());
+
+			/*if(distance(mouse,depart)){
+				dpt.setXY(e.getX()-25,e.getY()-25);
+				repaint();
+			}*/
 			
 			if(action.equals("crayon")){
 				pointTempoS.setXY(xS,yS);
@@ -85,7 +99,7 @@ public class GamePanel extends JPanel{
 
 	    g.setColor(Color.white);
 	    g.fillRect(0, 0, this.getWidth(), this.getHeight());
-
+	    g.drawImage(dpt.image,(int)dpt.getX(),(int)dpt.getY(),null);
     	for(int k=0;k<lignes.size();k++){//on parcourt chaque Ligne de la ArrayList lignes
     		g.setColor(lignes.get(k).getColor());
     		PointCustom pA=lignes.get(k).getPointA();

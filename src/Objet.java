@@ -15,6 +15,7 @@ public abstract class Objet {
     public Rectangle [] limites;
     public Rectangle limitesframe;
     
+    
     public Objet(double ax,double ay,double adx,double ady,Rectangle aframe,String NomImage){
     	x=ax;
         y=ay;
@@ -22,6 +23,7 @@ public abstract class Objet {
         dy=ady;
         actif=true;
         limitesframe=aframe;
+      
     
 	    //lire l'image de l'objet designee par son nom en controlant
 	    // les exceptions provoquees par les erreurs de chargement
@@ -49,7 +51,24 @@ public abstract class Objet {
     }
     
     //abstraite pour le moment,sera definie ici
-    public abstract boolean Collision();
+    public ReturnCollision collision (ArrayList<Ligne> lili){
+	        
+	        boolean col = false;
+	        double bcourbe;
+	        java.util.Iterator<Ligne> iterator = lili.iterator();
+	        //check of collisions with other objects
+	        while (iterator.hasNext()) {
+	        	Ligne i = iterator.next();
+	        	bcourbe = i.distance((int) x,(int) y);
+	        	if (bcourbe<=5){
+	        		col = true;
+	        		ReturnCollision choc = new ReturnCollision(i,col);
+	        		return choc;}
+	        }
+	        
+	        ReturnCollision choc = new ReturnCollision(null, col);
+			return choc;
+	}
   
     //recupere les rectangles qui definissent la bille pour les collisions
     public abstract Rectangle[] GetCollisionBoxes();
@@ -57,18 +76,33 @@ public abstract class Objet {
     // en construction
     public void move(long t){
     	double g=9.81;
+        double a=1; //provisoire
+        // recupere pente de la courbe et boolean: 
+        //ReturnCollision k= collision();
+        //Ligne l=k.getLigne();
+        //double a=pente(l);
+        //boolean collision=k.getBol;
+      
+        
+        
     	//  recalcule la nouvelle position de l'objet 
         
         // cas 1 : pas de contact avec une courbe 
-        if (collision==true){
+        if (collision==false){
         x=x+dx*t ;
-        y=y+(-12)*g*Math.pow(t,2)+dy*t;
+        y=y+(-0.5)*g*Math.pow(t,2)+dy*t;
+        dy=-g*t+dy;
+
+
         }
         
         //cas 2: contact avec une courbe
+         
         else{
-        	//x=x+(-12)*g*t*2*Math.sin()+ dx*t;
-            //y=y+12*g*Math.pow(t,2)*(Math.cos()-1)+dy*t;   
+            //x=x+(-0.5)*g*t*2*Math.sin(a)+ dx*t;
+            //y=y+0.5*g*Math.pow(t,2)*(Math.cos(a)-1)+dy*t;  
+            //dx=-g*t*Math.sin(a) + dx; 
+            //dy=g*t*(Math.cos(a) -1)+ dy
         }
     }
 }
