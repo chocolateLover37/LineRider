@@ -118,6 +118,14 @@ public class GamePanel extends JPanel{
 	    lignes.clear();
 	    repaint();
 	}
+	public ArrayList<Ligne> getLignes() {
+		return lignes;
+	}
+
+	public void setLignes(ArrayList<Ligne> lignes) {
+		this.lignes = lignes;
+	}
+
 	public void setPointerColor(Color c){
 	    this.pointerColor = c;
 	}

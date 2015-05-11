@@ -76,14 +76,14 @@ public abstract class Objet {
     public abstract Rectangle[] GetCollisionBoxes();
     
     // en construction
-    public void move(long t){
+    public void move(long t, ArrayList<Ligne> Listdeligne){
     	double g=9.81;
         double a=1; //provisoire
         // recupere pente de la courbe et boolean: 
-        //ReturnCollision k= collision();
-        //Ligne l=k.getLigne();
-        //double a=pente(l);
-        //boolean collision=k.getBol;
+        ReturnCollision k= collision(Listdeligne);
+        Ligne l = k.getLigne();
+        double p= pente(l);
+        boolean collision=k.getBol();
       
         
         
@@ -101,10 +101,14 @@ public abstract class Objet {
         //cas 2: contact avec une courbe
          
         else{
-            //x=x+(-0.5)*g*t*2*Math.sin(a)+ dx*t;
-            //y=y+0.5*g*Math.pow(t,2)*(Math.cos(a)-1)+dy*t;  
-            //dx=-g*t*Math.sin(a) + dx; 
-            //dy=g*t*(Math.cos(a) -1)+ dy
+            x=x+(-0.5)*g*t*2*Math.sin(a)+ dx*t;
+            y=y+0.5*g*Math.pow(t,2)*(Math.cos(a)-1)+dy*t;  
+            dx=-g*t*Math.sin(a) + dx; 
+            dy=g*t*(Math.cos(a) -1)+ dy;
         }
     }
+	public double pente(Ligne babaorum){//ca servira probablement pour l'animation
+		double pente = (babaorum.pointB.getY()-babaorum.pointA.getY())/(babaorum.pointB.getX()-babaorum.pointA.getX());
+		return pente;
+	}
 }
