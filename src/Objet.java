@@ -52,7 +52,7 @@ public abstract class Objet {
 	    g.drawImage(image,(int)x,(int)y,null);
     }
     
-    //abstraite pour le moment,sera definie ici
+    
     public ReturnCollision collision (ArrayList<Ligne> lili){
 	        
 	        boolean col = false;
