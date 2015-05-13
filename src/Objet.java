@@ -8,9 +8,9 @@ import java.util.ArrayList;
 import javax.imageio.ImageIO;
 
 public abstract class Objet {
-	public double h,l;
+    public double h,l;
     public double x,y;
-    public double dx,dy;
+    public double dx,dy; // vitesse
     public boolean actif;
     public boolean collision;
     public Image image;
@@ -44,12 +44,13 @@ public abstract class Objet {
 	    l= image.getWidth(null);
 	    
 	    // definie les limites de l'objet pour les collisions et les sorties
-	    limites = GetCollisionBoxes();
-	    }
+	    //limites = GetCollisionBoxes();
 	    
+    }
 	    // affiche image
 	    public void draw (long t, Graphics g) {
 	    g.drawImage(image,(int)x,(int)y,null);
+            
     }
     
     
@@ -72,13 +73,14 @@ public abstract class Objet {
 			return choc;
 	}
   
-    //recupere les rectangles qui definissent la bille pour les collisions
-    public abstract Rectangle[] GetCollisionBoxes();
+    //recupere les rectangles qui definissent la bille pour les collisions (plus utile)
+    //public abstract Rectangle[] GetCollisionBoxes();
     
-    // en construction
+  
     public void move(long t, ArrayList<Ligne> Listdeligne){
     	double g=9.81;
         double a=1; //provisoire
+        double ecmax=10; //provisoire
         // recupere pente de la courbe et boolean: 
         ReturnCollision k= collision(Listdeligne);
         Ligne l = k.getLigne();
@@ -91,6 +93,7 @@ public abstract class Objet {
         
         // cas 1 : pas de contact avec une courbe 
         if (collision==false){
+         
         x=x+dx*t ;
         y=y+(-0.5)*g*Math.pow(t,2)+dy*t;
         dy=-g*t+dy;
@@ -100,11 +103,27 @@ public abstract class Objet {
         
         //cas 2: contact avec une courbe
          
-        else{
-            x=x+(-0.5)*g*t*2*Math.sin(a)+ dx*t;
-            y=y+0.5*g*Math.pow(t,2)*(Math.cos(a)-1)+dy*t;  
-            dx=-g*t*Math.sin(a) + dx; 
-            dy=g*t*(Math.cos(a) -1)+ dy;
+        else{ 
+            
+            
+            // cas sans rebond
+            if((Math.pow(dx,2)+Math.pow(dy,2))<ecmax){
+            dx=-g*t*Math.sin(p) + dx; 
+            dy=g*t*(Math.cos(p) -1)+ dy;
+            x=x+(-0.5)*g*t*2*Math.sin(p)+ dx*t;
+            y=y+0.5*g*Math.pow(t,2)*(Math.cos(p)-1)+dy*t;
+            }
+            
+            // cas rebond
+            
+            else{
+            double teta=((Math.PI)/2)-p;
+            dx=dx*Math.cos(teta)+dy*Math.sin(teta);
+            dy=-dy*Math.sin(teta)+dy*Math.cos(teta);
+            x=x+dx*t ;
+            y=y+(-0.5)*g*Math.pow(t,2)+dy*t;    
+            }
+                 
         }
     }
 	public double pente(Ligne babaorum){//ca servira probablement pour l'animation
