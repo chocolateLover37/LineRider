@@ -17,6 +17,7 @@ public class GamePanel extends JPanel{
 	public Point2D depart;
 	public Point2D mouse;
 	
+        
 	public GamePanel(){
 		setPreferredSize(new Dimension(1200,600));
 		this.setBackground(Color.white);
@@ -28,7 +29,7 @@ public class GamePanel extends JPanel{
 	public class GestionOutils implements MouseListener, MouseMotionListener{
 		PointCustom pointTempoS = new PointCustom();
 		PointCustom pointTempoE = new PointCustom();
-		public double xMouse,yMouse,xD,yD;
+		public double xD,yD;
 		
 		public void mousePressed(MouseEvent e){
 			xS=e.getX();
@@ -45,15 +46,17 @@ public class GamePanel extends JPanel{
 	    }
 			
 		public void mouseDragged(MouseEvent e) {
-			xMouse=e.getX();
-			yMouse=e.getY();
-			//mouse.setLocation(xMouse,yMouse);
-			//depart.setLocation(dpt.getX(),dpt.getY());
+			xD=dpt.getX();
+                        yD=dpt.getY();
 
-			/*if(distance(mouse,depart)){
-				dpt.setXY(e.getX()-25,e.getY()-25);
-				repaint();
-			}*/
+			if(Math.sqrt((Math.pow((e.getX()-20-xD),2)+ Math.pow((e.getY()-20-yD),2)))<=40){
+                          
+                            System.out.println("click");
+                            dpt.setXY(e.getX()-20,e.getY()-20);
+                            repaint();
+                          action="";
+                    }
+			                        
 			
 			if(action.equals("crayon")){
 				pointTempoS.setXY(xS,yS);
