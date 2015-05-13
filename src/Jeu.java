@@ -4,8 +4,6 @@ import javax.swing.*;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseMotionListener;
 import java.awt.geom.Rectangle2D;
 import java.util.*;
 
@@ -17,7 +15,7 @@ public class Jeu extends JFrame{
 	public JPanel couleurs = new JPanel();
 	public JButton jTrait, jCrayon, jPoubelle, jGomme;
 	public JButton jNoir, jRouge, jOrange, jVert, jBleu, jTest;
-	public JButton[] tabOutils;
+	public JButton[] tabOutils = new JButton[4];
 	public JButton[] tabCouleurs;
 	public GamePanel gamePanel = new GamePanel();
 	public MenuPanel menuPanel = new MenuPanel();
@@ -49,7 +47,10 @@ public class Jeu extends JFrame{
                 tabOutils[i].setBackground(Color.white);
                 outils.add(tabOutils[i]);    
         }
-        jPoubelle.addActionListener(new GestionPoubelle());
+        
+        //jPoubelle.addActionListener(new GestionPoubelle());
+        menuPanel.jTest.addActionListener(new GestionToolBar());
+        
         JButton[] tabCouleurs = {jRouge,jOrange,jVert,jBleu,jNoir};
         for(int i=0;i<tabCouleurs.length;i++){
                 tabCouleurs[i].setPreferredSize(new Dimension(20, 20));
@@ -72,55 +73,52 @@ public class Jeu extends JFrame{
         toolBar.add("North",outils);
         toolBar.add("South",couleurs);
         
-        jTest = new JButton(new ImageIcon(Jeu.class.getResource("Gnoir.png")));
-        jTest.setPreferredSize(new Dimension(40, 40));
-        jTest.addActionListener(new GestionMenu());
-        menuPanel.add(jTest);
         //mainPanel.add(menuPanel);
-        mainPanel.add("North", toolBar);
-		mainPanel.add("South", gamePanel); 
-	    
+        mainPanel.add("North",toolBar);
+        mainPanel.add("South",gamePanel);
+        toolBar.setVisible(true);
+        gamePanel.setVisible(true);
+        
 		this.setContentPane(mainPanel);
 		this.pack();
 		this.setVisible(true);
 	}
     
-    public class GestionMenu implements ActionListener{
-    	public void actionPerformed(ActionEvent e){
-    		if(e.getSource()==jTest){
-	    		System.out.println("je devrais avoir change en gamePanel !!!! mais non :)");
-				//mainPanel.add("North", toolBar);     //apparement on n'a pas le droit d'ecrire ca...
-				//mainPanel.add("South", gamePanel); 
-	    		//mainPanel.remove(menuPanel);
-    		}	
-    	}
-    }
-    
     public class GestionToolBar implements ActionListener{  
 
     	public void actionPerformed(ActionEvent e){
+    		
+    		if(e.getSource()==menuPanel.jTest){
+    			System.out.println("coucou");
+    			menuPanel.setVisible(false);
+    	        gamePanel.setVisible(true);
+    			toolBar.setVisible(true);
+    		}
 
 	    	if(e.getSource()==jCrayon){
 	    		gamePanel.setAction("crayon");
 	    		gamePanel.setPointerColor(gamePanel.getPointerColor());
 	    		background(jCrayon);
-	    	    afficherCouleurs(true);
 	    	}
 	    	else if(e.getSource()==jTrait){
 	    		gamePanel.setAction("trait");
 	    		gamePanel.setPointerColor(gamePanel.getPointerColor());
 	    		background(jTrait);
-	    	    afficherCouleurs(true);
 	    	}
 	        else if (e.getSource()==jGomme){
 	        	gamePanel.setAction("gomme");
 	        	background(jGomme);
-	            afficherCouleurs(false);
 	        }
 	        else if (e.getSource ()==jPoubelle){
-	        	background(jPoubelle);
-	            afficherCouleurs(false);
-	            
+	        	ImageIcon img = new ImageIcon(Jeu.class.getResource("attention.png"));
+				img.getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT);
+				int option = JOptionPane.showConfirmDialog(null, "Voulez-vous effacer toutes les lignes ?", "", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, img);
+				if(option == JOptionPane.OK_OPTION){
+					gamePanel.erase();
+				}
+				gamePanel.setAction("trait");
+				background(jTrait);
+	        	background(jPoubelle);	            
 	        }
 	    	
 	        else if (e.getSource ()==jRouge){
@@ -140,34 +138,15 @@ public class Jeu extends JFrame{
 	        }  
 	    	
     	} 
-    } 
-    
-	public class GestionPoubelle implements ActionListener{
-		public void actionPerformed(ActionEvent arg0) {          
-			ImageIcon img = new ImageIcon(Jeu.class.getResource("attention.png"));
-			img.getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT);
-			int option = JOptionPane.showConfirmDialog(null, "Voulez-vous effacer toutes les lignes ?", "", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, img);
-			if(option == JOptionPane.OK_OPTION){
-				gamePanel.erase();
-			}
-			gamePanel.setAction("trait");
-			background(jTrait);
-    	    afficherCouleurs(true);
-		}    
-	}
-    
-    public void afficherCouleurs(boolean b){//c'est ca qui fait tous les messages d'erreur, pourtant ca devrait marcher :/
-    	couleurs.setVisible(b);
-    	repaint();
     }
     
     public void background(JButton b){
     	for(int i=0;i<tabOutils.length;i++){
-    		if(tabOutils[i]==b){
+    		if(this.tabOutils[i]==b){
     			tabOutils[i].setBackground(Color.blue);
     		}
     		else{
-    			tabOutils[i].setBackground(Color.white);
+    			//tabOutils[i].setBackground(Color.white);
     		}
 		} 
     }  

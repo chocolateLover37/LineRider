@@ -1,24 +1,26 @@
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
+
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-public class MenuPanel extends JPanel implements MouseMotionListener{
-	public JButton jNoir;
-	boolean top = false;
+
+public class MenuPanel extends JPanel{
+	public JButton jTest;
+	
 	
 	public MenuPanel(){
+        jTest = new JButton(new ImageIcon(Jeu.class.getResource("Gnoir.png")));
+        jTest.setPreferredSize(new Dimension(40, 40));
+        
 		setPreferredSize(new Dimension(1200,600));
 		this.setBackground(Color.blue);
+		this.add(jTest);
 		setVisible(true);
-		this.addMouseMotionListener(this);
-	}
-	
-	public void mouseMoved(MouseEvent arg0) {}
-	public void mouseDragged(MouseEvent arg0) {}
-	public void mouseClicked(MouseEvent arg0) {
-		System.out.println("coucou");
 	}
 }

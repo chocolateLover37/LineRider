@@ -47,13 +47,6 @@ public class GamePanel extends JPanel{
 		public void mouseDragged(MouseEvent e) {
 			xMouse=e.getX();
 			yMouse=e.getY();
-			//mouse.setLocation(xMouse,yMouse);
-			//depart.setLocation(dpt.getX(),dpt.getY());
-
-			/*if(distance(mouse,depart)){
-				dpt.setXY(e.getX()-25,e.getY()-25);
-				repaint();
-			}*/
 			
 			if(action.equals("crayon")){
 				pointTempoS.setXY(xS,yS);
