@@ -1,6 +1,6 @@
 import java.awt.Rectangle;
 
-public abstract class Bille extends Objet {
+public class Bille extends Objet {
    
     public double masse;
     

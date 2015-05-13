@@ -21,9 +21,11 @@ public class Jeu extends JFrame{
 	public JButton[] tabCouleurs;
 	public GamePanel gamePanel = new GamePanel();
 	public MenuPanel menuPanel = new MenuPanel();
+        public Bille bille;
 
 
-	public Jeu(){		
+	public Jeu(){
+              bille= new Bille(50,50,(double)0,(double)0,"bille.png");
 		JPanel mainPanel=new JPanel();
 		this.setResizable(false);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -109,16 +111,16 @@ public class Jeu extends JFrame{
 	    	else if(e.getSource()==jTrait){
 	    		gamePanel.setAction("trait");
 	    		gamePanel.setPointerColor(gamePanel.getPointerColor());
-	    		background(jTrait);
+	    		
 	    	    afficherCouleurs(true);
 	    	}
 	        else if (e.getSource()==jGomme){
 	        	gamePanel.setAction("gomme");
-	        	background(jGomme);
+	        	
 	            afficherCouleurs(false);
 	        }
 	        else if (e.getSource ()==jPoubelle){
-	        	background(jPoubelle);
+	        	
 	            afficherCouleurs(false);
 	            
 	        }
@@ -161,16 +163,7 @@ public class Jeu extends JFrame{
     	repaint();
     }
     
-    public void background(JButton b){
-    	for(int i=0;i<tabOutils.length;i++){
-    		if(tabOutils[i]==b){
-    			tabOutils[i].setBackground(Color.blue);
-    		}
-    		else{
-    			tabOutils[i].setBackground(Color.white);
-    		}
-		} 
-    }  
+    
     
 	
     //Methode de detection des collisions
