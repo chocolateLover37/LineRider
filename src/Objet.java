@@ -107,13 +107,21 @@ public abstract class Objet {
         else{ 
             
             
-            // cas sans rebond
-            if((Math.pow(dx,2)+Math.pow(dy,2))<ecmax){
-            dx=-g*t*Math.sin(p) + dx; 
-            dy=g*t*(Math.cos(p) -1)+ dy;
+        	// cas sans rebond
+        	if((Math.pow(dx,2)+Math.pow(dy,2))<ecmax){
+            //produit scalaire entre la vitesse et le vecteur unitaire de la pente
+            double ps = dx*Math.cos(p)+dy*Math.sin(p);
+            //On dirige la vitesse ainsi obtenue selon la pente
+            dx= ps*Math.cos(p);
+            dy = ps*Math.sin(p);
+            //Calcul de la position du prochain point
             x=x+(-0.5)*g*t*2*Math.sin(p)+ dx*t;
             y=y+0.5*g*Math.pow(t,2)*(Math.cos(p)-1)+dy*t;
+            //Calcul de la vitesse suivante
+            dx=-g*t*Math.sin(p) + dx;
+            dy=g*t*(Math.cos(p) -1)+ dy;
             }
+            
             
             // cas rebond
             
