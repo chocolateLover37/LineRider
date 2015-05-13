@@ -5,6 +5,7 @@ import java.awt.Rectangle;
 import java.io.File;
 import java.util.ArrayList;
 
+
 import javax.imageio.ImageIO;
 
 public abstract class Objet {
@@ -122,9 +123,13 @@ public abstract class Objet {
             dy=-dy*Math.sin(teta)+dy*Math.cos(teta);
             x=x+dx*t ;
             y=y+(-0.5)*g*Math.pow(t,2)+dy*t;    
-            }
-                 
+            }  
+           
         }
+        
+        //limites.setLocation((int)(x),(int)(y)); erreur compilation
+      
+        
     }
 	public double pente(Ligne babaorum){//ca servira probablement pour l'animation
 		double pente = (babaorum.pointB.getY()-babaorum.pointA.getY())/(babaorum.pointB.getX()-babaorum.pointA.getX());
