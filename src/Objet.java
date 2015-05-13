@@ -9,23 +9,19 @@ import java.util.ArrayList;
 import javax.imageio.ImageIO;
 
 public abstract class Objet {
-    public double h,l;
+    public double h;
     public double x,y;
     public double dx,dy; // vitesse
-    public boolean actif;
     public boolean collision;
     public Image image;
-    public Rectangle [] limites;
-    public Rectangle limitesframe;
     
     
-    public Objet(double ax,double ay,double adx,double ady,Rectangle aframe,String NomImage){
+    
+    public Objet(double ax,double ay,double adx,double ady,String NomImage){
     	x=ax;
         y=ay;
         dx=adx;
         dy=ady;
-        actif=true;
-        limitesframe=aframe;
       
     
 	    //lire l'image de l'objet designee par son nom en controlant
@@ -42,7 +38,6 @@ public abstract class Objet {
 	    
 	    // recupere une fois pour toute la hauteur et largeur de l'image
 	    h= image.getHeight(null);
-	    l= image.getWidth(null);
 	    
 	    // definie les limites de l'objet pour les collisions et les sorties
 	    //limites = GetCollisionBoxes();
