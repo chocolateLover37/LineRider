@@ -122,11 +122,11 @@ public abstract class Objet {
             // cas 3 : rebond
             
             else{
-            double teta=((Math.PI)/2)-p;
-            dx=dx*Math.cos(teta)+dy*Math.sin(teta);
-            dy=-dy*Math.sin(teta)+dy*Math.cos(teta);
+            double coeff = 0.8; // facteur d'amortissement
+            dx = coeff*(Math.cos(p)*dx*Math.cos(p)+dy*Math.sin(p) - Math.sin(p)*dx*Math.sin(p)-dy*Math.cos(p));
+            dy = coeff*(Math.sin(p)*dx*Math.cos(p)+dy*Math.sin(p) + Math.cos(p)*dx*Math.sin(p)-dy*Math.cos(p));
             x=x+dx*t ;
-            y=y+(-0.5)*g*Math.pow(t,2)+dy*t;    
+            y=y+(-0.5)*g*Math.pow(t,2)+dy*t;
             }  
            
         }
@@ -135,7 +135,7 @@ public abstract class Objet {
       
         
     }
-	public double pente(Ligne babaorum){//ca servira probablement pour l'animation
+	public double pente(Ligne babaorum){//méthode pour avoir la pente d'une ligne
 		double pente = (babaorum.pointB.getY()-babaorum.pointA.getY())/(babaorum.pointB.getX()-babaorum.pointA.getX());
 		return pente;
 	}
