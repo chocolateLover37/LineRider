@@ -77,32 +77,33 @@ public abstract class Objet {
     	double g=9.81;
         double a=1; //provisoire
         double ecmax=10; //provisoire
-        // recupere pente de la courbe et boolean: 
+        
+        double xt = x; // enregistrement coordonnées actuelles
+        double yt = y;
+      
+        //  calcule la prochaine position de l'objet en chute libre
+        x=x+dx*t ;
+        y=y+(-0.5)*g*Math.pow(t,2)+dy*t;
+        dy=-g*t+dy;
+        
+        // check la collision à ce point et recupere pente de la courbe et boolean: 
         ReturnCollision k= collision(Listdeligne);
         Ligne l = k.getLigne();
         double p= pente(l);
         boolean collision=k.getBol();
-      
         
-        
-    	//  recalcule la nouvelle position de l'objet 
-        
-        // cas 1 : pas de contact avec une courbe 
+         // cas 1 : pas de contact avec une courbe pour le prochain point
         if (collision==false){
-         
-        x=x+dx*t ;
-        y=y+(-0.5)*g*Math.pow(t,2)+dy*t;
-        dy=-g*t+dy;
-
-
+        	//on laisse comme ça
         }
-        
-        //cas 2: contact avec une courbe
+        //cas 2: collision avec une courbe pour le prochain point
          
         else{ 
+            //on repart aux coordonnées précedentes et on change la direction de déplacement
+        	x = xt;
+        	y = yt;
             
-            
-        	// cas sans rebond
+        	// cas 2 : sans rebond
         	if((Math.pow(dx,2)+Math.pow(dy,2))<ecmax){
             //produit scalaire entre la vitesse et le vecteur unitaire de la pente
             double ps = dx*Math.cos(p)+dy*Math.sin(p);
@@ -118,7 +119,7 @@ public abstract class Objet {
             }
             
             
-            // cas rebond
+            // cas 3 : rebond
             
             else{
             double teta=((Math.PI)/2)-p;
