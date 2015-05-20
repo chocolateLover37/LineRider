@@ -1,10 +1,10 @@
 import java.awt.*;
-
 import javax.swing.*;
-
+import javax.swing.Timer;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.geom.Rectangle2D;
+import java.awt.image.BufferedImage;
 import java.util.*;
 
 public class Jeu extends JFrame{
@@ -15,14 +15,21 @@ public class Jeu extends JFrame{
 	public JPanel couleurs = new JPanel();
 	public JButton jTrait, jCrayon, jPoubelle, jGomme;
 	public JButton jNoir, jRouge, jOrange, jVert, jBleu, jTest;
-	public JButton[] tabOutils = new JButton[4];
+	public JButton[] tabOutils;
 	public JButton[] tabCouleurs;
 	public GamePanel gamePanel = new GamePanel();
 	public MenuPanel menuPanel = new MenuPanel();
 
-
+	public Timer timer;
+	public long temps;
+	public Rectangle Ecran;
+	public BufferedImage ArrierePlan;
+	public Graphics buffer;
+	public Bille billeRouge;
+	
 	public Jeu(){		
 		JPanel mainPanel=new JPanel();
+		setSize(1200,600);
 		this.setResizable(false);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
@@ -48,7 +55,6 @@ public class Jeu extends JFrame{
                 outils.add(tabOutils[i]);    
         }
         
-        //jPoubelle.addActionListener(new GestionPoubelle());
         menuPanel.jTest.addActionListener(new GestionToolBar());
         
         JButton[] tabCouleurs = {jRouge,jOrange,jVert,jBleu,jNoir};
@@ -73,23 +79,48 @@ public class Jeu extends JFrame{
         toolBar.add("North",outils);
         toolBar.add("South",couleurs);
         
-        //mainPanel.add(menuPanel);
+        mainPanel.add("South",menuPanel);
         mainPanel.add("North",toolBar);
-        mainPanel.add("South",gamePanel);
-        toolBar.setVisible(true);
-        gamePanel.setVisible(true);
+        mainPanel.add("Center",gamePanel);
+        toolBar.setVisible(false);
+        gamePanel.setVisible(false);
+        
+        Ecran=new Rectangle(getInsets().left,getInsets().top,getSize().width-getInsets().right-getInsets().left,getSize().height-getInsets().bottom-getInsets().top);
+		ArrierePlan = new BufferedImage(getSize().width,getSize().height,BufferedImage.TYPE_INT_RGB);
+		buffer = ArrierePlan.getGraphics();
+        timer = new Timer(100, new TimerAction());
+		timer.setDelay(40);
+		//billeRouge = new Bille(Ecran);  l'image n'existe pas encore
+		timer.start();
         
 		this.setContentPane(mainPanel);
 		this.pack();
 		this.setVisible(true);
 	}
+	
+	private class TimerAction implements ActionListener{
+		public void actionPerformed(ActionEvent e){
+			//boucle_principale_jeu();  c'etait dans space invaders
+			temps++;
+		}
+	}
     
     public class GestionToolBar implements ActionListener{  
-
+    	
+        public void background(JButton b){
+        	for(int i=0;i<tabOutils.length;i++){
+        		if(tabOutils[i]==b){
+        			tabOutils[i].setBackground(Color.blue);
+        		}
+        		else{
+        			tabOutils[i].setBackground(Color.white);
+        		}
+    		} 
+        }  
+        
     	public void actionPerformed(ActionEvent e){
     		
     		if(e.getSource()==menuPanel.jTest){
-    			System.out.println("coucou");
     			menuPanel.setVisible(false);
     	        gamePanel.setVisible(true);
     			toolBar.setVisible(true);
@@ -138,19 +169,7 @@ public class Jeu extends JFrame{
 	        }  
 	    	
     	} 
-    }
-    
-    public void background(JButton b){
-    	for(int i=0;i<tabOutils.length;i++){
-    		if(this.tabOutils[i]==b){
-    			tabOutils[i].setBackground(Color.blue);
-    		}
-    		else{
-    			//tabOutils[i].setBackground(Color.white);
-    		}
-		} 
-    }  
-    
+    }    
 	
     //Methode de detection des collisions
     public Ligne collision (Rectangle2D [] bbille, LinkedList<Ligne> lili){

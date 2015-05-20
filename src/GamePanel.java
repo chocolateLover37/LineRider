@@ -29,6 +29,8 @@ public class GamePanel extends JPanel{
 		PointCustom pointTempoS = new PointCustom();
 		PointCustom pointTempoE = new PointCustom();
 		public double xMouse,yMouse,xD,yD;
+		public String actionTempo;
+		public boolean enCours=false;
 		
 		public void mousePressed(MouseEvent e){
 			xS=e.getX();
@@ -44,9 +46,17 @@ public class GamePanel extends JPanel{
 			repaint();
 	    }
 			
-		public void mouseDragged(MouseEvent e) {
-			xMouse=e.getX();
-			yMouse=e.getY();
+		public void mouseDragged(MouseEvent e) {			
+			xD=dpt.getX();
+			yD=dpt.getY();
+			
+			if(Math.sqrt((Math.pow((e.getX()-20-xD),2)+ Math.pow((e.getY()-20-yD),2)))<=40){
+				dpt.setXY(e.getX()-20,e.getY()-20);
+				actionTempo=action;
+				action="";
+				repaint();
+
+			}
 			
 			if(action.equals("crayon")){
 				pointTempoS.setXY(xS,yS);
@@ -77,9 +87,16 @@ public class GamePanel extends JPanel{
 		}
 		
 		public void mouseReleased(MouseEvent e) {
+			
 			if(action.equals("trait")){
 				lignes.add(new Ligne(new PointCustom(xS,yS,pointerColor), new PointCustom(e.getX(),e.getY(),pointerColor),pointerColor));
 			}
+			
+			if(enCours==true){
+				action=actionTempo;
+				System.out.println("salut");
+			}
+			
 			repaint();
 		}	
 		public void mouseMoved(MouseEvent e) {}

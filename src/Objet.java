@@ -3,33 +3,25 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Rectangle;
 import java.io.File;
-import java.util.ArrayList;
-
 
 import javax.imageio.ImageIO;
 
 public abstract class Objet {
-    public double h,l;
-    public double x,y;
-    public double dx,dy; // vitesse
-    public boolean actif;
+    public int h,l,x,y;
+    public float dx,dy,vitesse;
     public boolean collision;
     public Image image;
-    public Rectangle [] limites;
-    public Rectangle limitesframe;
+    public Rectangle limites,limitesframe;
     
     
-    public Objet(double ax,double ay,double adx,double ady,Rectangle aframe,String NomImage){
+    public Objet(int ax, int ay, float adx, float ady, float avitesse, Rectangle aframe, String NomImage){
     	x=ax;
         y=ay;
         dx=adx;
         dy=ady;
-        actif=true;
+        vitesse = avitesse;
         limitesframe=aframe;
       
-    
-	    //lire l'image de l'objet designee par son nom en controlant
-	    // les exceptions provoquees par les erreurs de chargement
 	    try {
 	        image= ImageIO.read(new File(NomImage));
 	    }
@@ -45,17 +37,19 @@ public abstract class Objet {
 	    l= image.getWidth(null);
 	    
 	    // definie les limites de l'objet pour les collisions et les sorties
-	    //limites = GetCollisionBoxes();
+	    limites = new Rectangle(ax,ay,l,h);
 	    
     }
-	    // affiche image
-	    public void draw (long t, Graphics g) {
-	    g.drawImage(image,(int)x,(int)y,null);
-            
+    
+    // affiche image
+    public void draw (long t, Graphics g) {
+    g.drawImage(image,x,y,null);
     }
     
-    
-    public ReturnCollision collision (ArrayList<Ligne> lili){
+    public boolean Collision(Objet O){
+		return limites.intersects(O.limites);
+	}
+    /*public ReturnCollision collision (ArrayList<Ligne> lili){
 	        
 	        boolean col = false;
 	        double bcourbe;
@@ -72,75 +66,16 @@ public abstract class Objet {
 	        
 	        ReturnCollision choc = new ReturnCollision(null, col);
 			return choc;
-	}
+	}*/
   
     //recupere les rectangles qui definissent la bille pour les collisions (plus utile)
     //public abstract Rectangle[] GetCollisionBoxes();
     
   
-    public void move(long t, ArrayList<Ligne> Listdeligne){
-    	double g=9.81;
-        double a=1; //provisoire
-        double ecmax=10; //provisoire
-        // recupere pente de la courbe et boolean: 
-        ReturnCollision k= collision(Listdeligne);
-        Ligne l = k.getLigne();
-        double p= pente(l);
-        boolean collision=k.getBol();
-      
-        
-        
-    	//  recalcule la nouvelle position de l'objet 
-        
-        // cas 1 : pas de contact avec une courbe 
-        if (collision==false){
-         
-        x=x+dx*t ;
-        y=y+(-0.5)*g*Math.pow(t,2)+dy*t;
-        dy=-g*t+dy;
-
-
-        }
-        
-        //cas 2: contact avec une courbe
-         
-        else{ 
-            
-            
-        	// cas sans rebond
-        	if((Math.pow(dx,2)+Math.pow(dy,2))<ecmax){
-            //produit scalaire entre la vitesse et le vecteur unitaire de la pente
-            double ps = dx*Math.cos(p)+dy*Math.sin(p);
-            //On dirige la vitesse ainsi obtenue selon la pente
-            dx= ps*Math.cos(p);
-            dy = ps*Math.sin(p);
-            //Calcul de la position du prochain point
-            x=x+(-0.5)*g*t*2*Math.sin(p)+ dx*t;
-            y=y+0.5*g*Math.pow(t,2)*(Math.cos(p)-1)+dy*t;
-            //Calcul de la vitesse suivante
-            dx=-g*t*Math.sin(p) + dx;
-            dy=g*t*(Math.cos(p) -1)+ dy;
-            }
-            
-            
-            // cas rebond
-            
-            else{
-            double teta=((Math.PI)/2)-p;
-            dx=dx*Math.cos(teta)+dy*Math.sin(teta);
-            dy=-dy*Math.sin(teta)+dy*Math.cos(teta);
-            x=x+dx*t ;
-            y=y+(-0.5)*g*Math.pow(t,2)+dy*t;    
-            }  
-           
-        }
-        
-        //limites.setLocation((int)(x),(int)(y)); erreur compilation
-      
-        
-    }
-	public double pente(Ligne babaorum){//ca servira probablement pour l'animation
+    public abstract void move(long t);
+    
+	/*public double pente(Ligne babaorum){//ca servira probablement pour l'animation
 		double pente = (babaorum.pointB.getY()-babaorum.pointA.getY())/(babaorum.pointB.getX()-babaorum.pointA.getX());
 		return pente;
-	}
+	}*/
 }
