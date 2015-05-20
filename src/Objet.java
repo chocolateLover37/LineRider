@@ -9,7 +9,7 @@ import javax.imageio.ImageIO;
 
 public abstract class Objet {
     public int h,l,x,y;
-    public double dx,dy,vitesse;
+    public double dx,dy; 
     public boolean collision;
     public Image image;
     public Rectangle limites,limitesframe;
@@ -33,7 +33,7 @@ public abstract class Objet {
 	    }
 	    
 	    // recupere une fois pour toute la hauteur et largeur de l'image
-	    h= image.getHeight(null);
+	    h= image.getHeight(null); 
 	    l= image.getWidth(null);
 	    
 	    // definie les limites de l'objet pour les collisions et les sorties
@@ -46,36 +46,10 @@ public abstract class Objet {
     g.drawImage(image,x,y,null);
     }
     
-    public boolean Collision(Objet O){
-		return limites.intersects(O.limites);
-	}
-    public ReturnCollision collision (ArrayList<Ligne> lili){
-	        
-	        boolean col = false;
-	        double bcourbe;
-	        java.util.Iterator<Ligne> iterator = lili.iterator();
-	        //check of collisions with other objects
-	        while (iterator.hasNext()) {
-	        	Ligne i = iterator.next();
-	        	bcourbe = i.distance((int) x,(int) y);
-	        	if (bcourbe<=5){
-	        		col = true;
-	        		ReturnCollision choc = new ReturnCollision(i,col);
-	        		return choc;}
-	        }
-	        
-	        ReturnCollision choc = new ReturnCollision(null, col);
-			return choc;
-	}
-  
-    //recupere les rectangles qui definissent la bille pour les collisions (plus utile)
-    //public abstract Rectangle[] GetCollisionBoxes();
     
-  
-    public abstract void move(ArrayList<Ligne> Listdeligne, long time);
+    public abstract ReturnCollision collision (ArrayList<Ligne> listeligne);
     
-	/*public double pente(Ligne babaorum){//ca servira probablement pour l'animation
-		double pente = (babaorum.pointB.getY()-babaorum.pointA.getY())/(babaorum.pointB.getX()-babaorum.pointA.getX());
-		return pente;
-	}*/
+    
+   public abstract void move(ArrayList<Ligne> Listdeligne, long time);
+   
 }
