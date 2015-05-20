@@ -22,7 +22,7 @@ public class Jeu extends JFrame{
 
 	public Timer timer;
 	public long temps;
-	public Rectangle Ecran;
+	public static Rectangle Ecran;
 	public BufferedImage ArrierePlan;
 	public Graphics buffer;
 	public Bille billeRouge;
@@ -90,7 +90,6 @@ public class Jeu extends JFrame{
 		buffer = ArrierePlan.getGraphics();
         timer = new Timer(100, new TimerAction());
 		timer.setDelay(40);
-		//billeRouge = new Bille(Ecran);  l'image n'existe pas encore
 		timer.start();
         
 		this.setContentPane(mainPanel);
@@ -169,25 +168,6 @@ public class Jeu extends JFrame{
 	        }  
 	    	
     	} 
-    }    
-	
-    //Methode de detection des collisions
-    public Ligne collision (Rectangle2D [] bbille, LinkedList<Ligne> lili){
-        Ligne choc = null;
-        Rectangle2D bcourbe;
-        bcourbe = null;
-        for (int k=0; k< bbille.length; k++){
-		    java.util.Iterator<Ligne> iterator = lili.iterator();
-		    //check of collisions with other objects
-		    while (iterator.hasNext()) {
-		    	Ligne i = iterator.next();
-		    	bcourbe = this.getBounds();
-		    	if (bcourbe.intersects(bbille[k])==true){
-		    		choc = i;
-		    	}
-		    }
-        }
-        return choc;
-    }
+    }   
 }
 

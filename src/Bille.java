@@ -1,24 +1,19 @@
 import java.awt.Rectangle;
+import java.util.ArrayList;
 
 public class Bille extends Objet {
    
-    public double masse;
-    
-    public Bille(Rectangle aframe){
+    public Bille(int x, int y, double dx, double dy, Rectangle aframe){
     	//dy=0 au debut, dx=cste (m*g) ;
-        super((aframe.width/2),aframe.height,0,0,10,aframe,"BilleRouge");
+        super(x, y,dx,dy,aframe,"BilleRouge");
         //masse=1;
+        
     }
     
-    /*public Rectangle[] GetCollisionBoxes (){
-		Rectangle[] pipi = new Rectangle[5];
-		for (int i=0; i<5; i++){
-			pipi[i] = new Rectangle((int) (x-(i+1)*h/5), (int) (y + h*(-i+5)/5),(int) (h*(i+1)*(2/5)),(int) (h*(5-i)*(2/5)));
-		}
-		return pipi;
-	}*/
     
-    public void move(long t){
+    public void move(ArrayList<Ligne> Listdeligne, long t){
+    	double dt = 0.04;
+    	
     	x=x+(int)(vitesse*dx);
 		y=y+(int)(vitesse*dy);
 		
@@ -40,13 +35,22 @@ public class Bille extends Objet {
     	
 		
 		
-    	/*double g=9.81;
+    	double g=9.81;
         double a=1; //provisoire
         double ecmax=10; //provisoire
+        double xt = x; // enregistrement coordonn�es actuelles
+        double yt = y;
+      
+        //  calcule la prochaine position de l'objet en chute libre
+        x=(int) (x+dx*dt) ;
+        y=(int) (y+(-0.5)*g*Math.pow(dt,2)+dy*dt);
+        dy=-g*dt+dy;
+        
+        // check la collision � ce point et recupere pente de la courbe et boolean: 
         //recupere pente de la courbe et boolean: 
         ReturnCollision k= collision(Listdeligne);
         Ligne l = k.getLigne();
-        double p= pente(l);
+        double p= l.pente();
         boolean collision=k.getBol();
       	
         
@@ -56,9 +60,9 @@ public class Bille extends Objet {
         // cas 1 : pas de contact avec une courbe 
         if (collision==false){
          
-        x=x+dx*t ;
-        y=y+(-0.5)*g*Math.pow(t,2)+dy*t;
-        dy=-g*t+dy;
+        x=(int) (x+ dx*dt) ;
+        y=(int) (y+(-0.5)*g*Math.pow(dt,2)+dy*dt);
+        dy=-g*dt+dy;
 
 
         }
@@ -76,29 +80,28 @@ public class Bille extends Objet {
             dx= ps*Math.cos(p);
             dy = ps*Math.sin(p);
             //Calcul de la position du prochain point
-            x=x+(-0.5)*g*t*2*Math.sin(p)+ dx*t;
-            y=y+0.5*g*Math.pow(t,2)*(Math.cos(p)-1)+dy*t;
+            x=(int) (x+(-0.5)*g*dt*2*Math.sin(p)+ dx*dt);
+            y=(int) (y+0.5*g*Math.pow(dt,2)*(Math.cos(p)-1)+dy*dt);
             //Calcul de la vitesse suivante
-            dx=-g*t*Math.sin(p) + dx;
-            dy=g*t*(Math.cos(p) -1)+ dy;
+            dx=-g*dt*Math.sin(p) + dx;
+            dy=g*dt*(Math.cos(p) -1)+ dy;
             }
             
             
             // cas rebond
             
             else{
-            double teta=((Math.PI)/2)-p;
-            dx=dx*Math.cos(teta)+dy*Math.sin(teta);
-            dy=-dy*Math.sin(teta)+dy*Math.cos(teta);
-            x=x+dx*t ;
-            y=y+(-0.5)*g*Math.pow(t,2)+dy*t;    
-            }  
+            double coeff = 0.8; // facteur d'amortissement
+            dx = coeff*(Math.cos(p)*dx*Math.cos(p)+dy*Math.sin(p) - Math.sin(p)*dx*Math.sin(p)-dy*Math.cos(p));
+            dy = coeff*(Math.sin(p)*dx*Math.cos(p)+dy*Math.sin(p) + Math.cos(p)*dx*Math.sin(p)-dy*Math.cos(p));
+            x=(int) (x+dx*dt) ;
+            y=(int) (y+(-0.5)*g*Math.pow(dt,2)+dy*dt);   
+            }
+        	} 
            
         }
         
-        //limites.setLocation((int)(x),(int)(y)); erreur compilation
-      	*/
+        
         
     
     }
-}

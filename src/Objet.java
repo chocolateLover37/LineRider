@@ -3,23 +3,23 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Rectangle;
 import java.io.File;
+import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 
 public abstract class Objet {
     public int h,l,x,y;
-    public float dx,dy,vitesse;
+    public double dx,dy,vitesse;
     public boolean collision;
     public Image image;
     public Rectangle limites,limitesframe;
     
     
-    public Objet(int ax, int ay, float adx, float ady, float avitesse, Rectangle aframe, String NomImage){
+    public Objet(int ax, int ay, double adx, double ady, Rectangle aframe, String NomImage){
     	x=ax;
         y=ay;
         dx=adx;
         dy=ady;
-        vitesse = avitesse;
         limitesframe=aframe;
       
 	    try {
@@ -49,7 +49,7 @@ public abstract class Objet {
     public boolean Collision(Objet O){
 		return limites.intersects(O.limites);
 	}
-    /*public ReturnCollision collision (ArrayList<Ligne> lili){
+    public ReturnCollision collision (ArrayList<Ligne> lili){
 	        
 	        boolean col = false;
 	        double bcourbe;
@@ -66,13 +66,13 @@ public abstract class Objet {
 	        
 	        ReturnCollision choc = new ReturnCollision(null, col);
 			return choc;
-	}*/
+	}
   
     //recupere les rectangles qui definissent la bille pour les collisions (plus utile)
     //public abstract Rectangle[] GetCollisionBoxes();
     
   
-    public abstract void move(long t);
+    public abstract void move(ArrayList<Ligne> Listdeligne, long time);
     
 	/*public double pente(Ligne babaorum){//ca servira probablement pour l'animation
 		double pente = (babaorum.pointB.getY()-babaorum.pointA.getY())/(babaorum.pointB.getX()-babaorum.pointA.getX());
