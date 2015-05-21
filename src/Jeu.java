@@ -1,11 +1,15 @@
 import java.awt.*;
+
 import javax.swing.*;
 import javax.swing.Timer;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.util.*;
+
+
 
 public class Jeu extends JFrame{
 	
@@ -26,8 +30,8 @@ public class Jeu extends JFrame{
 	public BufferedImage ArrierePlan;
 	public Graphics buffer;
 	public Bille billeRouge;
-        public Rectangle frameBille;
-        public boolean play;
+    public Rectangle frameBille;
+    public boolean play;
 	
 	public Jeu(){		
 		JPanel mainPanel=new JPanel();
@@ -38,7 +42,7 @@ public class Jeu extends JFrame{
 		mainPanel.setLayout(new BorderLayout());
 		mainPanel.setBackground(Color.black);
                 frameBille= new Rectangle(100,100,40,40);
-                billeRouge= new Bille(frameBille);
+                //billeRouge= new Bille(frameBille);
 
         jCrayon = new JButton(new ImageIcon(Jeu.class.getResource("Kcrayon.png")));
         jTrait = new JButton(new ImageIcon(Jeu.class.getResource("Ktrait.png")));
@@ -101,16 +105,12 @@ public class Jeu extends JFrame{
         
         public  void boucle_princip(){
             if(play){
-                billeRouge.move(temps);
+                //billeRouge.move(temps);
                 repaint();
-            }
-        
+            }   
     }
     
     public class GestionToolBar implements ActionListener{ 
-        
-        
-    	
         public void background(JButton b){
             JButton[] tabOutils = {jTrait,jCrayon,jPoubelle,jGomme,jPlay};
             for(int i=0;i<tabOutils.length;i++){
@@ -180,13 +180,12 @@ public class Jeu extends JFrame{
 	        else if (e.getSource ()==jNoir){
 	        	gamePanel.setPointerColor(Color.black);
 	        }  
-                else if(e.getSource ()==jPlay){
-                        System.out.println("ca jouueeeee");
-                        play=true;
-                        background(jPlay);
-                        repaint();
+            else if(e.getSource ()==jPlay){
+                System.out.println("ca jouueeeee");
+                play=true;
+                background(jPlay);
+                repaint();
             }
-	    	
     	} 
     }    
 	
@@ -212,8 +211,10 @@ public class Jeu extends JFrame{
     public void paintComponent(Graphics g) {
         billeRouge.draw(temps,buffer);
         g.drawImage(ArrierePlan,0,0,this);
-       
-
+    }
+    
+    public static void main (String[] args) {
+    	new Jeu();
     }
 }
 
