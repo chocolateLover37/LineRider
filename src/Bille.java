@@ -11,8 +11,7 @@ public class Bille extends Objet {
         rayon = h; //rayon égal à la hauteur de l'image
         
     }
-    
-    
+
     public ReturnCollision collision (ArrayList<Ligne> listeligne){
         // La méthode retourne un ReturnCollision contenant un booleen col qui indique si il y a collision
 		// et une ligne i egale a la ligne avec laquelle il y a collision, ou egale a null sinon
@@ -34,8 +33,6 @@ public class Bille extends Objet {
         ReturnCollision pasdechoc = new ReturnCollision(null, col);
 		return pasdechoc;
     }
-    
-    
     
     public void move(ArrayList<Ligne> Listdeligne, long t){
     	//la methode modifie les coordonnées et les vitesses de la bille en fonction la gravite et de sa proximite avec une courbe
@@ -64,11 +61,11 @@ public class Bille extends Objet {
         boolean collision=k.getBol();
     	
         if (collision==false){
-        // Cas 0 : pas de collision
-            	// si il n'y a pas de collision alors on garde les coordonnees calculees
-            	// Calcul des  nouvelles vitesses, dx ne change pas
-        		dy=-g*dt+dy; 
-            }
+        	// Cas 0 : pas de collision
+        	// si il n'y a pas de collision alors on garde les coordonnees calculees
+        	// Calcul des  nouvelles vitesses, dx ne change pas
+    		dy=-g*dt+dy; 
+        }
         
         
         // sinon 
@@ -79,25 +76,23 @@ public class Bille extends Objet {
         	y = yt;
             // on verifie si la vitesse de collision entraine un rebond
         	if((Math.pow(dx,2)+Math.pow(dy,2))<ecmax){
-        	
-        	// Cas 1 : collision sans rebond
-        		// on fait le produit scalaire entre le vecteur vitesse et le vecteur unitaire de la pente
-        		double ps = dx*Math.cos(p)+dy*Math.sin(p);
-        		// La nouvelle vitesse est dirigee selon la pente pour pas que la bille entre en collision
-        		// Sa norme est egale au produit scalaire d'avant
-        		dx= ps*Math.cos(p);
-        		dy = ps*Math.sin(p);
-        		//Calcul de la position x et y du prochain point, avec prise en compte de la gravité
-        		x=(int) (x+(-0.5)*g*dt*2*Math.sin(p)+ dx*dt);
-        		y=(int) (y+0.5*g*Math.pow(dt,2)*(Math.cos(p)-1)+dy*dt);
-        		//Calcul des nouvelles vitesses dx et dy
-        		dx=-g*dt*Math.sin(p) + dx;
-        		dy=g*dt*(Math.cos(p) -1)+ dy;
-            	}
+		    	// Cas 1 : collision sans rebond
+				// on fait le produit scalaire entre le vecteur vitesse et le vecteur unitaire de la pente
+				double ps = dx*Math.cos(p)+dy*Math.sin(p);
+				// La nouvelle vitesse est dirigee selon la pente pour pas que la bille entre en collision
+				// Sa norme est egale au produit scalaire d'avant
+				dx= ps*Math.cos(p);
+				dy = ps*Math.sin(p);
+				//Calcul de la position x et y du prochain point, avec prise en compte de la gravité
+				x=(int) (x+(-0.5)*g*dt*2*Math.sin(p)+ dx*dt);
+				y=(int) (y+0.5*g*Math.pow(dt,2)*(Math.cos(p)-1)+dy*dt);
+				//Calcul des nouvelles vitesses dx et dy
+				dx=-g*dt*Math.sin(p) + dx;
+				dy=g*dt*(Math.cos(p) -1)+ dy;
+        	}
             
-        	
         	else{
-        	// Cas 2 : collision avec rebond
+        		// Cas 2 : collision avec rebond
         		// La vitesse colineaire a la courbe reste égale 
         		// la vitesse normale a la courbe est inversee pour qu'il y ai "rebond"
         		// le coeff d'amortissement peut etre different pour la composante parallele si c'est pas réaliste comme ça 
@@ -108,11 +103,7 @@ public class Bille extends Objet {
         		y=(int) (y+(-0.5)*g*Math.pow(dt,2)+dy*dt);
         		// Calcul des nouvelles vitesses, dx ne change pas
         		dy=-g*dt+dy; 
-            	}
-         	} 
-        }
-        
-        
-        
-    
-    }
+            }
+        } 
+	}
+}
