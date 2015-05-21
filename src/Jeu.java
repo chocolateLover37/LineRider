@@ -64,16 +64,6 @@ public class Jeu extends JFrame{
                 tabCouleurs[i].setBackground(Color.white);
                 couleurs.add(tabCouleurs[i]);
         }
-
-		outils.add(jTrait);
-        outils.add(jCrayon);
-        outils.add(jPoubelle);
-        outils.add(jGomme);
-        couleurs.add(jNoir);
-        couleurs.add(jRouge);
-        couleurs.add(jOrange);
-        couleurs.add(jVert);
-        couleurs.add(jBleu);
         
         toolBar.setLayout(new BorderLayout());
         toolBar.add("North",outils);
