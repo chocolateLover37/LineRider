@@ -22,7 +22,7 @@ public class Jeu extends JFrame{
 
 	public Timer timer;
 	public long temps;
-	public Rectangle Ecran;
+	public static Rectangle Ecran;
 	public BufferedImage ArrierePlan;
 	public Graphics buffer;
 	public Bille billeRouge;
@@ -69,16 +69,6 @@ public class Jeu extends JFrame{
                 tabCouleurs[i].setBackground(Color.white);
                 couleurs.add(tabCouleurs[i]);
         }
-
-		outils.add(jTrait);
-        outils.add(jCrayon);
-        outils.add(jPoubelle);
-        outils.add(jGomme);
-        couleurs.add(jNoir);
-        couleurs.add(jRouge);
-        couleurs.add(jOrange);
-        couleurs.add(jVert);
-        couleurs.add(jBleu);
         
         toolBar.setLayout(new BorderLayout());
         toolBar.add("North",outils);
@@ -95,7 +85,6 @@ public class Jeu extends JFrame{
 		buffer = ArrierePlan.getGraphics();
         timer = new Timer(100, new TimerAction());
 		timer.setDelay(40);
-		//billeRouge = new Bille(Ecran);  l'image n'existe pas encore
 		timer.start();
         
 		this.setContentPane(mainPanel);

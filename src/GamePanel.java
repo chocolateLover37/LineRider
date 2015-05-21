@@ -17,6 +17,8 @@ public class GamePanel extends JPanel{
 	public Point2D depart;
 	public Point2D mouse;
 	
+	//public Bille billeRouge = new Bille((int)dpt.getX(), (int)dpt.getY(),0,0, Jeu.Ecran);  //l'image n'existe pas encore
+	
 	public GamePanel(){
 		setPreferredSize(new Dimension(1200,600));
 		this.setBackground(Color.white);
@@ -110,6 +112,7 @@ public class GamePanel extends JPanel{
 	    g.setColor(Color.white);
 	    g.fillRect(0, 0, this.getWidth(), this.getHeight());
 	    g.drawImage(dpt.image,(int)dpt.getX(),(int)dpt.getY(),null);
+	    //billeRouge.draw(t,g);
     	for(int k=0;k<lignes.size();k++){//on parcourt chaque Ligne de la ArrayList lignes
     		g.setColor(lignes.get(k).getColor());
     		PointCustom pA=lignes.get(k).getPointA();
