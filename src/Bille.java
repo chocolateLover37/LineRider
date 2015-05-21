@@ -6,7 +6,7 @@ public class Bille extends Objet {
     
     public Bille(Rectangle aframe){
     	//dy=0 au debut, dx=cste (m*g) ;
-        super((aframe.width/2),aframe.height,0,0,10,aframe,"BilleRouge");
+        super((aframe.width/2),aframe.height,0,0,10,aframe,"BilleRouge.png");
         //masse=1;
     }
     
