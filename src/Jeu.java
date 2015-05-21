@@ -136,6 +136,9 @@ public class Jeu extends JFrame{
         		else{
         			tabOutils[i].setBackground(Color.white);
         		}
+                        if(b==jPlay){
+                           jPlay.setBackground(Color.red);
+                        }
     		} 
         }  
         
@@ -191,6 +194,7 @@ public class Jeu extends JFrame{
                 else if(e.getSource ()==jPlay){
                         System.out.println("ca jouueeeee");
                         play=true;
+                        background(jPlay);
                         repaint();
             }
 	    	
