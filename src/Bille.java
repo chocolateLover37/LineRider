@@ -8,7 +8,7 @@ public class Bille extends Objet {
 
     public Bille(int x, int y, double dx, double dy, Rectangle aframe) {
         //dy=0 au debut, dx=cste (m*g) ; //??dx c'est la composante verticale :o??
-        super(x, y, dx, dy, aframe, "BilleRouge");
+        super(x, y, dx, dy, aframe, "BilleRouge.png");
         rayon = h; //rayon égal à la hauteur de l'image
 
     }

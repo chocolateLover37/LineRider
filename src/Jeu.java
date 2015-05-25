@@ -48,9 +48,10 @@ public class Jeu extends JFrame {
                           getSize().height - getInsets().bottom - getInsets().top);
         ArrierePlan = new BufferedImage(getSize().width, getSize().height, BufferedImage.TYPE_INT_RGB);
         buffer = ArrierePlan.getGraphics();
-        timer = new Timer(100, new TimerAction());
-        timer.setDelay(40);
+        timer = new Timer(1000, new TimerAction());
+   
         timer.start();
+        temps=1;
 
         this.setContentPane(mainPanel);
         this.pack();
@@ -59,19 +60,23 @@ public class Jeu extends JFrame {
 
     private class TimerAction implements ActionListener {
         public void actionPerformed(ActionEvent e) {
+            if(play){
             boucle_princip(); //c'etait dans space invaders
+            System.out.println("say hi action"+temps);
             temps++;
+            }
         }
     }
 
     public void boucle_princip() {
-        if (play) {
-            //billeRouge.move(temps);
+            billeRouge.move(gamePanel.lignes,temps);
             repaint();
+            System.out.println("say hi boucle principale");
+        
         }
-    }
+    
 
-    //Methode de detection des collisions
+    /*Methode de detection des collisions
     public Ligne collision(Rectangle2D[] bbille, LinkedList<Ligne> lili) {
         Ligne choc = null;
         Rectangle2D bcourbe;
@@ -88,7 +93,7 @@ public class Jeu extends JFrame {
             }
         }
         return choc;
-    }
+    }*/
 
     public void paintComponent(Graphics g) {
         billeRouge.draw(temps, buffer);

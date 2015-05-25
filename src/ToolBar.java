@@ -123,6 +123,7 @@ public class ToolBar extends JPanel {
                 Jeu.play = true;
                 background(jPlay);
                 repaint();
+                
             }
         }
     }
