@@ -1,6 +1,5 @@
 import java.awt.Image;
 import java.io.File;
-
 import javax.imageio.ImageIO;
 
 public class Depart {
@@ -30,5 +29,4 @@ public class Depart {
 	public double getY() {
 		return y;
 	}
-	
 }

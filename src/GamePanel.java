@@ -1,7 +1,5 @@
 import java.awt.*;
-
 import javax.swing.*;
-
 import java.awt.event.*;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
@@ -16,8 +14,7 @@ public class GamePanel extends JPanel{
 	public Depart dpt = new Depart(50,50);
 	public Point2D depart;
 	public Point2D mouse;
-	
-	//public Bille billeRouge = new Bille((int)dpt.getX(), (int)dpt.getY(),0,0, Jeu.Ecran);  //l'image n'existe pas encore
+	public static boolean toucheD=false;;
 	
 	public GamePanel(){
 		setPreferredSize(new Dimension(1200,600));
@@ -25,9 +22,11 @@ public class GamePanel extends JPanel{
 		setVisible(true);
 		this.addMouseListener(new GestionOutils());
 		this.addMouseMotionListener(new GestionOutils());
+		this.addKeyListener(new D_keyAdaptater());
 	}
 	
 	public class GestionOutils implements MouseListener, MouseMotionListener{
+		
 		PointCustom pointTempoS = new PointCustom();
 		PointCustom pointTempoE = new PointCustom();
 		public double xMouse,yMouse,xD,yD;
@@ -52,12 +51,11 @@ public class GamePanel extends JPanel{
 			xD=dpt.getX();
 			yD=dpt.getY();
 			
-			if(Math.sqrt((Math.pow((e.getX()-20-xD),2)+ Math.pow((e.getY()-20-yD),2)))<=40){
+			if((Math.sqrt((Math.pow((e.getX()-20-xD),2)+ Math.pow((e.getY()-20-yD),2)))<=40)){
 				dpt.setXY(e.getX()-20,e.getY()-20);
 				actionTempo=action;
 				action="";
 				repaint();
-
 			}
 			
 			if(action.equals("crayon")){
@@ -131,6 +129,23 @@ public class GamePanel extends JPanel{
 	    lignes.clear();
 	    repaint();
 	}
+	
+	public class D_keyAdaptater extends KeyAdapter{ // c'est pour modifier la facon de deplacer dpt (en maintenant D appuyee) mais ca marche pas
+		
+		public void keyPressed(KeyEvent e){
+			if(e.getKeyCode()==KeyEvent.VK_D){
+				GamePanel.toucheD = true;
+				System.out.println("D appuyŽe");
+			}
+		}
+		public void keyReleased(KeyEvent e){
+			if(e.getKeyCode()==KeyEvent.VK_D){
+				GamePanel.toucheD = false;
+				System.out.println("prout");
+			}
+		}
+	}	
+			
 	public ArrayList<Ligne> getLignes() {
 		return lignes;
 	}
