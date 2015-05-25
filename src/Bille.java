@@ -13,6 +13,7 @@ public class Bille extends Objet {
     }
     
     
+
     public ReturnCollision collision (ArrayList<Ligne> listeligne){
         // La méthode retourne un ReturnCollision contenant un booleen col qui indique si il y a collision
 		// et une ligne i egale a la ligne avec laquelle il y a collision, ou egale a null sinon
@@ -112,7 +113,7 @@ public class Bille extends Objet {
          	} 
         }
         
-        
+
         
     
     }
