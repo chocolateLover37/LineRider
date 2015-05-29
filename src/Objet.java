@@ -42,7 +42,7 @@ public abstract class Objet {
     }
 
     // affiche image
-    public void draw(long t, Graphics g) {
+    public void draw(Graphics g) {
         g.drawImage(image, x, y, null);
     }
 

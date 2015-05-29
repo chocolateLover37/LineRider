@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class Bille extends Objet {
 
     public int rayon;
+   
 
     public Bille(int x, int y, double dx, double dy, Rectangle aframe) {
         //dy=0 au debut, dx=cste (m*g) ; //??dx c'est la composante verticale :o??
@@ -40,19 +41,19 @@ public class Bille extends Objet {
     public void move(ArrayList<Ligne> Listdeligne, long t) {
         //la methode modifie les coordonnées et les vitesses de la bille en fonction la gravite et de sa proximite avec une courbe
 
-        double dt = 0.04; // temps de raffraichissement
+        double dt = 1; // temps de raffraichissement
         double g = 9.81; // la gravite
         double a = 1; //provisoire
         double ecmax = 10; // condition de rebond
         double coeff = 0.9; // facteur d'amortissement pour rebond
-
+        double p=0;
         // enregistrement coordonnees avant l'appel de move
         int xt = x;
         int yt = y;
 
         //  calcule la prochaine position de l'objet en chute libre
         x = (int) (x + dx * dt);
-        y = (int) (y + (-0.5) * g * Math.pow(dt, 2) + dy * dt);
+        y = (int) (y + (0.5) * g * Math.pow(dt, 2) + dy * dt);
 
 
         // check la collision  à la prochaine position
@@ -60,14 +61,16 @@ public class Bille extends Objet {
 
         // recuperation du boolean et de la pente de la courbe (pente = null si pas de collision)
         Ligne l = k.getLigne();
-        double p = l.pente();
+        if(l!= null){
+            p = l.pente();
+        }
         boolean collision = k.getBol();
 
         if (collision == false) {
             // Cas 0 : pas de collision
             // si il n'y a pas de collision alors on garde les coordonnees calculees
             // Calcul des  nouvelles vitesses, dx ne change pas
-            dy = -g * dt + dy;
+            dy = g * dt + dy;
         }
 
 
@@ -88,10 +91,10 @@ public class Bille extends Objet {
                 dy = ps * Math.sin(p);
                 //Calcul de la position x et y du prochain point, avec prise en compte de la gravité
                 x = (int) (x + (-0.5) * g * dt * 2 * Math.sin(p) + dx * dt);
-                y = (int) (y + 0.5 * g * Math.pow(dt, 2) * (Math.cos(p) - 1) + dy * dt);
+                y = (int) (y - 0.5 * g * Math.pow(dt, 2) * (Math.cos(p) - 1) - dy * dt);
                 //Calcul des nouvelles vitesses dx et dy
                 dx = -g * dt * Math.sin(p) + dx;
-                dy = g * dt * (Math.cos(p) - 1) + dy;
+                dy = -g * dt * (Math.cos(p) - 1) + dy;
             }
 
             else {
@@ -109,9 +112,9 @@ public class Bille extends Objet {
                      dy * Math.cos(p));
                 // Calcul des nouvelles coordonnées x et y
                 x = (int) (x + dx * dt);
-                y = (int) (y + (-0.5) * g * Math.pow(dt, 2) + dy * dt);
+                y = (int) (y + (0.5) * g * Math.pow(dt, 2) - dy * dt);
                 // Calcul des nouvelles vitesses, dx ne change pas
-                dy = -g * dt + dy;
+                dy = g * dt + dy;
 
             }
         }

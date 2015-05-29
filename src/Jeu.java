@@ -1,14 +1,15 @@
-import java.awt.*;
-
-import javax.swing.*;
-import javax.swing.Timer;
-
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Container;
+import java.awt.Graphics;
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 
-import java.util.*;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.Timer;
 
 public class Jeu extends JFrame {
 
@@ -22,7 +23,7 @@ public class Jeu extends JFrame {
     public static Rectangle Ecran;
     public BufferedImage ArrierePlan;
     public Graphics buffer;
-    public Bille billeRouge;
+    public static Bille billeRouge;
     public Rectangle frameBille;
     public static boolean play;
 
@@ -34,15 +35,17 @@ public class Jeu extends JFrame {
 
         mainPanel.setLayout(new BorderLayout());
         mainPanel.setBackground(Color.black);
-        frameBille = new Rectangle(100, 100, 40, 40);
-        //billeRouge= new Bille(frameBille);
+      
+        billeRouge= new Bille((int)gamePanel.dpt.getX(),(int)gamePanel.dpt.getY(),0,0,Ecran);
+        
 
         mainPanel.add("South", menuPanel);
         mainPanel.add("North", toolBar);
         mainPanel.add("Center", gamePanel);
         toolBar.setVisible(false);
         gamePanel.setVisible(false);
-
+        
+        
         Ecran =
             new Rectangle(getInsets().left, getInsets().top, getSize().width - getInsets().right - getInsets().left,
                           getSize().height - getInsets().bottom - getInsets().top);
@@ -51,7 +54,10 @@ public class Jeu extends JFrame {
         timer = new Timer(1000, new TimerAction());
    
         timer.start();
-        temps=1;
+        temps=0;
+        
+              
+        
 
         this.setContentPane(mainPanel);
         this.pack();
@@ -69,10 +75,11 @@ public class Jeu extends JFrame {
     }
 
     public void boucle_princip() {
-            billeRouge.move(gamePanel.lignes,temps);
+        if(gamePanel.billeRougebis!=null&& gamePanel!=null){
+            gamePanel.billeRougebis.move(gamePanel.lignes,temps);
             repaint();
             System.out.println("say hi boucle principale");
-        
+        }
         }
     
 
@@ -96,9 +103,8 @@ public class Jeu extends JFrame {
     }*/
 
     public void paintComponent(Graphics g) {
-        billeRouge.draw(temps, buffer);
         g.drawImage(ArrierePlan, 0, 0, this);
-        System.out.println("say hi");
+        System.out.println("say hi draw");
     }
 
     public static void main(String[] args) {
