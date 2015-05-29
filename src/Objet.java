@@ -42,7 +42,7 @@ public abstract class Objet {
     }
 
     // affiche image
-    public void draw(long t, Graphics g) {
+    public void draw(Graphics g) {
         g.drawImage(image, x, y, null);
     }
 
@@ -51,5 +51,9 @@ public abstract class Objet {
 
 
     public abstract void move(ArrayList<Ligne> Listdeligne, long time);
-
+    
+    public void setXY(int ax, int ay){
+        x=ax;
+        y=ay;
+    }
 }
