@@ -51,5 +51,9 @@ public abstract class Objet {
 
 
     public abstract void move(ArrayList<Ligne> Listdeligne, long time);
-
+    
+    public void setXY(int ax, int ay){
+        x=ax;
+        y=ay;
+    }
 }
