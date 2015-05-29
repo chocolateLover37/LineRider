@@ -23,7 +23,7 @@ public class Jeu extends JFrame {
     public static Rectangle Ecran;
     public BufferedImage ArrierePlan;
     public Graphics buffer;
-    public static Bille billeRouge;
+    //public static Bille billeRouge;
     public Rectangle frameBille;
     public static boolean play;
     public static boolean stop;
@@ -37,7 +37,7 @@ public class Jeu extends JFrame {
         mainPanel.setLayout(new BorderLayout());
         mainPanel.setBackground(Color.black);
       
-        billeRouge= new Bille((int)gamePanel.dpt.getX(),(int)gamePanel.dpt.getY(),0,0,Ecran);
+        //billeRouge= new Bille((int)gamePanel.dpt.getX(),(int)gamePanel.dpt.getY(),0,0,Ecran,);
         
 
         mainPanel.add("South", menuPanel);
@@ -70,11 +70,12 @@ public class Jeu extends JFrame {
         public void actionPerformed(ActionEvent e) {
             if(play==true){
             boucle_princip(); //c'etait dans space invaders
-            System.out.println("say hi action"+temps);
+            //System.out.println("say hi action"+temps);
             temps++;
+               
             }else{
                 temps=0;
-                gamePanel.billeRougebis= new Bille((int)gamePanel.dpt.getX(),(int)gamePanel.dpt.getY(),0,0,gamePanel.rec);
+                gamePanel.billeRougebis= new Bille((int)gamePanel.dpt.getX(),(int)gamePanel.dpt.getY(),0,0,gamePanel.rec,"BilleRouge.png");
                 
             }
             
@@ -84,10 +85,12 @@ public class Jeu extends JFrame {
 
     public void boucle_princip() {
         if(gamePanel.billeRougebis!=null&& gamePanel!=null){
-        
+            for(int i=2;i<8;i++){
+                gamePanel.nomIm="BilleRouge"+String.valueOf(i)+"png";
+            }  
             gamePanel.billeRougebis.move(gamePanel.lignes,temps);
             repaint();
-            System.out.println("say hi boucle principale");
+            //System.out.println("say hi boucle principale");
         }
     }
     

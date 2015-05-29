@@ -22,6 +22,7 @@ public class GamePanel extends JPanel {
     public static boolean toucheD = false;
     public Bille billeRougebis;
     public Rectangle rec;
+    public String nomIm;
 
     public GamePanel() {
         setPreferredSize(new Dimension(1200, 600));
@@ -31,7 +32,8 @@ public class GamePanel extends JPanel {
         this.addMouseMotionListener(new GestionOutils());
         this.addKeyListener(new D_keyAdaptater());
         rec= new Rectangle(1200,600);
-        billeRougebis= new Bille((int)dpt.getX(),(int)dpt.getY(),0,0,rec);
+        nomIm="BilleRouge.png";
+        billeRougebis= new Bille((int)dpt.getX(),(int)dpt.getY(),0,0,rec,nomIm);
     }
 
     public class GestionOutils implements MouseListener, MouseMotionListener {

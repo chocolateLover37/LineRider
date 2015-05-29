@@ -5,12 +5,14 @@ import java.util.ArrayList;
 public class Bille extends Objet {
 
     public int rayon;
+
    
 
-    public Bille(int x, int y, double dx, double dy, Rectangle aframe) {
+    public Bille(int x, int y, double dx, double dy, Rectangle aframe,String nomImage) {
         //dy=0 au debut, dx=cste (m*g) ; //??dx c'est la composante verticale :o??
-        super(x, y, dx, dy, aframe, "BilleRouge.png");
+        super(x, y, dx, dy, aframe, nomImage);
         rayon = h; //rayon égal à la hauteur de l'image
+       
 
     }
 
@@ -90,8 +92,8 @@ public class Bille extends Objet {
                         dx = ps * Math.cos(p);
                         dy = ps * Math.sin(p);
                         //Calcul de la position x et y du prochain point, avec prise en compte de la gravit�
-                        x = (int) (x + (-0.5) * g * dt * 2 * Math.sin(p) + dx * dt)-10;
-                        y = (int) (y - 0.5 * g * Math.pow(dt, 2) * (Math.cos(p) - 1) + dy * dt)+10;
+                        x = (int) (x + (-0.5) * g * dt * 2 * Math.sin(p) + dx * dt)-10; //-10 pour que la bille touche la ligne
+                        y = (int) (y - 0.5 * g * Math.pow(dt, 2) * (Math.cos(p) - 1) + dy * dt)+10; // idem pour +10
                         //Calcul des nouvelles vitesses dx et dy
                         dx = -g * dt * Math.sin(p) + dx;
                         dy = g * dt * (Math.cos(p) - 1) + dy;
