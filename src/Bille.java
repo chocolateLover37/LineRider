@@ -46,8 +46,8 @@ public class Bille extends Objet {
         double dt = 1; // temps de raffraichissement
         double g = 9.81; // la gravite
         double a = 1; //provisoire
-        double ecmax = 10; // condition de rebond
-        double coeff = 0.9; // facteur d'amortissement pour rebond
+        double ecmax = 100; // condition de rebond
+        double coeff = 0.2; // facteur d'amortissement pour rebond
         double p=0;
         // enregistrement coordonnees avant l'appel de move
         int xt = x;
