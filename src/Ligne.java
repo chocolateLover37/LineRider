@@ -17,10 +17,24 @@ public class Ligne {
         color = Color.black;
     }
 
-    public double pente() { //ca servira probablement pour l'animation
-        double pente = (pointB.getY() - pointA.getY()) / (pointB.getX() - pointA.getX());
-        return pente;
+    public double cosPente() { 
+    	
+    	double a=Math.pow(pointB.getX()-pointA.getX(),2);
+    	double b=Math.pow(pointB.getY()-pointA.getY(),2);
+    	double hyp=Math.pow(a+b, 0.5);
+        double cosPente = ((pointB.getX() + pointA.getX()) / hyp);
+        return cosPente;
     }
+    
+    public double sinPente() { 
+    	double a=Math.pow(pointB.getX()-pointA.getX(),2);
+    	double b=Math.pow(pointB.getY()-pointA.getY(),2);
+    	double hyp=Math.pow(a+b, 0.5);
+        double sinPente = ((pointB.getY() - pointA.getY()) / hyp);
+        return sinPente;
+    }
+    
+    
 
     public double taille() {
         double dX = (pointB.getX() - pointA.getX());
