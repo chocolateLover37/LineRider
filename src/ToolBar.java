@@ -15,7 +15,7 @@ public class ToolBar extends JPanel {
     public JPanel outils = new JPanel();
     public JPanel couleurs = new JPanel();
     public JButton jTrait, jCrayon, jPoubelle, jGomme;
-    public JButton jNoir, jRouge, jOrange, jVert, jBleu, jTest, jPlay;
+    public JButton jNoir, jRouge, jOrange, jVert, jBleu, jTest, jPlay, jStop;
     public JButton[] tabOutils;
     public JButton[] tabCouleurs;
 
@@ -25,6 +25,7 @@ public class ToolBar extends JPanel {
         jPoubelle = new JButton(new ImageIcon(Jeu.class.getResource("Kpoubelle.png")));
         jGomme = new JButton(new ImageIcon(Jeu.class.getResource("Kgomme.png")));
         jPlay = new JButton(new ImageIcon(Jeu.class.getResource("Kplay.png")));
+        jStop = new JButton(new ImageIcon(Jeu.class.getResource("Kstop.png")));
 
         jNoir = new JButton(new ImageIcon(Jeu.class.getResource("Gnoir.png")));
         jRouge = new JButton(new ImageIcon(Jeu.class.getResource("Grouge.png")));
@@ -32,7 +33,7 @@ public class ToolBar extends JPanel {
         jVert = new JButton(new ImageIcon(Jeu.class.getResource("Gvert.png")));
         jBleu = new JButton(new ImageIcon(Jeu.class.getResource("Gbleu.png")));
 
-        JButton[] tabOutils = { jTrait, jCrayon, jPoubelle, jGomme, jPlay };
+        JButton[] tabOutils = { jTrait, jCrayon, jPoubelle, jGomme, jPlay, jStop};
         for (int i = 0; i < tabOutils.length; i++) {
             tabOutils[i].setPreferredSize(new Dimension(50, 50));
             tabOutils[i].addActionListener(new GestionToolBar());
@@ -56,7 +57,7 @@ public class ToolBar extends JPanel {
     public class GestionToolBar implements ActionListener {
 
         public void background(JButton b) {
-            JButton[] tabOutils = { jTrait, jCrayon, jPoubelle, jGomme, jPlay };
+            JButton[] tabOutils = { jTrait, jCrayon, jPoubelle, jGomme, jPlay,jStop };
             for (int i = 0; i < tabOutils.length; i++) {
                 tabOutils[i].setPreferredSize(new Dimension(50, 50));
                 tabOutils[i].setBackground(Color.white);
@@ -70,6 +71,8 @@ public class ToolBar extends JPanel {
                 }
                 if (b == jPlay) {
                     jPlay.setBackground(Color.red);
+                } else if(b == jStop) {
+                    jStop.setBackground(Color.red);
                 }
             }
         }
@@ -102,6 +105,9 @@ public class ToolBar extends JPanel {
                                                   JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, img);
                 if (option == JOptionPane.OK_OPTION) {
                     Jeu.gamePanel.erase();
+                    Jeu.stop=true;
+                    Jeu.gamePanel.billeRougebis.setXY(-10,-10);
+                    
                 }
                 Jeu.gamePanel.setAction("trait");
                 background(jTrait);
@@ -122,7 +128,11 @@ public class ToolBar extends JPanel {
                 System.out.println("ca jouueeeee");
                 Jeu.play = true;
                 background(jPlay);
-                repaint();
+                repaint(); 
+            } else if(e.getSource()== jStop){
+                Jeu.play=false;
+                background(jStop);
+                
             }
         }
     }

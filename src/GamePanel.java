@@ -7,6 +7,8 @@ import java.awt.geom.Point2D;
 
 import java.util.ArrayList;
 
+import org.w3c.dom.css.Rect;
+
 public class GamePanel extends JPanel {
 
     public Color pointerColor = Color.black; //couleur du pointeur
@@ -17,7 +19,10 @@ public class GamePanel extends JPanel {
     public Depart dpt = new Depart(50, 50);
     public Point2D depart;
     public Point2D mouse;
-    public static boolean toucheD = false; ;
+    public static boolean toucheD = false;
+    public Bille billeRougebis;
+    public Rectangle rec;
+    public String nomIm;
 
     public GamePanel() {
         setPreferredSize(new Dimension(1200, 600));
@@ -26,6 +31,9 @@ public class GamePanel extends JPanel {
         this.addMouseListener(new GestionOutils());
         this.addMouseMotionListener(new GestionOutils());
         this.addKeyListener(new D_keyAdaptater());
+        rec= new Rectangle(1200,600);
+        nomIm="BilleRouge.png";
+        billeRougebis= new Bille((int)dpt.getX(),(int)dpt.getY(),0,0,rec,nomIm);
     }
 
     public class GestionOutils implements MouseListener, MouseMotionListener {
@@ -123,7 +131,8 @@ public class GamePanel extends JPanel {
         g.setColor(Color.white);
         g.fillRect(0, 0, this.getWidth(), this.getHeight());
         g.drawImage(dpt.image, (int) dpt.getX(), (int) dpt.getY(), null);
-        //billeRouge.draw(t,g);
+        if(Jeu.play){
+        billeRougebis.draw(g);}
         for (int k = 0; k < lignes.size(); k++) { //on parcourt chaque Ligne de la ArrayList lignes
             g.setColor(lignes.get(k).getColor());
             PointCustom pA = lignes.get(k).getPointA();
