@@ -47,7 +47,7 @@ public abstract class Objet {
     }
 
 
-    public abstract ReturnCollision collision(ArrayList<Ligne> listeligne);
+    public abstract ReturnCollision collision(ArrayList<Ligne> listeligne, int distancedecollision);
 
 
     public abstract void move(ArrayList<Ligne> Listdeligne, long time);
