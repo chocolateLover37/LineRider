@@ -22,6 +22,7 @@ public class Jeu extends JFrame {
     public Rectangle frameBille;
     public static boolean play;
     public static boolean stop;
+    public Audio son;
 
     public Jeu() {
         JPanel mainPanel = new JPanel();
@@ -49,7 +50,7 @@ public class Jeu extends JFrame {
         
         temps=0;
         
-        Audio son = new Audio();
+        son = new Audio();
         son.start();
 
         this.setContentPane(mainPanel);
@@ -60,6 +61,7 @@ public class Jeu extends JFrame {
 
     private class TimerAction implements ActionListener {
         public void actionPerformed(ActionEvent e) {
+           
             if(play==true){
             boucle_princip(); //c'etait dans space invaders
             //System.out.println("say hi action"+temps);
