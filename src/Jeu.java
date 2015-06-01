@@ -1,15 +1,10 @@
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Container;
-import java.awt.Graphics;
-import java.awt.Rectangle;
+import java.awt.*;
+import javax.swing.*;
+import javax.swing.Timer;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.Timer;
+import java.util.*;
 
 public class Jeu extends JFrame {
 
@@ -45,11 +40,7 @@ public class Jeu extends JFrame {
         mainPanel.add("Center", gamePanel);
         toolBar.setVisible(false);
         gamePanel.setVisible(false);
-        
-        
-        Ecran =
-            new Rectangle(getInsets().left, getInsets().top, getSize().width - getInsets().right - getInsets().left,
-                          getSize().height - getInsets().bottom - getInsets().top);
+        Ecran = new Rectangle(getInsets().left, getInsets().top, getSize().width - getInsets().right - getInsets().left, getSize().height - getInsets().bottom - getInsets().top);
         ArrierePlan = new BufferedImage(getSize().width, getSize().height, BufferedImage.TYPE_INT_RGB);
         buffer = ArrierePlan.getGraphics();
         timer = new Timer(80, new TimerAction());
@@ -62,6 +53,7 @@ public class Jeu extends JFrame {
         
 
         this.setContentPane(mainPanel);
+        this.getContentPane().setPreferredSize( Toolkit.getDefaultToolkit().getScreenSize());
         this.pack();
         this.setVisible(true);
     }
