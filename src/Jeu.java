@@ -49,8 +49,8 @@ public class Jeu extends JFrame {
         
         temps=0;
         
-              
-        
+        Audio son = new Audio();
+        son.start();
 
         this.setContentPane(mainPanel);
         this.getContentPane().setPreferredSize( Toolkit.getDefaultToolkit().getScreenSize());
