@@ -14,6 +14,7 @@
       <string v="oracle.bm.commonIde.data.project.ModelerProjectSettings/modelersContentSet"/>
       <string v="oracle.toplink.workbench.addin/toplinkContentSet"/>
    </list>
+   <value n="defaultPackage" v="linerider"/>
    <hash n="oracle.ide.model.TechnologyScopeConfiguration">
       <list n="technologyScope">
          <string v="Java"/>
@@ -21,23 +22,16 @@
    </hash>
    <hash n="oracle.jdeveloper.model.PathsConfiguration">
       <hash n="javaContentSet">
-         <list n="constituent-sets">
-            <hash>
-               <url n="content-folder-url" path="linerider/"/>
-               <list n="pattern-filters">
-                  <string v="+linerider/"/>
-               </list>
-               <list n="url-path">
-                  <url path="."/>
-               </list>
-            </hash>
-         </list>
+         <list n="constituent-sets"/>
          <list n="pattern-filters">
             <string v="+**"/>
          </list>
          <list n="url-path">
-            <url path="src/"/>
+            <url path="."/>
          </list>
       </hash>
+   </hash>
+   <hash n="oracle.jdevimpl.config.JProjectPaths">
+      <url n="outputDirectory" path="classes/"/>
    </hash>
 </jpr:project>
