@@ -14,7 +14,7 @@
       <string v="oracle.bm.commonIde.data.project.ModelerProjectSettings/modelersContentSet"/>
       <string v="oracle.toplink.workbench.addin/toplinkContentSet"/>
    </list>
-   <value n="defaultPackage" v="linerider"/>
+   <value n="defaultPackage" v=""/>
    <hash n="oracle.ide.model.TechnologyScopeConfiguration">
       <list n="technologyScope">
          <string v="Java"/>
@@ -24,7 +24,24 @@
       <hash n="javaContentSet">
          <list n="constituent-sets"/>
          <list n="pattern-filters">
-            <string v="+**"/>
+            <string v="+Audio.class"/>
+            <string v="+Bille.class"/>
+            <string v="+Depart.class"/>
+            <string v="+GamePanel$D_keyAdaptater.class"/>
+            <string v="+GamePanel$GestionOutils.class"/>
+            <string v="+GamePanel.class"/>
+            <string v="+Jeu$1.class"/>
+            <string v="+Jeu$TimerAction.class"/>
+            <string v="+Jeu.class"/>
+            <string v="+Ligne.class"/>
+            <string v="+MenuPanel$GestionMenu.class"/>
+            <string v="+MenuPanel.class"/>
+            <string v="+Objet.class"/>
+            <string v="+PointCustom.class"/>
+            <string v="+ReturnCollision.class"/>
+            <string v="+ToolBar.class"/>
+            <string v="+ToolBar$GestionToolBar.class"/>
+            <string v="+Thumbs.db"/>
          </list>
          <list n="url-path">
             <url path="."/>

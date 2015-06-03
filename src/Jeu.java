@@ -27,6 +27,7 @@ public class Jeu extends JFrame {
     public Rectangle frameBille;
     public static boolean play;
     public static boolean stop;
+    public Audio son;
 
     public Jeu() {
         JPanel mainPanel = new JPanel();
@@ -58,6 +59,8 @@ public class Jeu extends JFrame {
         
         temps=0;
         
+        son=new Audio();
+        son.start();
               
         
 
