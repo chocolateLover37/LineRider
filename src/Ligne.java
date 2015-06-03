@@ -18,19 +18,20 @@ public class Ligne {
     }
 
     public double cosPente() { 
-    	
+    	misedansbonsens();
     	double a=Math.pow(pointB.getX()-pointA.getX(),2);
     	double b=Math.pow(pointB.getY()-pointA.getY(),2);
     	double hyp=Math.pow(a+b, 0.5);
-        double cosPente = ((pointB.getX() + pointA.getX()) / hyp);
+        double cosPente = ((pointB.getX() - pointA.getX()) / hyp);
         return cosPente;
     }
     
-    public double sinPente() { 
+    public double sinPente() {
+    	misedansbonsens();
     	double a=Math.pow(pointB.getX()-pointA.getX(),2);
-    	double b=Math.pow(pointB.getY()-pointA.getY(),2);
+    	double b=Math.pow(pointA.getY()-pointB.getY(),2);
     	double hyp=Math.pow(a+b, 0.5);
-        double sinPente = ((pointB.getY() - pointA.getY()) / hyp);
+        double sinPente = ((pointA.getY() - pointB.getY()) / hyp);
         return sinPente;
     }
     
@@ -61,6 +62,14 @@ public class Ligne {
             return Math.min(a, b);
         }
         return 1000;
+    }
+    
+    public void misedansbonsens(){ //inverser les points A et B pour avoir la pente exacte
+    	if (pointB.getX()<pointA.getX()){
+    		PointCustom pointEchange = pointB;
+    		pointB = pointA;
+    		pointA = pointEchange;
+    	}
     }
 
 

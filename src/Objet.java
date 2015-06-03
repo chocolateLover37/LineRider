@@ -10,7 +10,7 @@ import javax.imageio.ImageIO;
 
 public abstract class Objet {
     public int h, l, x, y;
-    public double dx, dy;
+	public double dx, dy;
     public boolean collision;
     public Image image;
     public Rectangle limites, limitesframe;
@@ -43,7 +43,7 @@ public abstract class Objet {
 
     // affiche image
     public void draw(Graphics g) {
-        g.drawImage(image, x, y, null);
+        g.drawImage(image, x-h/2, y-h/2, null);
     }
 
 
@@ -56,4 +56,11 @@ public abstract class Objet {
         x=ax;
         y=ay;
     }
+    public int getH() {
+		return h;
+	}
+
+	public void setH(int h) {
+		this.h = h;
+	}
 }

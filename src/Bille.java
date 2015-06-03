@@ -5,7 +5,10 @@ import java.util.ArrayList;
 public class Bille extends Objet {
 
     public int rayon;
-
+    double cosp, sinp;
+    boolean memoirecollisionprecedente;
+    Ligne ligneprecedente;
+    int memoire=0;
    
 
     public Bille(int x, int y, double dx, double dy, Rectangle aframe,String nomImage) {
@@ -17,7 +20,7 @@ public class Bille extends Objet {
     }
 
 
-    public ReturnCollision collision(ArrayList<Ligne> listeligne) {
+    public ReturnCollision collision(ArrayList<Ligne> listeligne, int distancedecollision) {
         // La m√©thode retourne un ReturnCollision contenant un booleen col qui indique si il y a collision
         // et une ligne i egale a la ligne avec laquelle il y a collision, ou egale a null sinon
         boolean col = false;
@@ -29,7 +32,7 @@ public class Bille extends Objet {
             lignecollision = iterator.next();
             double distancecourbe = lignecollision.distance((int) x, (int) y);
             // Si cette distance est inf√©rieure au rayon : collision
-            if (distancecourbe <= h) {
+            if (distancecourbe <= distancedecollision) {
                 col = true;
                 ReturnCollision retour = new ReturnCollision(lignecollision, col);
                 return retour;
@@ -43,15 +46,16 @@ public class Bille extends Objet {
     public void move(ArrayList<Ligne> Listdeligne, long t) {
         //la methode modifie les coordonn√©es et les vitesses de la bille en fonction la gravite et de sa proximite avec une courbe
 
-        double dt = 1; // temps de raffraichissement
+        double dt = 0.15; // temps de raffraichissement
         double g = 9.81; // la gravite
         double a = 1; //provisoire
-        double ecmax = 100; // condition de rebond
-        double coeff = 0.2; // facteur d'amortissement pour rebond
+        double ecmax = 100000000; // condition de rebond
+        double coeff = 0.1; // facteur d'amortissement pour rebond
         double p=0;
         // enregistrement coordonnees avant l'appel de move
-        int xt = x;
+        		int xt = x;
                 int yt = y;
+                
 
                 //  calcule la prochaine position de l'objet en chute libre
                 x = (int) (x + dx * dt);
@@ -59,12 +63,13 @@ public class Bille extends Objet {
 
 
                 // check la collision  ? la prochaine position
-                ReturnCollision k = collision(Listdeligne);
+                ReturnCollision k = collision(Listdeligne, h/2);
 
                 // recuperation du boolean et de la pente de la courbe (pente = null si pas de collision)
                 Ligne l = k.getLigne();
                 if (l!= null){
-                    p= l.pente();
+                    cosp = l.cosPente();
+                    sinp = l.sinPente();
                 }
                 boolean collision = k.getBol();
 
@@ -73,6 +78,10 @@ public class Bille extends Objet {
                     // si il n'y a pas de collision alors on garde les coordonnees calculees
                     // Calcul des  nouvelles vitesses, dx ne change pas
                     dy = g * dt + dy;
+                    if (memoire >5){
+                    memoirecollisionprecedente = false;
+                    memoire = 0;}
+                    memoire++;
                 }
 
 
@@ -86,38 +95,50 @@ public class Bille extends Objet {
                     if ((Math.pow(dx, 2) + Math.pow(dy, 2)) < ecmax) {
                         // Cas 1 : collision sans rebond
                         // on fait le produit scalaire entre le vecteur vitesse et le vecteur unitaire de la pente
-                        double ps = dx * Math.cos(p) + dy * Math.sin(p);
-                        // La nouvelle vitesse est dirigee selon la pente pour pas que la bille entre en collision
-                        // Sa norme est egale au produit scalaire d'avant
-                        dx = ps * Math.cos(p);
-                        dy = ps * Math.sin(p);
-                        //Calcul de la position x et y du prochain point, avec prise en compte de la gravitÈ
-                        x = (int) (x + (-0.5) * g * dt * 2 * Math.sin(p) + dx * dt)-10; //-10 pour que la bille touche la ligne
-                        y = (int) (y - 0.5 * g * Math.pow(dt, 2) * (Math.cos(p) - 1) + dy * dt)+10; // idem pour +10
+                    	// sauf si il y avait d√©j√† collision avec la m√™me droite
+                    	if (memoirecollisionprecedente == true && l== ligneprecedente){
+                    		dx = dx -g* dt * sinp;
+                    		dy = dy - g* dt * (cosp - 1);}
+                    	else{
+                    		double ps = dx * cosp + dy * sinp;
+                    		// La nouvelle vitesse est dirigee selon la pente pour pas que la bille entre en collision
+                    		// Sa norme est egale au produit scalaire d'avant
+                    		
+   /*ajouter des cas?*/         		dx = ps * cosp -g * dt * sinp;
+                    		dy = -ps * sinp -g* dt * (cosp - 1);
+                    		
+                    	}
+                    		
+                    	//}
+                        //Calcul de la position x et y du prochain point, avec prise en compte de la gravitÔøΩ
+    /*essai*/            x = (int) (x /*+ (-0.5) * g * dt * 2 * sinp*/ + dx * dt); 
+                        y = (int) (y /*- 0.5 * g * Math.pow(dt, 2) * (cosp - 1)*/ + dy * dt);
                         //Calcul des nouvelles vitesses dx et dy
-                        dx = -g * dt * Math.sin(p) + dx;
-                        dy = g * dt * (Math.cos(p) - 1) + dy;
+                        dx = -g*15 * dt * sinp + dx; //ici j'ai enlev√© un moins et rajout√© *15...
+                        dy = g* dt * (cosp - 1) + dy;
                     }
 
                     else {
                         // Cas 2 : collision avec rebond
-                        // La vitesse colineaire a la courbe reste Ègale
+                        // La vitesse colineaire a la courbe reste ÔøΩgale
                         // la vitesse normale a la courbe est inversee pour qu'il y ai "rebond"
-                        // le coeff d'amortissement peut etre different pour la composante parallele si c'est pas rÈaliste comme Áa
+                        // le coeff d'amortissement peut etre different pour la composante parallele si c'est pas rÔøΩaliste comme ÔøΩa
                         dx =
                             coeff *
-                            (Math.cos(p) * dx * Math.cos(p) - dy * Math.sin(p) - Math.sin(p) * dx * Math.sin(p) +
-                             dy * Math.cos(p));
+                            (cosp * dx * cosp - dy * sinp - sinp * dx * sinp +
+                             dy * cosp);
                         dy =
                             coeff *
-                            (Math.sin(p) * dx * Math.cos(p) + dy * Math.sin(p) + Math.cos(p) * dx * Math.sin(p) -
-                             dy * Math.cos(p));
-                        // Calcul des nouvelles coordonnÈes x et y
+                            (sinp * dx * cosp + dy * sinp + cosp * dx * sinp -
+                             dy * cosp);
+                        // Calcul des nouvelles coordonnÔøΩes x et y
                         x = (int) (x + dx * dt);
                         y = (int) (y + (-0.5) * g * Math.pow(dt, 2) + dy * dt);
                         // Calcul des nouvelles vitesses, dx ne change pas
                         dy = -g * dt + dy;
             }
+                    memoirecollisionprecedente = true;
+                    ligneprecedente = l;
         }
     }
 

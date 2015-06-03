@@ -52,7 +52,7 @@ public class Jeu extends JFrame {
                           getSize().height - getInsets().bottom - getInsets().top);
         ArrierePlan = new BufferedImage(getSize().width, getSize().height, BufferedImage.TYPE_INT_RGB);
         buffer = ArrierePlan.getGraphics();
-        timer = new Timer(80, new TimerAction());
+        timer = new Timer(20, new TimerAction());
         timer.start();
    
         
@@ -75,7 +75,7 @@ public class Jeu extends JFrame {
                
             }else{
                 temps=0;
-                gamePanel.billeRougebis= new Bille((int)gamePanel.dpt.getX(),(int)gamePanel.dpt.getY(),0,0,gamePanel.rec,"BilleRouge.png");
+                gamePanel.billeRougebis= new Bille((int)gamePanel.dpt.getX()+gamePanel.billeRougebis.h/2,(int)gamePanel.dpt.getY()+gamePanel.billeRougebis.h/2,0,0,gamePanel.rec,"BilleRouge.png");
                 
             }
             

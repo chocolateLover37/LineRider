@@ -25,7 +25,7 @@ public class GamePanel extends JPanel {
     public String nomIm;
 
     public GamePanel() {
-        setPreferredSize(new Dimension(1200, 600));
+        setPreferredSize(new Dimension(8000, 4000));
         this.setBackground(Color.white);
         setVisible(true);
         this.addMouseListener(new GestionOutils());
@@ -33,7 +33,7 @@ public class GamePanel extends JPanel {
         this.addKeyListener(new D_keyAdaptater());
         rec= new Rectangle(1200,600);
         nomIm="BilleRouge.png";
-        billeRougebis= new Bille((int)dpt.getX(),(int)dpt.getY(),0,0,rec,nomIm);
+        billeRougebis= new Bille((int)dpt.getX(),(int)dpt.getY(),0,0,rec,nomIm); //pour une raison provenant des enfers le -30 ne marche pas
     }
 
     public class GestionOutils implements MouseListener, MouseMotionListener {
