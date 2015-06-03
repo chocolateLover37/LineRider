@@ -63,6 +63,15 @@ public class Ligne {
         }
         return 1000;
     }
+    public double position(int cX, int cY){
+    	int aX = pointA.getX();
+        int aY = pointA.getY();
+        int bX = pointB.getX();
+        int bY = pointB.getY();
+        double L = Math.sqrt(Math.pow(bX - aX, 2) + Math.pow(bY - aY, 2));
+        double s = ((aY - cY) * (bX - aX) - (aX - cX) * (bY - aY)) / (Math.pow(L, 2));
+        return s;
+    }
     
     public void misedansbonsens(){ //inverser les points A et B pour avoir la pente exacte
     	if (pointB.getX()<pointA.getX()){
