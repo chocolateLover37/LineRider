@@ -30,8 +30,8 @@ public class Jeu extends JFrame {
 
     public Jeu() {
         JPanel mainPanel = new JPanel();
-        setSize(1200, 600);
-        this.setResizable(false);
+        setSize(1600, 900);
+        this.setResizable(true);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         mainPanel.setLayout(new BorderLayout());
