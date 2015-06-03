@@ -17,9 +17,6 @@ public class GamePanel extends JPanel {
     public Ligne temporaire = new Ligne();
     public int xS, yS;
     public Depart dpt = new Depart(50, 50);
-    public Point2D depart;
-    public Point2D mouse;
-    public static boolean toucheD = false;
     public Bille billeRougebis;
     public Rectangle rec;
     public String nomIm;
@@ -30,7 +27,6 @@ public class GamePanel extends JPanel {
         setVisible(true);
         this.addMouseListener(new GestionOutils());
         this.addMouseMotionListener(new GestionOutils());
-        this.addKeyListener(new D_keyAdaptater());
         rec= new Rectangle(1200,600);
         nomIm="BilleRouge.png";
         billeRougebis= new Bille((int)dpt.getX(),(int)dpt.getY(),0,0,rec,nomIm); //pour une raison provenant des enfers le -30 ne marche pas
@@ -152,23 +148,6 @@ public class GamePanel extends JPanel {
         repaint();
     }
 
-    public class D_keyAdaptater extends KeyAdapter {
-        // c'est pour modifier la facon de deplacer dpt (en maintenant D appuyee) mais ca marche pas
-
-        public void keyPressed(KeyEvent e) {
-            if (e.getKeyCode() == KeyEvent.VK_D) {
-                GamePanel.toucheD = true;
-                System.out.println("D appuyée");
-            }
-        }
-
-        public void keyReleased(KeyEvent e) {
-            if (e.getKeyCode() == KeyEvent.VK_D) {
-                GamePanel.toucheD = false;
-                System.out.println("prout");
-            }
-        }
-    }
 
     public ArrayList<Ligne> getLignes() {
         return lignes;

@@ -125,7 +125,6 @@ public class ToolBar extends JPanel {
             } else if (e.getSource() == jNoir) {
                 Jeu.gamePanel.setPointerColor(Color.black);
             } else if (e.getSource() == jPlay) {
-                System.out.println("ca jouueeeee");
                 Jeu.play = true;
                 background(jPlay);
                 repaint(); 

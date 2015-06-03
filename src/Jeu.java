@@ -23,7 +23,6 @@ public class Jeu extends JFrame {
     public static Rectangle Ecran;
     public BufferedImage ArrierePlan;
     public Graphics buffer;
-    //public static Bille billeRouge;
     public Rectangle frameBille;
     public static boolean play;
     public static boolean stop;
@@ -73,7 +72,7 @@ public class Jeu extends JFrame {
         public void actionPerformed(ActionEvent e) {
             if(play==true){
             boucle_princip(); //c'etait dans space invaders
-            //System.out.println("say hi action"+temps);
+            
             temps++;
                
             }else{
@@ -88,12 +87,11 @@ public class Jeu extends JFrame {
 
     public void boucle_princip() {
         if(gamePanel.billeRougebis!=null&& gamePanel!=null){
-            for(int i=2;i<8;i++){
-                gamePanel.nomIm="BilleRouge"+String.valueOf(i)+"png";
-            }  
             gamePanel.billeRougebis.move(gamePanel.lignes,temps);
             repaint();
-            //System.out.println("say hi boucle principale");
+            if(Ecran.contains(gamePanel.billeRougebis.x, gamePanel.billeRougebis.y)==false){ //arrete le jeu quand la bille sort du cadre
+              play=false;
+            }
         }
     }
     
