@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.awt.Rectangle;
 import java.util.ArrayList;
 
@@ -48,8 +49,8 @@ public class Bille extends Objet {
         double dt = 0.15; // temps de raffraichissement
         double g = 15; // la gravite
         double a = 1; //provisoire
-        double ecmax = 10000000; // condition de rebond
-        double coeff = 0.5; // facteur d'amortissement pour rebond
+        double ecmax = 500; // condition de rebond
+        double coeff = 0.35; // facteur d'amortissement pour rebond
         double p=0;
         // enregistrement coordonnees avant l'appel de move
         		int xt = x;
@@ -77,7 +78,7 @@ public class Bille extends Objet {
                     // Calcul des  nouvelles vitesses, dx ne change pas
                     dy = g * dt + dy;
                     memoire++;
-                    if (memoirecollisionprecedente == true && memoire > 100){
+                    if (memoirecollisionprecedente == true && memoire > 25){
                         memoirecollisionprecedente = false;
                         memoire = 0;}
                     
@@ -90,7 +91,28 @@ public class Bille extends Objet {
                     x = xt;
                     y = yt;
                     // on verifie si la vitesse de collision entraine un rebond
-                    if ((Math.pow(dx, 2) + Math.pow(dy, 2)) <ecmax) {
+                    if (ligneprecedente==null)
+                        ligneprecedente = new Ligne(new PointCustom(),new PointCustom(-2,-2,Color.black), Color.black);
+                    if((Math.pow(dx, 2) + Math.pow(dy, 2)) > ecmax && ligneprecedente!=l){//&& ligneprecedente.distance(x,y) > h && memoirecollisionprecedente == false){
+                        // Cas 2 : collision avec rebond
+                        // La vitesse colineaire a la courbe reste �gale
+                        // la vitesse normale a la courbe est inversee pour qu'il y ai "rebond"
+                        // le coeff d'amortissement peut etre different pour la composante parallele si c'est pas r�aliste comme �a
+                        dx =
+                            coeff *
+                            (cosp * dx * cosp - dy * Math.abs(sinp) + Math.abs(sinp) * dx * sinp +
+                             dy * cosp);
+                        dy =
+                            coeff *
+                            (sinp * dx * cosp + dy * Math.abs(sinp) + cosp * dx * sinp -
+                             dy * cosp);
+                        // Calcul des nouvelles coordonn�es x et y
+                        x = (int) (x + dx * dt);
+                        y = (int) (y + (-0.5) * g * Math.pow(dt, 2) + dy * dt);
+                        // Calcul des nouvelles vitesses, dx ne change pas
+                        dy = -g * dt + dy;
+                    }
+                    else {
                     		
                     	// Cas 1 : collision sans rebond
                     	// on fait le produit scalaire entre le vecteur vitesse et le vecteur unitaire de la pente
@@ -120,14 +142,14 @@ public class Bille extends Objet {
                     					dx = +ps * cosp -g * dt * sinp;
                     					dy = -ps*sinp -g* dt * (cosp - 1);}
                     				else if(ps<0 && sinp<=0 && dx<=0){
-                    					dx = +ps * cosp -g * dt * sinp;
-                    					dy = +ps*sinp -g* dt * (cosp - 1);}
+                    					dx = +ps * cosp +g * dt * sinp;
+                    					dy = -ps*sinp -g* dt * (cosp - 1);}
                     				else if (ps<0 && sinp>=0){
-                    					dx = ps*cosp -g*dt*sinp;
-                    					dy = -ps * sinp -g* dt * (cosp - 1);}
+                    					dx = ps*cosp +g*dt*sinp;
+                    					dy = -ps * sinp +g* dt * (cosp + 1);}
                     				else if (ps>0 && sinp>=0){
                     					dx = ps*cosp -g*dt*sinp;
-                    					dy = -ps * sinp +g* dt*(1-cosp);}
+                    					dy = ps * sinp +g* dt*(1-cosp);}
                     				else if( ps>0 && sinp<=0){
                     					dx = ps*cosp -g*dt*sinp;
                     					dy = -ps * sinp +g* dt*(1-cosp);}
@@ -135,26 +157,6 @@ public class Bille extends Objet {
                         //Calcul de la position x et y du prochain point, avec prise en compte de la gravit�
                     	x = (int) (x + (-0.5) * g * dt * 2 * sinp + dx * dt); 
                         y = (int) (y - 0.5 * g * Math.pow(dt, 2) * (cosp - 1) + dy * dt);
-                    }
-
-                    else if((Math.pow(dx, 2) + Math.pow(dy, 2)) > ecmax && l != ligneprecedente){
-                        // Cas 2 : collision avec rebond
-                        // La vitesse colineaire a la courbe reste �gale
-                        // la vitesse normale a la courbe est inversee pour qu'il y ai "rebond"
-                        // le coeff d'amortissement peut etre different pour la composante parallele si c'est pas r�aliste comme �a
-                        dx =
-                            coeff *
-                            (cosp * dx * cosp - dy * sinp - sinp * dx * sinp +
-                             dy * cosp);
-                        dy =
-                            coeff *
-                            (sinp * dx * cosp + dy * sinp + cosp * dx * sinp -
-                             dy * cosp);
-                        // Calcul des nouvelles coordonn�es x et y
-                        x = (int) (x + dx * dt);
-                        y = (int) (y + (-0.5) * g * Math.pow(dt, 2) + dy * dt);
-                        // Calcul des nouvelles vitesses, dx ne change pas
-                        dy = -g * dt + dy;
                     }
             	memoirecollisionprecedente = true;
             	memoire = 0;
