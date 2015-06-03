@@ -17,7 +17,7 @@ public class Audio extends Thread {
     SourceDataLine line;
 
     public void run() {
-        File fichier = new File("Jamiroquai");
+        File fichier = new File("Jamiroquai.wav");
         try {
             AudioFileFormat format = AudioSystem.getAudioFileFormat(fichier);
         } catch (UnsupportedAudioFileException e1) {
