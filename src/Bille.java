@@ -12,7 +12,7 @@ public class Bille extends Objet {
    
 
     public Bille(int x, int y, double dx, double dy, Rectangle aframe,String nomImage) {
-        //dy=0 au debut, dx=cste (m*g) ; //??dx c'est la composante verticale :o??
+        //dy=0 au debut, dx=cste (m*g) ; //??dx c'est la composante verticale :o?? salut
         super(x, y, dx, dy, aframe, nomImage);
         rayon = h; //rayon égal à la hauteur de l'image
        
