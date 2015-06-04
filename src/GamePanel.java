@@ -27,7 +27,7 @@ public class GamePanel extends JPanel {
         setVisible(true);
         this.addMouseListener(new GestionOutils());
         this.addMouseMotionListener(new GestionOutils());
-        rec= new Rectangle(1200,600);
+        rec= new Rectangle(8000,4000);
         nomIm="BilleRouge.png";
         billeRougebis= new Bille((int)dpt.getX(),(int)dpt.getY(),0,0,rec,nomIm); //pour une raison provenant des enfers le -30 ne marche pas
     }
@@ -71,8 +71,7 @@ public class GamePanel extends JPanel {
                 temporaire = new Ligne(pointTempoS, pointTempoE, pointerColor);
 
                 if (temporaire.taille() >= 20) {
-                    lignes.add(new Ligne(new PointCustom(xS, yS, pointerColor),
-                                         new PointCustom(e.getX(), e.getY(), pointerColor), pointerColor));
+                    lignes.add(new Ligne(new PointCustom(xS, yS, pointerColor),new PointCustom(e.getX(), e.getY(), pointerColor), pointerColor));
                     xS = e.getX();
                     yS = e.getY();
                 }
@@ -100,12 +99,6 @@ public class GamePanel extends JPanel {
                 lignes.add(new Ligne(new PointCustom(xS, yS, pointerColor),
                                      new PointCustom(e.getX(), e.getY(), pointerColor), pointerColor));
             }
-
-            if (enCours == true) {
-                action = actionTempo;
-                System.out.println("salut");
-            }
-
             repaint();
         }
 

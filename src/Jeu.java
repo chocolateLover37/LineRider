@@ -6,7 +6,6 @@ import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.Timer;
@@ -17,7 +16,6 @@ public class Jeu extends JFrame {
     public static ToolBar toolBar = new ToolBar();
     public static GamePanel gamePanel = new GamePanel();
     public static MenuPanel menuPanel = new MenuPanel();
-
     public Timer timer;
     public long temps;
     public static Rectangle Ecran;
@@ -36,10 +34,6 @@ public class Jeu extends JFrame {
 
         mainPanel.setLayout(new BorderLayout());
         mainPanel.setBackground(Color.black);
-      
-        //billeRouge= new Bille((int)gamePanel.dpt.getX(),(int)gamePanel.dpt.getY(),0,0,Ecran,);
-        
-
         mainPanel.add("South", menuPanel);
         mainPanel.add("North", toolBar);
         mainPanel.add("Center", gamePanel);
@@ -47,22 +41,17 @@ public class Jeu extends JFrame {
         gamePanel.setVisible(false);
         
         
-        Ecran =
-            new Rectangle(getInsets().left, getInsets().top, getSize().width - getInsets().right - getInsets().left,
-                          getSize().height - getInsets().bottom - getInsets().top);
-        ArrierePlan = new BufferedImage(getSize().width, getSize().height, BufferedImage.TYPE_INT_RGB);
-        buffer = ArrierePlan.getGraphics();
-        timer = new Timer(20, new TimerAction());
-        timer.start();
-   
+        Ecran = new Rectangle(getInsets().left, getInsets().top, getSize().width - getInsets().right - getInsets().left, getSize().height - getInsets().bottom - getInsets().top);
+        //ArrierePlan = new BufferedImage(getSize().width, getSize().height, BufferedImage.TYPE_INT_RGB);
+        //buffer = ArrierePlan.getGraphics();
         
+        timer = new Timer(20, new TimerAction());
+        timer.start();        
         temps=0;
         
         son=new Audio();
         son.start();
-              
-        
-
+    
         this.setContentPane(mainPanel);
         this.pack();
         this.setVisible(true);
@@ -71,18 +60,14 @@ public class Jeu extends JFrame {
     private class TimerAction implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             if(play==true){
-            boucle_princip(); //c'etait dans space invaders
-            
-            temps++;
-               
+                boucle_princip(); //c'etait dans space invaders
+                temps++;               
             }else{
                 temps=0;
-                gamePanel.billeRougebis= new Bille((int)gamePanel.dpt.getX()+gamePanel.billeRougebis.h/2,(int)gamePanel.dpt.getY()+gamePanel.billeRougebis.h/2,0,0,gamePanel.rec,"BilleRouge.png");
-                
-            }
-            
+                gamePanel.billeRougebis= new Bille((int)gamePanel.dpt.getX()+gamePanel.billeRougebis.h/2,(int)gamePanel.dpt.getY()+gamePanel.billeRougebis.h/2,0,0,gamePanel.rec,"BilleRouge.png");   
             }
         }
+    }
     
 
     public void boucle_princip() {
@@ -90,34 +75,12 @@ public class Jeu extends JFrame {
             gamePanel.billeRougebis.move(gamePanel.lignes,temps);
             repaint();
             if(Ecran.contains(gamePanel.billeRougebis.x, gamePanel.billeRougebis.y)==false){ //arrete le jeu quand la bille sort du cadre
-              play=false;
+                play=false;
             }
         }
     }
     
-
-    /*Methode de detection des collisions
-    public Ligne collision(Rectangle2D[] bbille, LinkedList<Ligne> lili) {
-        Ligne choc = null;
-        Rectangle2D bcourbe;
-        bcourbe = null;
-        for (int k = 0; k < bbille.length; k++) {
-            java.util.Iterator<Ligne> iterator = lili.iterator();
-            //check of collisions with other objects
-            while (iterator.hasNext()) {
-                Ligne i = iterator.next();
-                bcourbe = this.getBounds();
-                if (bcourbe.intersects(bbille[k]) == true) {
-                    choc = i;
-                }
-            }
-        }
-        return choc;
-    }*/
-        
-
     public static void main(String[] args) {
         new Jeu();
     }
 }
-

@@ -34,14 +34,11 @@ public class Ligne {
         double sinPente = ((pointA.getY() - pointB.getY()) / hyp);
         return sinPente;
     }
-    
-    
-
     public double taille() {
-        double dX = (pointB.getX() - pointA.getX());
-        double dY = (pointB.getY() - pointA.getY());
-        double taille = Math.sqrt(Math.pow(dX, 2) + Math.pow(dY, 2));
-        return taille;
+            double dX = (pointB.getX() - pointA.getX());
+            double dY = (pointB.getY() - pointA.getY());
+            double taille = Math.sqrt(Math.pow(dX, 2) + Math.pow(dY, 2));
+            return taille;
     }
 
     public double distance(int cX, int cY) {

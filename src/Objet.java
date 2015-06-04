@@ -57,10 +57,10 @@ public abstract class Objet {
         y=ay;
     }
     public int getH() {
-		return h;
-	}
+        return h;
+    }
 
-	public void setH(int h) {
-		this.h = h;
-	}
+    public void setH(int h) {
+        this.h = h;
+    }
 }
